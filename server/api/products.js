@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
 router.param('id', (req, res, next, id) => {
   Product.findById(id)
     .then(product => {
-      if(!product) res.sendStatus(404)
+      if (!product) res.sendStatus(404)
       req.product = product
       next()
     })
