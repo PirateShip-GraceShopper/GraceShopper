@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+module.exports = Product
+
 const Product = db.define('product', {
   title: {
     type: Sequelize.STRING,
