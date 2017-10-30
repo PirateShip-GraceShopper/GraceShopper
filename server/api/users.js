@@ -2,6 +2,17 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
+router.param('id', (req, res, next, id) => {
+  User.findById(id)
+  .then(user => {
+    if (!user) res.sendStatus(404)
+      req.user = user
+    next()
+    return null
+  })
+  .catch(next)
+})
+
 router.get('/', (req, res, next) => {
   User.findAll({
     // explicitly select only the id and email fields - even though
@@ -13,13 +24,11 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:userId', (req, res, next) => {
-  User.findOne({
-    where: {id: req.params.userId},
-    attributes: ['id', 'email']
-  })
-    .then(user => res.json(user))
-    .catch(next)
+
+router.get('/:id', (req, res, next) => {
+  req.requestedUser.reload(User.options.scopes.populated())
+  .then(requestedUser => res.json(requestedUser))
+  .catch(next)
 })
 
 router.post('/', (req, res, next) => {
@@ -30,17 +39,14 @@ router.post('/', (req, res, next) => {
   .catch(next)
 })
 
-router.put('/:userId', (req, res, next) => {
-  User.findById(req.params.id)
-  .then(user => {
-    user.update(req.body)
-  })
-  .then(user => res.json(user))
-  .catch(next)
+router.put('/:id', (req, res, next) => {
+  req.requestedUser.update(req.body)
+  .then(user=> res.json(user))
+  .catch(next);
 })
 
-router.delete('/:userId', (req, res, next) => {
-  User.findById(req.params.id)
-  .then(user => user.destory())
+router.delete('/:id', (req, res, next) => {
+  req.requestedUser.destroy()
+  .then(()=> res.status(204).end())
   .catch(next)
 })
