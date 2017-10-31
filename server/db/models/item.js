@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Order = db.define('order', {
+const Item = db.define('item', {
   price: {
     type: Sequelize.INTEGER,
     allowNull: false
@@ -12,4 +12,4 @@ const Order = db.define('order', {
   }
 })
 
-module.exports = Order
+module.exports = Item
