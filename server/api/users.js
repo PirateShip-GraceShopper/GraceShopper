@@ -1,14 +1,13 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
-
+//some confusion about the data that is being Json-ed when compared to Auther workshop
 router.param('id', (req, res, next, id) => {
   User.findById(id)
   .then(user => {
     if (!user) res.sendStatus(404)
-      req.user = user
+      req.requestedUser = user
     next()
-    return null
   })
   .catch(next)
 })
@@ -26,8 +25,7 @@ router.get('/', (req, res, next) => {
 
 
 router.get('/:id', (req, res, next) => {
-  req.requestedUser.reload(User.options.scopes.populated())
-  .then(requestedUser => res.json(requestedUser))
+  res.json(req.requestedUser)
   .catch(next)
 })
 
@@ -47,6 +45,6 @@ router.put('/:id', (req, res, next) => {
 
 router.delete('/:id', (req, res, next) => {
   req.requestedUser.destroy()
-  .then(()=> res.status(204).end())
+  .then(() => res.status(204).end())
   .catch(next)
 })
