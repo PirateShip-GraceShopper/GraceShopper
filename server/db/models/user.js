@@ -11,6 +11,22 @@ const User = db.define('user', {
       isEmail: true
     }
   },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    set(val) {
+      const newFirstName = val[0].toUpperCase() + val.slice(1)
+      this.setDataValue('firstName', newFirstName)
+    }
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    set(val) {
+      const newLastName = val[0].toUpperCase() + val.slice(1)
+      this.setDataValue('lastName', newLastName)
+    }
+  },
   password: {
     type: Sequelize.STRING
   },
@@ -24,8 +40,9 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
-  address: {
-    type: Sequelize.STRING
+  phone: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 })
 
