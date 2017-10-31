@@ -62,7 +62,7 @@ export const changeItem = item =>
 export default function (state = initialItemState, action) {
   switch (action.type) {
     case GET_ALL_ITEMS:
-      return action.items
+      return action.allItems
     case DELETE_ITEM:
       return state
     case SUBMIT_ITEM:
