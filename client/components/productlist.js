@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { products, fetchProducts } from
+import { products, fetchProducts } from '../store'
 
 class ProductList extends Component {
 
@@ -11,7 +11,7 @@ class ProductList extends Component {
       <div>
         <h2>Shoes</h2>
         {
-
+          // commment
         }
       </div>
       )
