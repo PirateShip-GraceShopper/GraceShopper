@@ -15,7 +15,7 @@ const Main = (props) => {
 
   return (
     <div>
-      <h1>BOILERMAKER</h1>
+      <h1>Grace Shoe-Purr</h1>
       <nav>
         {
           isLoggedIn
