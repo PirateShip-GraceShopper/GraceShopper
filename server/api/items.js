@@ -1,38 +1,38 @@
 const router = require('express').Router()
-const {Order} = require('../db/models')
+const {Item} = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  Order.findAll()
-  .then(orders => res.json(orders))
+  Item.findAll()
+  .then(items => res.json(items))
   .catch(next)
 })
 
 router.param('id', (req, res, next, id) => {
-  Order.findById(id)
-  .then(order => {
-    if (!order) res.sendStatus(404)
-    req.order = order
+  Item.findById(id)
+  .then(item => {
+    if (!item) res.sendStatus(404)
+    req.item = item
     next()
   })
 })
 
-router.get('/:id', (req, res, next) => res.json(req.order))
+router.get('/:id', (req, res, next) => res.json(req.item))
 
 router.post('/', (req, res, next) => {
-  Order.create(req.body)
-  .then(order => res.json(order))
+  Item.create(req.body)
+  .then(item => res.json(item))
   .catch(next)
 })
 
 router.put('/:id', (req, res, next) => {
-  req.order.update(req.body)
+  req.item.update(req.body)
   .then(() => res.sendStatus(res.statusCode))
   .catch(next)
 })
 
 router.delete('/:id', (req, res, next) => {
-  req.order.destroy()
+  req.item.destroy()
   .then(() => res.sendStatus(res.statusCode))
   .catch(next)
 })
