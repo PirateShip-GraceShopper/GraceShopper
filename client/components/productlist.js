@@ -8,11 +8,17 @@ class ProductList extends Component {
   render() {
     const { products } = this.props
     return (
-      <div>
+      <div className="container">
+        <br />
         <h2>Shoes</h2>
+        <ul className="list-group">
         {
-          // commment
+          products &&
+          products.map(product =>
+            <ProductItem key={product.id} product={product} />
+            )
         }
+        </ul>
       </div>
       )
   }
