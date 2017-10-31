@@ -8,6 +8,14 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+router.put('/:id', (req, res, next) => {
+    Review.update({
+        where: {id: req.params.id},
+        returning: true
+    })
+    .then(update => res.json(update))
+})
+
 router.post('/', (req, res, next) => {
     Review.create(req.body)
     .then(newReview => res.json(newReview))
