@@ -6,4 +6,5 @@
 export {default as Main} from './main'
 export {default as UserHome} from './user-home'
 export {default as SingleItem} from './single-item'
+export {default as AllItems} from './all-items'
 export {Login, Signup} from './auth-form'
