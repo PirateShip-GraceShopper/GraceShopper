@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
-const SingleItem = props => {
+const SingleItem = ({price}) => {
   return (
     <div>
-      <h1>Single Item</h1>
+      <h2>{price}</h2>
     </div>
   )
 }
