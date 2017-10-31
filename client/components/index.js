@@ -9,5 +9,5 @@ export {default as SingleItem} from './single-item'
 export {default as AllItems} from './all-items'
 export {Login, Signup} from './auth-form'
 export {default as ProductList} from './ProductList'
-export {default as SingleUser} from './SingleUser.jsx'
+export {default as SingleUser} from './SingleUser'
 
