@@ -38,6 +38,7 @@ router.post('/', (req, res, next) => {
 })
 
 router.put('/:id', (req, res, next) => {
+  console.log("!!!!!!!!!!!!!!!!!!!!!", req.requestUser)
   req.requestedUser.update(req.body)
   .then(user=> res.json(user))
   .catch(next);
