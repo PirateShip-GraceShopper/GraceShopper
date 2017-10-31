@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { products, fetchProducts } from '../store'
+import { products } from '../store'
 
-class ProductList extends Component {
+const ProductList = ({ products }) => {
 
   render () {
-      const { products } = this.props
       return (
         <div className="container">
           <br />
@@ -25,6 +24,6 @@ class ProductList extends Component {
 }
 
 const mapState = ({ products }) => ({ products })
-const mapDispatch = { fetchProducts }
+const mapDispatch = null;
 
 export default connect(mapState, mapDispatch)(ProductList)
