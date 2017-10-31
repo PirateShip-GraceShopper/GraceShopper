@@ -28,7 +28,7 @@ export const removeProduct = id => dispatch => {
     .catch(err => console.error(`Removing product: ${id} unsuccessful`, err))
 }
 
-export default const reducer = (products = [], action) => {
+export default function (products = [], action) {
   switch (action.type) {
     case INITIALIZE:
       return action.products

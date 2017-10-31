@@ -4,8 +4,10 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome} from './components'
-import {me} from './store'
+import {Main, Login, Signup, UserHome, SingleUser, SingleItem, AllItems, ProductList} from './components'
+import {me, fetchProducts} from './store'
+
+
 
 /**
  * COMPONENT
@@ -31,6 +33,8 @@ class Routes extends Component {
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/home" component={UserHome} />
+                  <Route path="/products" component={ProductList} />
+                  <Route path="/edit_profile" component={SingleUser}/>
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
@@ -57,6 +61,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(me())
+      dispatch(fetchProducts())
     }
   }
 }
