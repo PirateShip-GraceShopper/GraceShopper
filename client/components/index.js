@@ -5,6 +5,6 @@
  */
 export {default as Main} from './main'
 export {default as UserHome} from './user-home'
-export {default as SingleLineItem} from './single-line-item'
+export {default as SingleItem} from './single-item'
 export {Login, Signup} from './auth-form'
 export {default as ProductList} from './ProductList'
