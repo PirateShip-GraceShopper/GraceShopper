@@ -1,6 +1,16 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
+//some confusion about the data that is being Json-ed when compared to Auther workshop
+router.param('id', (req, res, next, id) => {
+  User.findById(id)
+  .then(user => {
+    if (!user) res.sendStatus(404)
+      req.requestedUser = user
+    next()
+  })
+  .catch(next)
+})
 
 router.get('/', (req, res, next) => {
   User.findAll({
@@ -13,13 +23,10 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:userId', (req, res, next) => {
-  User.findOne({
-    where: {id: req.params.userId},
-    attributes: ['id', 'email']
-  })
-    .then(user => res.json(user))
-    .catch(next)
+
+router.get('/:id', (req, res, next) => {
+  res.json(req.requestedUser)
+  .catch(next)
 })
 
 router.post('/', (req, res, next) => {
@@ -30,17 +37,14 @@ router.post('/', (req, res, next) => {
   .catch(next)
 })
 
-router.put('/:userId', (req, res, next) => {
-  User.findById(req.params.id)
-  .then(user => {
-    user.update(req.body)
-  })
-  .then(user => res.json(user))
-  .catch(next)
+router.put('/:id', (req, res, next) => {
+  req.requestedUser.update(req.body)
+  .then(user=> res.json(user))
+  .catch(next);
 })
 
-router.delete('/:userId', (req, res, next) => {
-  User.findById(req.params.id)
-  .then(user => user.destory())
+router.delete('/:id', (req, res, next) => {
+  req.requestedUser.destroy()
+  .then(() => res.status(204).end())
   .catch(next)
 })

@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-module.exports = Product
-
 const Product = db.define('product', {
   title: {
     type: Sequelize.STRING,
@@ -28,3 +26,5 @@ const Product = db.define('product', {
     validate: { min: 1, max: 5 }
   }
 })
+
+module.exports = Product
