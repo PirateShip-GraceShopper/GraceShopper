@@ -1,7 +1,9 @@
 const router = require('express').Router()
 module.exports = router
+const reviews = require('./reviews')
 
 router.use('/users', require('./users'))
+router.use('/reviews', reviews)
 router.use('/orders', require('./orders'))
 router.use('/products', require('./products'))
 
