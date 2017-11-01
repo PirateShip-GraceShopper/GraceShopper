@@ -5,8 +5,6 @@ module.exports = router
 const mustHavePassword = (req, res, next) => {
   console.log("INSIDE GATEKEEPER", req.body)
   if (!req.body.password) {
-    console.log(req.body.user)
-    console.log("DID IT HIT HERE????????????????????????????")
     next(Error('Unauthorized'))
   } else {
     next()
