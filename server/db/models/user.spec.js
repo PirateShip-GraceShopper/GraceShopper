@@ -35,4 +35,32 @@ describe('User model', () => {
       })
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
+
+  describe('hooks', () => {
+    describe('setSaltAndPassword', () => {
+      let cody
+
+      beforeEach(() => {
+        return User.create({
+          firstName: 'Cody',
+          lastName: 'puppybook',
+          phone: '2124455678',
+          email: 'cody@puppybook.com',
+          password: 'bones'
+        })
+          .then(user => {
+            cody = user
+          })
+      })
+
+      it('sets user.salt to a crypto salt', () => {
+        // const salt = cody.
+        // expect(cody.user.to.be.equal(true)
+      })
+
+      it('sets the password with encryption ', () => {
+        // expect(cody.password.to.be.equal()
+      })
+    }) // end describe('correctPassword')
+  })  
 }) // end describe('User model')

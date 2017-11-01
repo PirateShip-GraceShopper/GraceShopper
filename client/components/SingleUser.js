@@ -53,7 +53,6 @@ const mapState = state => {
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit(e, user){
-      console.log("IN SINGLE USER COMPORNENT!!!!!!!", user)
       e.preventDefault();
       const editedUser = {
         id: user.id,

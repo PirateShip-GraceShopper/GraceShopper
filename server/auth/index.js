@@ -2,6 +2,14 @@ const router = require('express').Router()
 const User = require('../db/models/user')
 module.exports = router
 
+// const mustHavePassword = (req, res, next) => {
+//   if (req.body.user && !req.body.user.password) {
+//     next(Error('Unauthorized'))
+//   } else {
+//     next()
+//   }
+// }
+
 router.post('/login', (req, res, next) => {
   User.findOne({where: {email: req.body.email}})
     .then(user => {
