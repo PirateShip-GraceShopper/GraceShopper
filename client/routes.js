@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, SingleUser, SingleItem, AllItems, ProductList, ReviewList} from './components'
+import {Main, Login, Signup, UserHome, SingleUser, SingleItem, AllItems, ProductList, ReviewList, ProductDetail} from './components'
 import {me, fetchProducts, fetchAllItems} from './store'
 
 
@@ -25,9 +25,11 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
+            <Route exact path="/" component={ProductList} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/products" component={ProductList} />
+            <Route exact path="/products" component={ProductList} />
+            <Route path="/products/:id" component={ProductDetail} />
             <Route path="/all-items" component={AllItems} />
             <Route path="/all-reviews" component={ReviewList} />
             {
@@ -41,6 +43,7 @@ class Routes extends Component {
             }
             {/* Displays our Login component as a fallback */}
             <Route component={Login} />
+            <Route component={ProductList} />
           </Switch>
         </Main>
       </Router>

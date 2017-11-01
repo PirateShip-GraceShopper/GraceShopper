@@ -15,7 +15,7 @@ const ProductItem = ({ product }) => (
   </li>
 )
 
-const mapState = ({ product }) => ({ product })
+const mapState = null
 const mapDispatch = { removeProduct }
 
 export default connect(mapState, mapDispatch)(ProductItem)
