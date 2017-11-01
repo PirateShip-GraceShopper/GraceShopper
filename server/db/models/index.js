@@ -3,7 +3,7 @@ const Item = require('./item')
 const Product = require('./product')
 const Address = require('./address')
 const Review =  require('./review')
-const Cart = require('./Cart')
+const Cart = require('./cart')
 
 /******************** ASSOCIATIONS *********************/
 //User
