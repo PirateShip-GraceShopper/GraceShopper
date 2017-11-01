@@ -6,8 +6,8 @@ import { removeProduct } from "../store"
 const ProductItem = ({ product }) => (
   <li className="list-group-item product-item">
     <Link className="large-font" to={`/products/${product.id}`}>
-      <img src={product.photo} />
-      <span>{product.title}</span>
+      <img src={product.image} />
+      <span>{product.name}</span>
     </Link>
     <button className="btn btn-default btn-xs">
       X <span className="glyphicon glyphicon-remove" />
