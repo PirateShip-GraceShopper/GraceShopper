@@ -1,7 +1,7 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
-import { Link } from "react-router-dom"
-import { removeProduct } from "../store"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { removeProduct } from '../store'
 
 const ProductItem = ({ product }) => (
   <li className="list-group-item product-item">
