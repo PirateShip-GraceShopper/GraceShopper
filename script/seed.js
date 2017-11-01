@@ -31,10 +31,10 @@ async function seed () {
     Item.create({price: 10000, quantity: 44})
   ])
   const products = await Promise.all([
-    Product.create({name: 'Yeezys', description: 'So fresh', price: 12000, inventory: 562, image: '/public/images/1-cat-running-shoes.jpg'}),
-    Product.create({name: 'Air Force Ones', description: 'And so clean', price: 17000, inventory: 1114, image: '/public/images/56d0c03a55a8c60e3dab6d813af741bc.jpg'}),
-    Product.create({name: 'Gucci Stilettos', description: 'Gettem', price: 30000, inventory: 34, image: '/public/images/61b9f688c3b28312c31e08eccab9e3bea61cf1dce4ed06e161031a5e0c8a9f33.jpeg'}),
-    Product.create({name: 'Boots', description: 'For rugged, out-doorsy cats', price: 9000, inventory: 320, image: '/public/images/869c8cab884965b9ddb6fcd3fc36fa53--adorable-kittens-cute-cats.jpg'})
+    Product.create({name: 'Yeezys', description: 'So fresh', price: 12000, inventory: 562, image: '/images/1-cat-running-shoes.jpg'}),
+    Product.create({name: 'Air Force Ones', description: 'And so clean', price: 17000, inventory: 1114, image: '/images/56d0c03a55a8c60e3dab6d813af741bc.jpg'}),
+    Product.create({name: 'Gucci Stilettos', description: 'Gettem', price: 30000, inventory: 34, image: '/images/61b9f688c3b28312c31e08eccab9e3bea61cf1dce4ed06e161031a5e0c8a9f33.jpeg'}),
+    Product.create({name: 'Boots', description: 'For rugged, out-doorsy cats', price: 9000, inventory: 320, image: '/images/869c8cab884965b9ddb6fcd3fc36fa53--adorable-kittens-cute-cats.jpg'})
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
