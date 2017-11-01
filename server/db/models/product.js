@@ -20,11 +20,7 @@ const Product = db.define('product', {
     type: Sequelize.INTEGER
   },
   inventory: Sequelize.INTEGER,
-  image: Sequelize.STRING,
-  rating: {
-    type: Sequelize.INTEGER,
-    validate: { min: 1, max: 5 }
-  }
+  image: Sequelize.STRING
 })
 
 module.exports = Product
