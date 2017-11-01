@@ -39,5 +39,5 @@ describe('Product routes', () => {
           expect(res.body[0].inventory).to.be.equal(inventory)
         })
     })
-  }) // end describe('/api/users')
-}) // end describe('User routes')
+  })
+})
