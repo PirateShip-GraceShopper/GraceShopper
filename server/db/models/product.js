@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Product = db.define('product', {
-  title: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
@@ -19,8 +19,8 @@ const Product = db.define('product', {
   price: {
     type: Sequelize.INTEGER
   },
-  quantity: Sequelize.INTEGER,
-  photo: Sequelize.STRING,
+  inventory: Sequelize.INTEGER,
+  image: Sequelize.STRING,
   rating: {
     type: Sequelize.INTEGER,
     validate: { min: 1, max: 5 }
