@@ -7,18 +7,22 @@ class SingleUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formName: "",
+      formFirstName: "",
+      formLastName: "",
       formEmail: "",
-      formPassword: ""
+      formPassword: "",
+      formPhone:""
     };
     this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount(){
     this.setState({
-      formName: this.props.user.name,
+      formFirstName: this.props.user.firstName,
+      formLastName: this.props.user.lastName,
       formEmail: this.props.user.email,
-      formPassword: this.props.user.password
+      formPassword: this.props.user.password,
+      formPhone: this.props.user.phone
     })
   }
 
@@ -31,12 +35,16 @@ class SingleUser extends Component {
       <div>
         <h2>Login & Security</h2>
         <form onSubmit={(e)=>this.props.handleSubmit(e, this.props.user)}>
-          <label>Name</label>
-          <input type="name" name="name" value={this.state.formName} onChange={(e)=> this.handleChange(e, "formName")}/>
+          <label>First Name</label>
+          <input type="firstName" name="firstName" value={this.state.formFirstName} onChange={(e)=> this.handleChange(e, "formFirstName")}/>
+          <label>Last Name</label>
+          <input type="lastName" name="lastName" value={this.state.formLastName} onChange={(e)=> this.handleChange(e, "formLastName")}/>
           <label>Email</label>
           <input type="email" name="email" value={this.state.formEmail} onChange={(e)=> this.handleChange(e, "formEmail")}/>
           <label>Password</label>
           <input type="password" name="password" value={this.state.formPassword} onChange={(e)=> this.handleChange(e, "formPassword")}/>
+          <label>Phone</label>
+          <input type="phone" name="phone" value={this.state.formPhone} onChange={(e)=> this.handleChange(e, "formPhone")}/>
           <button type="submit">Save</button>
         </form>
       </div>
@@ -56,9 +64,11 @@ const mapDispatch = (dispatch) => {
       e.preventDefault();
       const editedUser = {
         id: user.id,
-        name: e.target.name.value,
+        firstName: e.target.firstName.value,
+        lastName: e.target.lastName.value,
         email: e.target.email.value,
-        password: e.target.password.value
+        password: e.target.password.value,
+        phone: e.target.phone.value
       }
       return dispatch(editUser(editedUser))
     }
