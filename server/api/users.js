@@ -25,26 +25,27 @@ router.get('/', (req, res, next) => {
 
 
 router.get('/:id', (req, res, next) => {
-  res.json(req.requestedUser)
-  .catch(next)
+    User.findOne({
+      attributes: ['id', 'email']
+    })
+    .then(user => res.json(user))
+    .catch(next)
 })
 
 router.post('/', (req, res, next) => {
   User.create(req.body)
-  .then(user => {
-    res.status(201).json(user)
-  })
+  .then(_ => res.sendStatus(201))
   .catch(next)
 })
 
 router.put('/:id', (req, res, next) => {
   req.requestedUser.update(req.body)
-  .then(user=> res.json(user))
+  .then(_ => res.sendStatus(204))
   .catch(next);
 })
 
 router.delete('/:id', (req, res, next) => {
   req.requestedUser.destroy()
-  .then(() => res.status(204).end())
+  .then(_ => res.sendStatus(204))
   .catch(next)
 })
