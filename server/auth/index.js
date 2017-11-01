@@ -2,15 +2,18 @@ const router = require('express').Router()
 const User = require('../db/models/user')
 module.exports = router
 
-// const mustHavePassword = (req, res, next) => {
-//   if (req.body.user && !req.body.user.password) {
-//     next(Error('Unauthorized'))
-//   } else {
-//     next()
-//   }
-// }
+const mustHavePassword = (req, res, next) => {
+  console.log("INSIDE GATEKEEPER", req.body)
+  if (!req.body.password) {
+    console.log(req.body.user)
+    console.log("DID IT HIT HERE????????????????????????????")
+    next(Error('Unauthorized'))
+  } else {
+    next()
+  }
+}
 
-router.post('/login', (req, res, next) => {
+router.post('/login', mustHavePassword, (req, res, next) => {
   User.findOne({where: {email: req.body.email}})
     .then(user => {
       if (!user) {
@@ -24,7 +27,7 @@ router.post('/login', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup', mustHavePassword, (req, res, next) => {
   User.create(req.body)
     .then(user => {
       req.login(user, err => (err ? next(err) : res.json(user)))

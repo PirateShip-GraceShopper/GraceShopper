@@ -14,6 +14,7 @@ const User = db.define('user', {
   firstName: {
     type: Sequelize.STRING,
     allowNull: false,
+    defaultValue: "Kitty",
     set(val) {
       const newFirstName = val[0].toUpperCase() + val.slice(1)
       this.setDataValue('firstName', newFirstName)
@@ -22,6 +23,7 @@ const User = db.define('user', {
   lastName: {
     type: Sequelize.STRING,
     allowNull: false,
+    defaultValue: "Kat",
     set(val) {
       const newLastName = val[0].toUpperCase() + val.slice(1)
       this.setDataValue('lastName', newLastName)
@@ -42,7 +44,8 @@ const User = db.define('user', {
   },
   phone: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    defaultValue: '2122222222'
   }
 })
 
