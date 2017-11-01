@@ -1,11 +1,9 @@
 const router = require('express').Router()
-const {Item, Cart} = require('../db/models')
+const {Item} = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  Item.findAll({
-    include: [{model: Cart}]
-  })
+  Item.findAll()
   .then(items => res.json(items))
   .catch(next)
 })
