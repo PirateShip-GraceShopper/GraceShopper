@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { Item, Cart } = require('../db/models')
 module.exports = router;
 
+
 router.param('id', (req, res, next, id) => {
   Cart.findById(id)
     .then(cart => {
@@ -16,6 +17,7 @@ router.get('/', (req, res, next) => {
   .catch(next)
 })
 
+
 router.post('/', (req, res, next) => {
   Cart.findOrCreate({where: {
     userId: req.body.userId,
@@ -27,6 +29,14 @@ router.post('/', (req, res, next) => {
   })
   .then(item => res.json(item))
   .catch(next)
+})
+
+router.put('/', (req, res, next) => {
+  Item.destroy({where: {id: req.body.id}})
+    .then(deletedRows => {
+      deletedRows ? res.status(200).send('Item was deleted') :
+      res.sendStatus(204)
+    })
 })
 
 
