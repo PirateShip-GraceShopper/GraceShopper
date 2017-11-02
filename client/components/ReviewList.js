@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Review from './review';
+import ReviewStars from './ReviewStars';
 
 const ReviewList = ({ reviews }) => {
     return (
@@ -13,6 +14,7 @@ const ReviewList = ({ reviews }) => {
                     return <Review newReview={review} key={review.id} />
                 })}
             </ul>
+            <ReviewStars />
         </div>
     )
 }
