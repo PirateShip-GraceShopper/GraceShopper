@@ -12,10 +12,11 @@ const ProductDetail = ({ products }) => (
 )
 
 const mapState = ({ products }, ownProps) => {
-  const paramId = Number(ownProps.match.params.id)
+  const paramId = Number(ownProps.match.params.id);
   return {
     products: _.find(products, product => product.id === paramId)
   };
 };
+const mapDispatch = null;
 
-export default connect(mapState, _)(ProductDetail)
+export default connect(mapState, mapDispatch)(ProductDetail);
