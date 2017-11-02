@@ -14,17 +14,21 @@ class ProductDetail extends Component {
   // }
 
   render () {
-    <span>
-      <div>
-
-      </div>
-    </span>
-    <button
-      className="btn btn-default"
-      //onClick ={_ => clicker}
-    >
-      <span>Add To Cart</span>
-    </button>
+    const { products } = this.props
+    return (
+        <span>
+          <div>
+            <img src={products.image} />
+            <div>{product.name}</div>
+          </div>
+        </span>
+        <button
+          className="btn btn-default"
+          //onClick ={_ => clicker}
+        >
+          <span>Add To Cart</span>
+        </button>
+      )
   }
 }
 
