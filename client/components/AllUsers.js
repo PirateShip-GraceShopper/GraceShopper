@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchUsers} from '../store/users'
+import { Link } from "react-router-dom";
 
 class AllUsers extends Component{
   componentDidMount(){
@@ -9,14 +10,25 @@ class AllUsers extends Component{
   render(){
     const users = this.props.users
     return(
-      <div>
-        <ul>
-        {users.length && users.map(user => (<li key={user.id}>
-          <div>{`${user.firstName} ${user.lastName}`}</div>
-          <div>{user.email}</div>
-          </li>))}
-        </ul>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+        {users.length && users.map(user => (
+          <tr key={user.id}>
+            <td>{`${user.firstName} ${user.lastName}`}</td>
+            <td>{user.email}</td>
+            <td>
+              <Link to={`/user/${user.id}/edit`}>Edit</Link>
+            </td>
+          </tr>
+          ))}
+        </tbody>
+      </table>
     )
   }
 }
