@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
 import ProductItem from './ProductItem'
+import Review from './ReviewList'
 
 const ProductDetail = ({ products }) => (
   <div>
     <ProductItem product={products} />
-    <div>Reviews go here</div>
+    <Review />
   </div>
 )
 

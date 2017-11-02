@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { removeProduct } from '../store'
+import Stars from './ReviewStars'
 
 const ProductItem = ({ product }) => (
   <li className="list-group-item product-item">
@@ -11,7 +12,7 @@ const ProductItem = ({ product }) => (
       <br />
       <span>{product.price}</span>
       <br />
-      <span>Rating goes here, stars</span>
+      <Stars />
     </Link>
     <br />
     <button className="btn btn-default">
