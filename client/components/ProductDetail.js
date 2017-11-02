@@ -4,28 +4,12 @@ import { Link } from 'react-router-dom'
 import _ from 'lodash'
 import ProductItem from './ProductItem'
 
-class ProductDetail extends Component {
-  constructor(props) {
-    super(props);
-    //this.onClick function for add to cart
-  }
-
-  // onClick() {
-
-  // }
-
-  render() {
-    const { products } = this.props
-    return (
-      <span>
-        <ProductItem product={products} />
-        <div>
-          TEST TEXT
-        </div>
-      </span>
-    );
-  }
-}
+const ProductDetail = ({ products }) => (
+  <div>
+    <ProductItem product={products} />
+    <div>Reviews go here</div>
+  </div>
+)
 
 const mapState = ({ products }, ownProps) => {
   const paramId = Number(ownProps.match.params.id);

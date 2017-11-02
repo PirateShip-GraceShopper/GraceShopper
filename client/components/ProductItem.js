@@ -12,9 +12,9 @@ const ProductItem = ({ product }) => (
       <span>{product.price}</span>
       <br />
     </Link>
-      <button className="btn btn-default">
-        <div>Add To Cart</div>
-      </button>
+    <button className="btn btn-default">
+      <div>Add To Cart</div>
+    </button>
     <button className="btn btn-default btn-xs">
       X <span className="glyphicon glyphicon-remove" />
     </button>
