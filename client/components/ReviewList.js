@@ -6,6 +6,7 @@ import Review from './review';
 const ReviewList = ({ reviews }) => {
     return (
         <div>
+            {console.log('reviews', reviews)}
             <h1>Reviews</h1>
             <ul>
                 {reviews && reviews.map(review => {
