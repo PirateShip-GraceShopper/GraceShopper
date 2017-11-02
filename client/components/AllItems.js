@@ -9,7 +9,7 @@ const AllItems = ({item}) => {
       <h1>All Items</h1>
       <div>
         { item.map(singleItem =>
-          <SingleItem key={singleItem.id} price={singleItem.price} />)}
+          <SingleItem key={singleItem.id} item={singleItem} />)}
       </div>
     </div>
   )
