@@ -12,5 +12,4 @@ export {default as ProductList} from './productlist'
 export {default as SingleUser} from './SingleUser'
 export {default as ProductDetail} from './ProductDetail'
 export {default as ReviewList} from './ReviewList'
-
-
+export {default as Cart} from './Cart';
