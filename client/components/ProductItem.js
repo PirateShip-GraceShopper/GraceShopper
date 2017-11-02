@@ -6,7 +6,7 @@ import { removeProduct } from '../store'
 const ProductItem = ({ product }) => (
   <li className="list-group-item product-item">
     <Link className="large-font" to={`/products/${product.id}`}>
-      <img src={product.image} alt='image' />
+      <img src={product.image} alt={product.name} />
       <span>{product.name}</span>
       <br />
       <span>{product.price}</span>
