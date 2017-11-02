@@ -10,4 +10,4 @@ export {default as AllItems} from './all-items'
 export {Login, Signup} from './auth-form'
 export {default as ProductList} from './productlist'
 export {default as SingleUser} from './SingleUser'
-
+export {default as AllUsers} from './AllUsers'
