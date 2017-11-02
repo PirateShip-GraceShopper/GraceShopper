@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const GET_REVIEWS = 'GET_REVIEWS';
 const UPDATE_REVIEW = 'UPDATE_REVIEW';
 const CREATE_REVIEW = 'CREATE_REVIEW';
@@ -25,13 +26,13 @@ const removeReview = targetReview => ({
     targetReview
 })
 
-export const fetchReviewsThunk = () => {
+export const fetchReviewsThunk = () => dispatch => {
     axios.get('/api/reviews')
     .then(res => dispatch(getReviews(res.data)))
     .catch(error => dispatch(getReviews({error})))
 }
 
-export const putReviewThunk = () => {
+export const putReviewThunk = () => dispatch => {
     axios.put('/api/reviews/:id')
     .then(res => res.data)
     .then(updatedReview => {
@@ -39,28 +40,29 @@ export const putReviewThunk = () => {
     })
 }
 
-export const postReviewThunk = () => {
+export const postReviewThunk = () => dispatch => {
     axios.post('/api/reviews')
     .then(res => dispatch(createReview(res.data)))
     .catch()
 }
 
-export const deleteReviewThunk = () => {
+export const deleteReviewThunk = () => dispatch =>{
     axios.delete('/api/review/:id')
     .catch(error => dispatch(removeReview({error})));
 }
 
-
-const initialState = { reviews: [] }
+const initialState = [];
 
 const reducer = (prevState = initialState, action) => {
     switch (action.type) {
         case GET_REVIEWS:
-            return Object.assign({}, prevState, {reviews: action.reviews})
+            return action.reviews
         case CREATE_REVIEW:
-            return Object.assign({}, prevState, {reviews: prevState.reviews.concat(action.review)})
+            return [...state, action.review]
         case UPDATE_REVIEW:
-            return Object.assign({}, prevState, {reviews: prevState.reviews.concat(action.review)})
+            return prevState.map(review => (
+                review.id !== action.item.id ? review : action.review
+            ))
         default:
             return prevState
     }

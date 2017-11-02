@@ -1,24 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import _ from 'lodash'
+import ProductItem from './ProductItem'
 
-class ProductDetail extends Component {
+const ProductDetail = ({ products }) => (
+  <div>
+    <ProductItem product={products} />
+    <div>Reviews go here</div>
+  </div>
+)
 
-  constructor (props) {
-    super(props)
-    //this.onSubmit function for purchase button
-  }
+const mapState = ({ products }, ownProps) => {
+  const paramId = Number(ownProps.match.params.id);
+  return {
+    products: _.find(products, product => product.id === paramId)
+  };
+};
+const mapDispatch = null;
 
-  // onSubmit() {
-
-  // }
-
-  render () {
-
-  }
-}
-
-const mapState = null
-const mapDispatch = null
-
-export default connect(mapState, mapDispatch)(ProductDetail)
+export default connect(mapState, mapDispatch)(ProductDetail);
