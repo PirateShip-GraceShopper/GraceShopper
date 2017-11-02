@@ -4,7 +4,7 @@ const Product = require('./product')
 const Address = require('./address')
 const Review =  require('./review')
 const Cart = require('./cart')
-
+const Categories = require('./categories')
 /******************** ASSOCIATIONS *********************/
 //User
 Address.belongsTo(User, {as: 'user'})
@@ -26,5 +26,6 @@ module.exports = {
   Product,
   Address,
   Review,
-  Cart
+  Cart,
+  Categories
 }
