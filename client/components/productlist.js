@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { products } from '../store'
+import ProductItem from './ProductItem'
 
 const ProductList = ({ products }) => (
   <div className="container">
@@ -15,7 +16,7 @@ const ProductList = ({ products }) => (
   </div>
 )
 
-const mapState = ({ products }) => ({ products });
-const mapDispatch = null;
+const mapState = ({ products }) => ({ products })
+const mapDispatch = null
 
-export default connect(mapState, mapDispatch)(ProductList);
+export default connect(mapState, mapDispatch)(ProductList)

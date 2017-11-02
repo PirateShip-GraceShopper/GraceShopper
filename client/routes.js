@@ -4,8 +4,14 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
+<<<<<<< HEAD
 import {Main, Login, Signup, UserHome, SingleUser, SingleItem, AllItems, ProductList, ReviewList, Cart} from './components'
 import {me, fetchProducts, fetchAllItems} from './store'
+=======
+import {Main, Login, Signup, UserHome, SingleUser, SingleItem, AllItems, ProductList, ReviewList, ProductDetail} from './components'
+import {me, fetchProducts, fetchAllItems, fetchReviewsThunk} from './store'
+
+>>>>>>> master
 
 
 
@@ -25,9 +31,11 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
+            <Route exact path="/" component={ProductList} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/products" component={ProductList} />
+            <Route exact path="/products" component={ProductList} />
+            <Route path="/products/:id" component={ProductDetail} />
             <Route path="/all-items" component={AllItems} />
             <Route path="/all-reviews" component={ReviewList} />
             <Route path="/cart" component={Cart} />
@@ -35,13 +43,13 @@ class Routes extends Component {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
+                  <Route path="/home" component={ProductList} />
                   <Route path="/edit_profile" component={SingleUser}/>
                   <Route path="/products" component={ProductList} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route component={ProductList} />
           </Switch>
         </Main>
       </Router>
@@ -66,6 +74,7 @@ const mapDispatch = (dispatch) => {
       dispatch(me())
       dispatch(fetchProducts())
       dispatch(fetchAllItems())
+      dispatch(fetchReviewsThunk())
     }
   }
 }
