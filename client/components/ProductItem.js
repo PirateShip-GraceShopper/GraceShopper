@@ -7,8 +7,14 @@ const ProductItem = ({ product }) => (
   <li className="list-group-item product-item">
     <Link className="large-font" to={`/products/${product.id}`}>
       <img src={product.image} alt='image' />
-      <div>{product.name}</div>
+      <span>{product.name}</span>
+      <br />
+      <span>{product.price}</span>
+      <br />
     </Link>
+      <button className="btn btn-default">
+        <div>Add To Cart</div>
+      </button>
     <button className="btn btn-default btn-xs">
       X <span className="glyphicon glyphicon-remove" />
     </button>

@@ -15,15 +15,14 @@ class ProductDetail extends Component {
   // }
 
   render() {
-    console.log(this.props.products);
+    const { products } = this.props
     return (
-      <div>
-          <ProductItem product={this.props.products} />
-          <div>Reviews</div>
-          <button className="btn btn-default">
-            <span>Add To Cart</span>
-          </button>
-      </div>
+      <span>
+        <ProductItem product={products} />
+        <div>
+          TEST TEXT
+        </div>
+      </span>
     );
   }
 }
