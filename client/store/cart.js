@@ -22,9 +22,11 @@ const updateItem = (item) => ({type: UPDATE_ITEM, item})
  /**
  * THUNK CREATORS
  */
-export const postToCart = (item, cart) =>
+
+
+export const postToCart = (item, cart) => //item should be object including userId if exists
   dispatch =>
-    axios.post(`/api/carts/${cart.id}`, item)
+    axios.post('/api/carts/', item)
       .then(res =>
         dispatch(addToCart(res.data)))
       .catch(error =>

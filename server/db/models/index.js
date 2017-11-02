@@ -18,8 +18,8 @@ User.hasMany(Review, {as: 'review'})
 
 //Item
 Product.hasMany(Item, {as: 'item'})
-Cart.hasMany(Item, {as: 'item'})
-
+// Cart.hasMany(Item, {as: 'item'})
+Item.belongsTo(Cart)
 module.exports = {
   User,
   Item,

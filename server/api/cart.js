@@ -1,17 +1,35 @@
 const router = require('express').Router()
-const { Item } = require('../db/models')
+const { Item, Cart } = require('../db/models')
 module.exports = router;
 
 
-router.param('id', (req, res, next, id) => {
-  Cart.findById(id)
-    .then(cart => {
-    res.json(cart);
-    })
-})
 
+
+// router.param('id', (req, res, next, id) => {
+//   Cart.findById(id)
+//     .then(cart => {
+//       req.cart = cart;
+//     next();
+//     })
+// })
+
+router.get('/', (req,res,next)=> {
+  Cart.findAll()
+  .then(carts => res.json(carts))
+  .catch(next)
+})
 
 router.post('/', (req, res, next) => {
-  Cart.findOrCreate();
+  Cart.findOrCreate({where:{
+    userId: req.body.userId,
+    status: "open"
+  }})
+  .spread((cart, createdCartBool)=> {
+    return Item.create(req.body)
+    .then(item => item.setCart(cart))
+  }).then(item => res.json(item))
+  .catch(next)
 })
+
+
 
