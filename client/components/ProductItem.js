@@ -11,12 +11,15 @@ const ProductItem = ({ product }) => (
       <br />
       <span>{product.price}</span>
       <br />
+      <span>Rating goes here, stars</span>
     </Link>
+    <br />
     <button className="btn btn-default">
       <div>Add To Cart</div>
     </button>
+    <br />
     <button className="btn btn-default btn-xs">
-      X <span className="glyphicon glyphicon-remove" />
+      Remove Product <span className="glyphicon glyphicon-remove" />
     </button>
   </li>
 )
