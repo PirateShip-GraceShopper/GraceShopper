@@ -17,6 +17,5 @@ const ProductList = ({ products }) => (
 )
 
 const mapState = ({ products }) => ({ products })
-const mapDispatch = null
 
-export default connect(mapState, mapDispatch)(ProductList)
+export default connect(mapState, _)(ProductList)

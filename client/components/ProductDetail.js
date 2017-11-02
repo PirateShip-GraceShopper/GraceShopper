@@ -17,6 +17,5 @@ const mapState = ({ products }, ownProps) => {
     products: _.find(products, product => product.id === paramId)
   };
 };
-const mapDispatch = null
 
-export default connect(mapState, mapDispatch)(ProductDetail)
+export default connect(mapState, _)(ProductDetail)
