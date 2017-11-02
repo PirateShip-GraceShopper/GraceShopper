@@ -7,7 +7,8 @@ import Review from './ReviewList'
 
 const ProductDetail = ({ products }) => (
   <div>
-    <ProductItem product={products} />
+    {products &&
+    <ProductItem product={products} />}
     <Review />
   </div>
 )
