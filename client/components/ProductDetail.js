@@ -6,19 +6,29 @@ class ProductDetail extends Component {
 
   constructor (props) {
     super(props)
-    //this.onSubmit function for purchase button
+    //this.onClick function for add to cart
   }
 
-  // onSubmit() {
+  // onClick() {
 
   // }
 
   render () {
+    <span>
+      <div>
 
+      </div>
+    </span>
+    <button
+      className="btn btn-default"
+      //onClick ={_ => clicker}
+    >
+      <span>Add To Cart</span>
+    </button>
   }
 }
 
-const mapState = null
+const mapState = ({ products }) => ({ products })
 const mapDispatch = null
 
 export default connect(mapState, mapDispatch)(ProductDetail)
