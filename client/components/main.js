@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
-import { Icon, Layout, Menu } from 'antd'
-
+import { Button, Icon, Layout, Menu } from 'antd'
 const { Header, Footer, Content } = Layout
 /**
  * COMPONENT
@@ -14,38 +13,35 @@ const { Header, Footer, Content } = Layout
  */
 const Main = ({ children, handleClick, isLoggedIn }) => (
   <Layout>
-    <Header style={{ position: 'fixed', width: '100%' }}>
-      <div>
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          style={{ lineHeight: '64px' }}
-        >
-            <Menu.Item key='home'>
+    <Header style={{ width: '100%' }}>
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        style={{ lineHeight: '64px' }}
+      >
+          <Menu.Item key='home'>
             <Link to={'/'}><h1>Grace Shoe-Purr</h1></Link>
-            </Menu.Item>
-          <nav>
-            {
-              isLoggedIn
-                ? <div>
-                  {/* The navbar will show these links after you log in */}
+          </Menu.Item>
 
-                    <Link to="/">Home</Link>
-                    <a href="#">Logout</a>
+          {
+            isLoggedIn
+              ? <Menu.Item>
+                {/* The navbar will show these links after you log in */}
 
-                </div>
-                : <div>
-                  {/* The navbar will show these links before you log in */}
-
-                    <Link to="/login"><Icon type="login" />Login</Link>
-
-                    <Link to="/signup">Sign Up</Link>
-
-                </div>
-            }
-          </nav>
-      </Menu>
-      </div>
+                  <Link to="/">Home</Link>
+                  <a href="#">Logout</a>
+              </Menu.Item>
+              : <Menu.Item>
+                {/* The navbar will show these links before you log in */}
+                <Button icon='login' ghost>
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button ghost>
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
+              </Menu.Item>
+          }
+    </Menu>
     </Header>
         <hr />
       <Content style={{ padding: '0 50px', marginTop: 64 }}>
