@@ -23,7 +23,7 @@ class ReviewContentForm extends Component {
                     this.props.handleSubmit(this.state)
                     }}>
                     <label>
-                        Rating
+                        Rate This Product!
                     </label>
                     <ReviewStars />
                     <textarea
