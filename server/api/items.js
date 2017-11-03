@@ -27,7 +27,7 @@ router.post('/', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
   req.item.update(req.body)
-  .then(() => res.sendStatus(res.statusCode))
+  .then(item => res.json(item))
   .catch(next)
 })
 

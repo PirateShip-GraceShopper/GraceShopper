@@ -1,27 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { item } from '../store';
-import { postToCart } from '../store/cart'
+import { item, postToCart } from '../store'
+import SingleItem from './SingleItem'
 
-const Cart = (props) => {
+const Cart = props => {
   return (
     <div>
-      <h1>This is a cart</h1>s
-      <ul>
-        <div className="product-info-div">This is where the product info would go</div>
-        <div className="product-price-div">Price</div>
-        <div className="product-quantity-div">
-        <select>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => {
-            return (
-              <option key={num} value={num}>{num}</option>
-            )
-          })}
-        </select>
-        <button>Delete</button>
-        </div>
-      </ul>
+      <h1>This is a cart</h1>
+      { props.cart.map(cartItem =>
+        <SingleItem key={cartItem.id} item={cartItem} />)}
     </div>
   )
 }
@@ -29,12 +17,13 @@ const Cart = (props) => {
 //if there is no items, create a cart on initial add.
 //if there is, add to that cart.
 
-const mapState = (state)=>{
+const mapState = state => {
   return {
-    user:state.user
+    user: state.user,
+    cart: state.cart
   }
 }
-const mapDispatch = (dispatch)=>{
+const mapDispatch = dispatch => {
   return {
     handleAdd(evt, item, user){
       const cartItem = {
@@ -45,4 +34,4 @@ const mapDispatch = (dispatch)=>{
     }
   }
 }
-export default Cart;
+export default connect(mapState, mapDispatch)(Cart);

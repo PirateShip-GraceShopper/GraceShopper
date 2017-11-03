@@ -9,17 +9,17 @@ const inititalState = [];
 /**
  * ACTION TYPES
  */
-
  const ADD_TO_CART = 'ADD_TO_CART';
  const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
- const UPDATE_ITEM = 'UPDATE_ITEM';
+ const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM';
  const CLEAR_CART = 'CLEAR_CART';
+
  /**
  * ACTION CREATORS
  */
 const addToCart = (item) => ({type: ADD_TO_CART, item});
 const removeFromCart = (item) => ({type: REMOVE_FROM_CART, item});
-const updateItem = (item) => ({type: UPDATE_ITEM, item})
+const updateCartItem = (item) => ({type: UPDATE_CART_ITEM, item})
 const clearCart = () => ({type: CLEAR_CART});
  /**
  * THUNK CREATORS
@@ -40,13 +40,19 @@ export const postToCart = (item) => //item should be object including userId if 
       .catch(error =>
         dispatch(addToCart({error})))
 
+export const changeCartItem = item =>
+dispatch =>
+  axios.put(`/api/items/${item.id}`, item)
+    .then(res =>
+      dispatch(updateCartItem(res.data)))
+    .catch(error =>
+      dispatch(updateCartItem({error})))
 
 export const checkout = (cart) =>
   dispatch =>
     axios.put(`/api/cart/${cart.id}`)
       .then(_ => dispatch(clearCart()))
       .catch(_ => dispatch(clearCart()))
-
 
 
 /**
@@ -58,7 +64,7 @@ export const checkout = (cart) =>
       return [...state, action.item];
      case REMOVE_FROM_CART:
       return state.filter(item => item.id !== action.item.id);
-     case UPDATE_ITEM:
+     case UPDATE_CART_ITEM:
       return state.map(item => (item.id === action.item.id ? action.item : item));
      case CLEAR_CART:
       return inititalState;

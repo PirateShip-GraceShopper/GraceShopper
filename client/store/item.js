@@ -50,7 +50,7 @@ export const createItem = item =>
 
 export const changeItem = item =>
   dispatch =>
-    axios.put(`/api/items/${item.id}`)
+    axios.put(`/api/items/${item.id}`, item)
       .then(res =>
         dispatch(updateItem(res.data)))
       .catch(error =>
