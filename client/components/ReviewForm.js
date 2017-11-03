@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {postReviewThunk, putReviewThunk} from '../store';
+import {postReviewThunk, putReviewThunk, fetchReviewsThunk} from '../store';
 import ReviewStars from './ReviewStars';
 import {Button, Rate, Carousel} from 'antd';
 
@@ -11,7 +11,7 @@ class ReviewContentForm extends Component {
             content: '',
             rating: null,
             productId: props.productId,
-            UserId: props.userId
+            userId: 0
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleStarChange = this.handleStarChange.bind(this)
@@ -23,13 +23,16 @@ class ReviewContentForm extends Component {
     }
 
     handleStarChange(rating) {
-        console.log('FIRING')
-        this.setState({ rating })
+        this.setState({
+            rating,
+            userId: this.props.userId
+        })
     }
 
     render() {
         return (
             <div>
+                {console.log('USERID', this.state.userId)}
                 <form onSubmit={(evt) => {
                     evt.preventDefault()
                     this.setState({ content: '' })
