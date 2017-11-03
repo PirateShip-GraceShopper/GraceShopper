@@ -20,39 +20,37 @@ const Main = ({ children, handleClick, isLoggedIn }) => (
           theme="dark"
           mode="horizontal"
           style={{ lineHeight: '64px' }}
-          onClick={handleClick}
         >
-          <Menu.Item key="home">
-            <Link to='/'><h1>Grace Shoe-Purr</h1></Link>
-          </Menu.Item>
+            <Menu.Item key='home'>
+            <Link to='/' onClick={handleClick}><h1>Grace Shoe-Purr</h1></Link>
+            </Menu.Item>
           <nav>
             {
               isLoggedIn
                 ? <div>
                   {/* The navbar will show these links after you log in */}
-                  <Menu.Item key="logout">
+
                     <Link to="/">Home</Link>
                     <a href="#">Logout</a>
-                  </Menu.Item>
+
                 </div>
                 : <div>
                   {/* The navbar will show these links before you log in */}
-                  <Menu.Item key="login">
+
                     <Link to="/login"><Icon type="login" />Login</Link>
-                  </Menu.Item>
-                  <Menu.Item key="signup">
+
                     <Link to="/signup">Sign Up</Link>
-                  </Menu.Item>
+
                 </div>
             }
           </nav>
       </Menu>
+      </div>
+    </Header>
         <hr />
       <Content style={{ padding: '0 50px', marginTop: 64 }}>
         {children}
       </Content>
-      </div>
-    </Header>
     <Footer style={{ textAlign: 'center' }}>
       Created by the Grace Shoe-Purr Team
     </Footer>

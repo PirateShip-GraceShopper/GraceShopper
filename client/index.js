@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import store from './store'
 import Routes from './routes'
-import '../node_modules/antd/dist/antd.css'
+import 'antd/dist/antd.css'
 import './index.scss'
 // establishes socket connection
 import './socket'
