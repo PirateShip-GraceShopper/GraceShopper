@@ -8,7 +8,6 @@ import ReviewForm from './ReviewForm';
 
 const ProductDetail = ({ products, user, match }) => (
   <div>
-    {console.log('USER', user)}
     {products &&
     <ProductItem product={products} />}
     <h1>Reviews</h1>
