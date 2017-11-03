@@ -86,7 +86,6 @@ const mapDispatch = (dispatch, ownProps) => {
         id: user.id,
         isAdmin:true
       }
-      console.log(editedUser)
       dispatch(makeToAdmin(editedUser))
     }
   };
