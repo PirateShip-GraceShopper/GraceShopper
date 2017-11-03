@@ -1,5 +1,6 @@
 import ReactStars from 'react-stars'
 import React, {Component} from 'react'
+import {Rate} from 'antd'
 
 export default class ReviewStars extends Component {
     constructor(props) {
@@ -10,17 +11,14 @@ export default class ReviewStars extends Component {
 
     ratingChanged(newRating) {
         this.setState({ rating: newRating})
-        console.log(this.state)
+        this.props.handleStarChange(newRating)
     }
 
     render() {
         return (
-                <ReactStars
-                    count={5}
-                    onChange={this.ratingChanged}
-                    size={24}
-                    color2={'#ffd700'}
+                <Rate
                     value={this.state.rating}
+                    onChange={this.ratingChanged}
                 />
         )
     }

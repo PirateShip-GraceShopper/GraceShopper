@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {postReviewThunk, putReviewThunk} from '../store';
 import ReviewStars from './ReviewStars';
+import {Button, Rate, Carousel} from 'antd';
 
 class ReviewContentForm extends Component {
     constructor(props) {
@@ -13,11 +14,17 @@ class ReviewContentForm extends Component {
             UserId: props.userId
         }
         this.handleChange = this.handleChange.bind(this)
+        this.handleStarChange = this.handleStarChange.bind(this)
     }
 
     handleChange(event) {
        const input = event.target.value
        this.setState({ content: input })
+    }
+
+    handleStarChange(rating) {
+        console.log('FIRING')
+        this.setState({ rating })
     }
 
     render() {
@@ -31,11 +38,11 @@ class ReviewContentForm extends Component {
                     <label>
                         Rate This Product!
                     </label>
-                    <ReviewStars />
+                    <ReviewStars handleStarChange={this.handleStarChange} />
                     <textarea
                         onChange={this.handleChange}
                         name="content"
-                        value={this.state.content} 
+                        value={this.state.content}
                     />
                     <input type="submit" value="Submit" />
                 </form>
