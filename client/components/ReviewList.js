@@ -15,8 +15,6 @@ const ReviewList = ({ reviews }) => {
                     return <Review newReview={review} key={review.id} />
                 })}
             </ul>
-            <ReviewStars />
-            <ReviewContentForm />
         </div>
     )
 }
