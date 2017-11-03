@@ -4,10 +4,10 @@ import {connect} from 'react-redux'
 import {changeCartItem} from '../store'
 
 const SingleItem = ({item, changeQuantity}) => {
-  const {product, name, price, quantity} = item
+  const {image, name, price, quantity} = item
   return (
     <div>
-      <img src={product && product.image} />
+      <img src={image} />
       <h3>{name}</h3>
       <h4>{price}</h4>
       <input
@@ -16,7 +16,7 @@ const SingleItem = ({item, changeQuantity}) => {
         placeholder="quantity"
         onChange={event => changeQuantity(event)}
       />
-      <h4>{product && price * quantity}</h4>
+      <h4>{price * quantity}</h4>
     </div>
   )
 }

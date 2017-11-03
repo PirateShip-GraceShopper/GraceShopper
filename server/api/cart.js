@@ -17,6 +17,17 @@ router.get('/', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/session', (req, res, next) => {
+  if (!req.session.cart) {
+    req.session.cart = []
+    console.log('Set the session cart!!!!')
+    res.send(req.session.cart)
+  } else {
+    console.log('Hit the session cart!!!!')
+    res.send(req.session.cart)
+  }
+})
+
 
 router.post('/', (req, res, next) => {
   Cart.findOrCreate({where: {
@@ -24,6 +35,7 @@ router.post('/', (req, res, next) => {
     status: 'open'
   }})
   .spread((cart, createdCartBool) => {
+    req.session.cart.push(req.body)
     return Item.create(req.body)
     .then(item => item.setCart(cart))
   })
