@@ -5,6 +5,7 @@ import axios from 'axios'
  */
 const GET_USERS = 'GET_USERS'
 const DELETE_USER = 'DELETE_USER'
+const EDIT_USER = 'EDIT_USER'
 /**
  * INITIAL STATE
  */
@@ -13,8 +14,10 @@ const defaultUsers = []
 /**
  * ACTION CREATORS
  */
+
 const getUsers = users => ({type: GET_USERS, users})
 const deleteUser = userId => ({type: DELETE_USER, userId})
+const editUser = user => ({type: EDIT_USER, user})
 /**
  * THUNK CREATORS
  */
@@ -32,6 +35,17 @@ export const deleteUserThunk = (userId) => (
       .catch(err => console.err(`Deleting user with ID ${userId} was unsuccessful`, err))
     }
   )
+export const makeToAdmin = (user) => (
+  dispatch => {
+    axios.put(`/api/users/${user.id}`, user)
+    .then(res => {
+      return res.data
+    })
+    .then(user => {
+      dispatch(editUser(user))  
+    })
+    .catch(err => console.log(err))
+  })
 
 /**
  * REDUCER
@@ -42,6 +56,8 @@ export default function (state = defaultUsers, action) {
       return action.users
     case DELETE_USER:
       return state.filter(user => (+user.id !== +action.userId))
+    case EDIT_USER:
+      return state.map(user => user.id === action.user.id ? action.user:user)
     default:
       return state
   }

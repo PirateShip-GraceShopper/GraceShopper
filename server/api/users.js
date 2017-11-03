@@ -26,7 +26,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
     User.findOne({
-      attributes: ['id', 'email']
+      attributes: ['firstName','lastName','id', 'email', 'isAdmin']
     })
     .then(user => res.json(user))
     .catch(next)
@@ -40,7 +40,7 @@ router.post('/', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
   req.requestedUser.update(req.body)
-  .then(_ => res.sendStatus(204))
+  .then(user => res.json(user))
   .catch(next);
 })
 

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchUsers, deleteUserThunk } from "../store/users";
-import { editUser } from "../store/user"
-import { Link } from "react-router-dom";
+import { fetchUsers, deleteUserThunk, makeToAdmin } from "../store/users";
 
 class AllUsers extends Component {
   componentDidMount() {
@@ -29,7 +27,7 @@ class AllUsers extends Component {
                   <td>{`${user.firstName} ${user.lastName}`}</td>
                   <td>{user.email}</td>
                   <td>
-                    <button type="button" value={user.id} onClick={(e)=>this.props.makeAdmin(e)} >Make Admin</button>
+                    <button type="button" onClick={(e)=>this.props.makeAdmin(e,user)} >Make Admin</button>
                   </td>
                   <td>
                     <button
@@ -73,7 +71,7 @@ const mapState = state => {
     admins: state.users.filter(user => user.isAdmin)
   };
 };
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     getAllUsers() {
       dispatch(fetchUsers());
@@ -82,13 +80,14 @@ const mapDispatch = dispatch => {
       evt.preventDefault();
       dispatch(deleteUserThunk(evt.target.value));
     },
-    makeAdmin(evt) {
+    makeAdmin(evt, user) {
       evt.preventDefault();
       const editedUser = {
-        id:evt.target.value,
+        id: user.id,
         isAdmin:true
       }
-      dispatch(editUser(editedUser))
+      console.log(editedUser)
+      dispatch(makeToAdmin(editedUser))
     }
   };
 };
