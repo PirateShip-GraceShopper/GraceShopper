@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Review from './review';
-import ReviewStars from './ReviewStars';
-import ReviewContentForm from './ReviewContentForm';
 
 const ReviewList = ({ reviews }) => {
     return (

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import _ from 'lodash'
 import ProductItem from './ProductItem'
 import Review from './Review'
+import ReviewForm from './ReviewForm';
 
 const ProductDetail = ({ products }) => (
   <div>
@@ -13,6 +14,8 @@ const ProductDetail = ({ products }) => (
     {products && products.review.map(review => {
       return <Review newReview={review} key={review.id} />
     })}
+    <br />
+    <ReviewForm />
   </div>
 )
 
