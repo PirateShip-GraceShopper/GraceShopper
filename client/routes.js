@@ -37,23 +37,14 @@ class Routes extends Component {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
-<<<<<<< HEAD
-                  <Route path="/home" component={UserHome} />
-                  <Route path="/edit_profile" component={SingleUser} />
-=======
                   <Route path="/home" component={ProductList} />
                   <Route path="/edit_profile" component={SingleUser}/>
->>>>>>> master
                   <Route path="/products" component={ProductList} />
-                  <Route path="/all_Users" component={AllUsers} />
+                  <Route path="/all_users" component={AllUsers} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-<<<<<<< HEAD
-             <Route component={Login} />
-=======
             <Route component={ProductList} />
->>>>>>> master
           </Switch>
         </Main>
       </Router>
