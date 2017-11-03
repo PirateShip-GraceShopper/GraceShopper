@@ -10,7 +10,7 @@ const ProductItem = ({ product }) => (
   <li className="list-group-item product-item">
     <Link className="large-font" to={`/products/${product.id}`}>
       <Carousel effect="fade">
-        <img src={product.image} alt={product.name} />
+        <img className='pictures' src={product.image} alt={product.name} />
       </Carousel>
       <span>{product.name}</span>
       <br />

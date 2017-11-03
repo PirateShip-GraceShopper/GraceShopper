@@ -20,20 +20,22 @@ const Main = ({ children, handleClick, isLoggedIn }) => (
         style={{ lineHeight: '64px' }}
       >
           <Menu.Item key='home'>
-            <Link to={'/'}><h1>Grace Shoe-Purr</h1></Link>
+            <Link to={'/'}><h1 style={{ color: '#fff' }}>Grace Shoe-Purr</h1></Link>
           </Menu.Item>
-
           {
             isLoggedIn
               ? <Menu.Item>
                 {/* The navbar will show these links after you log in */}
-
-                  <Link to="/">Home</Link>
-                  <a href="#">Logout</a>
+                <Button>
+                  <Link to={`/edit_profile`}>Edit Profile</Link>
+                </Button>
+                <Button>
+                  <a href="#" onClick={handleClick}>Logout</a>
+                </Button>
               </Menu.Item>
               : <Menu.Item>
                 {/* The navbar will show these links before you log in */}
-                <Button icon='login' ghost>
+                <Button ghost>
                   <Link to="/login">Login</Link>
                 </Button>
                 <Button ghost>
