@@ -3,20 +3,24 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { postToCart } from '../store'
 import Stars from './ReviewStars'
+import { Button, Rate, Carousel } from 'antd'
+
 
 const ProductItem = ({ product, postToCart, user }) => (
   <li className="list-group-item product-item">
     <Link className="large-font" to={`/products/${product.id}`}>
-      <img src={product.image} alt={product.name} />
+      <Carousel effect="fade">
+        <img className='pictures' src={product.image} alt={product.name} />
+      </Carousel>
       <span>{product.name}</span>
       <br />
       <span>{product.price}</span>
       <br />
-      <Stars />
+      <Rate allowHalf/>
     </Link>
     <br />
-    <button
-      className="btn btn-default"
+    <Button
+      type="primary"
       onClick={() => postToCart(
         { price: product.price,
           quantity: 1,
@@ -26,13 +30,9 @@ const ProductItem = ({ product, postToCart, user }) => (
           userId: user.id ? user.id : null
         }
       )}
-    >
-      <div>Add To Cart</div>
-    </button>
+    >Add To Cart</Button>
     <br />
-    <button className="btn btn-default btn-xs">
-      Remove Product <span className="glyphicon glyphicon-remove" />
-    </button>
+    <Button type="danger">Remove Product</Button>
   </li>
 )
 

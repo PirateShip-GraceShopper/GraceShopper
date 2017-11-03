@@ -3,40 +3,63 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
-
+import { Button, Icon, Layout, Menu } from 'antd'
+const { Header, Footer, Content } = Layout
 /**
  * COMPONENT
  *  The Main component is our 'picture frame' - it displays the navbar and anything
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-const Main = props => {
-  const {children, handleClick, isLoggedIn} = props
-
-  return (
-    <div>
-      <Link to={'/'}><h1>Grace Shoe-Purr</h1></Link>
-      <nav>
-        {
-          isLoggedIn
-            ? <div>
-              {/* The navbar will show these links after you log in */}
-              <Link to="/">Home</Link>
-              <Link to="/cart">Cart</Link>
-              <a href="#" onClick={handleClick}>Logout</a>
-            </div>
-            : <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
-            </div>
-        }
-      </nav>
-      <hr />
-      {children}
-    </div>
-  )
-}
+const Main = ({ children, handleClick, isLoggedIn }) => (
+  <Layout>
+    <Header style={{ width: '100%' }}>
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        style={{ lineHeight: '64px' }}
+      >
+          <Menu.Item key='home'>
+            <Link to={'/'}><h1 style={{ color: '#fff' }}>Grace Shoe-Purr</h1></Link>
+          </Menu.Item>
+          {
+            isLoggedIn
+              ? <Menu.Item>
+                {/* The navbar will show these links after you log in */}
+                <Button>
+                  <Link to={`/edit_profile`}>Edit Profile</Link>
+                </Button>
+                <Button ghost>
+                  <Link to="/cart">Cart</Link>
+                </Button>
+                <Button>
+                  <a href="#" onClick={handleClick}>Logout</a>
+                </Button>
+              </Menu.Item>
+              : <Menu.Item>
+                {/* The navbar will show these links before you log in */}
+                <Button ghost>
+                  <Link to="/cart">Cart</Link>
+                </Button>
+                <Button ghost>
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button ghost>
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
+              </Menu.Item>
+          }
+    </Menu>
+    </Header>
+        <hr />
+      <Content style={{ padding: '0 50px', marginTop: 64 }}>
+        {children}
+      </Content>
+    <Footer style={{ textAlign: 'center' }}>
+      Created by the Grace Shoe-Purr Team
+    </Footer>
+  </Layout>
+)
 
 /**
  * CONTAINER
