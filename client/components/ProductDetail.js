@@ -3,13 +3,16 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
 import ProductItem from './ProductItem'
-import Review from './ReviewList'
+import Review from './Review'
 
 const ProductDetail = ({ products }) => (
   <div>
     {products &&
     <ProductItem product={products} />}
-    <Review />
+    <h1>Reviews</h1>
+    {products && products.review.map(review => {
+      return <Review newReview={review} key={review.id} />
+    })}
   </div>
 )
 
