@@ -32,6 +32,7 @@ export const deleteUserThunk = (userId) => (
       .catch(err => console.err(`Deleting user with ID ${userId} was unsuccessful`, err))
     }
   )
+
 /**
  * REDUCER
  */
