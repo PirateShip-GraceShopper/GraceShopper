@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
+import { Icon, Layout, Menu } from 'antd'
 
 /**
  * COMPONENT
@@ -12,28 +13,49 @@ import {logout} from '../store'
  */
 const Main = props => {
   const {children, handleClick, isLoggedIn} = props
-
+  const { Header, Content, Footer } = Layout
   return (
-    <div>
-      <Link to={'/'}><h1>Grace Shoe-Purr</h1></Link>
-      <nav>
-        {
-          isLoggedIn
-            ? <div>
-              {/* The navbar will show these links after you log in */}
-              <Link to="/">Home</Link>
-              <a href="#" onClick={handleClick}>Logout</a>
-            </div>
-            : <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
-            </div>
-        }
-      </nav>
-      <hr />
-      {children}
-    </div>
+    <Layout>
+      <Header style={{ position: 'fixed', width: '100%' }}>
+        <div>
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            style={{ lineHeight: '64px' }}
+          >
+            <Menu.Item key="home">
+              <Link to={'/'}><h1>Grace Shoe-Purr</h1></Link>
+            </Menu.Item>
+            <nav>
+              {
+                isLoggedIn
+                  ? <div>
+                    {/* The navbar will show these links after you log in */}
+                    <Menu.Item key="logout">
+                      <Link to="/">Home</Link>
+                      <a href="#" onClick={handleClick}>Logout</a>
+                    </Menu.Item>
+                  </div>
+                  : <div>
+                    {/* The navbar will show these links before you log in */}
+                    <Menu.Item key="login">
+                      <Link to="/login"><Icon type="login" /><br />Login</Link>
+                    </Menu.Item>
+                    <Menu.Item key="signup">
+                      <Link to="/signup">Sign Up</Link>
+                    </Menu.Item>
+                  </div>
+              }
+            </nav>
+          <hr />
+          {children}
+        </Menu>
+        </div>
+      </Header>
+      <Footer style={{ textAlign: 'center' }}>
+        Created by the Grace Shoe-Purr Team
+      </Footer>
+    <Layout>
   )
 }
 

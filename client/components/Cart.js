@@ -38,7 +38,7 @@ const mapDispatch = (dispatch)=>{
   return {
     handleAdd(evt, item, user){
       const cartItem = {
-        ...item,
+        // ...item,
         userId: user.id || null
       }
       dispatch(postToCart(cartItem))
