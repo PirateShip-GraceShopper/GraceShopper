@@ -6,7 +6,7 @@ import ProductItem from './ProductItem'
 import Review from './Review'
 import ReviewForm from './ReviewForm';
 
-const ProductDetail = ({ products }) => (
+const ProductDetail = ({ products, user, match }) => (
   <div>
     {products &&
     <ProductItem product={products} />}
@@ -15,14 +15,15 @@ const ProductDetail = ({ products }) => (
       return <Review newReview={review} key={review.id} />
     })}
     <br />
-    <ReviewForm />
+    <ReviewForm productId={match.params.id} userId={user.id} />
   </div>
 )
 
-const mapState = ({ products }, ownProps) => {
+const mapState = ({ products, user }, ownProps) => {
   const paramId = Number(ownProps.match.params.id);
   return {
-    products: _.find(products, product => product.id === paramId)
+    products: _.find(products, product => product.id === paramId),
+    user
   }
 }
 const mapDispatch = null;

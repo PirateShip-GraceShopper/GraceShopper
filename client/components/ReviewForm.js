@@ -6,13 +6,18 @@ import ReviewStars from './ReviewStars';
 class ReviewContentForm extends Component {
     constructor(props) {
         super(props)
-        this.state = { content: '', rating: null }
+        this.state = {
+            content: '',
+            rating: null,
+            productId: props.productId,
+            UserId: props.userId
+        }
         this.handleChange = this.handleChange.bind(this)
     }
 
     handleChange(event) {
        const input = event.target.value
-       this.setState({content: input})
+       this.setState({ content: input })
     }
 
     render() {
@@ -20,6 +25,7 @@ class ReviewContentForm extends Component {
             <div>
                 <form onSubmit={(evt) => {
                     evt.preventDefault()
+                    this.setState({ content: '' })
                     this.props.handleSubmit(this.state)
                     }}>
                     <label>
