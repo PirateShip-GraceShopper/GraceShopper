@@ -20,7 +20,7 @@ const Main = ({ children, handleClick, isLoggedIn }) => (
         style={{ lineHeight: '64px' }}
       >
           <Menu.Item key='home'>
-            <Link to={'/'}><h1>Grace Shoe-Purr</h1></Link>
+            <Link to={'/'}><h1 style={{ color: '#fff' }}>Grace Shoe-Purr</h1></Link>
           </Menu.Item>
           {
             isLoggedIn
