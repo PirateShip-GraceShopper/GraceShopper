@@ -5,9 +5,15 @@
  */
 export {default as Main} from './main'
 export {default as UserHome} from './user-home'
-export {default as SingleItem} from './single-item'
-export {default as AllItems} from './all-items'
+export {default as SingleItem} from './SingleItem'
+export {default as AllItems} from './AllItems'
 export {Login, Signup} from './auth-form'
 export {default as ProductList} from './productlist'
 export {default as SingleUser} from './SingleUser'
+<<<<<<< HEAD
 export {default as AllUsers} from './AllUsers'
+=======
+export {default as ProductDetail} from './ProductDetail'
+export {default as ReviewList} from './ReviewList'
+export {default as Cart} from './Cart';
+>>>>>>> master

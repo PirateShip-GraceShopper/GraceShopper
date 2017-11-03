@@ -1,24 +1,27 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import _ from 'lodash'
+import ProductItem from './ProductItem'
+import Review from './Review'
 
-class ProductDetail extends Component {
+const ProductDetail = ({ products }) => (
+  <div>
+    {products &&
+    <ProductItem product={products} />}
+    <h1>Reviews</h1>
+    {products && products.review.map(review => {
+      return <Review newReview={review} key={review.id} />
+    })}
+  </div>
+)
 
-  constructor (props) {
-    super(props)
-    //this.onSubmit function for purchase button
-  }
-
-  // onSubmit() {
-
-  // }
-
-  render () {
-
+const mapState = ({ products }, ownProps) => {
+  const paramId = Number(ownProps.match.params.id);
+  return {
+    products: _.find(products, product => product.id === paramId)
   }
 }
+const mapDispatch = null;
 
-const mapState = null
-const mapDispatch = null
-
-export default connect(mapState, mapDispatch)(ProductDetail)
+export default connect(mapState, mapDispatch)(ProductDetail);

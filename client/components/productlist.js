@@ -16,7 +16,7 @@ const ProductList = ({ products }) => (
   </div>
 )
 
-const mapState = ({ products }) => ({ products });
-const mapDispatch = null;
+const mapState = ({ products }) => ({ products })
+const mapDispatch = null
 
-export default connect(mapState, mapDispatch)(ProductList);
+export default connect(mapState, mapDispatch)(ProductList)

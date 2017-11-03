@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import SingleItem from './single-item'
+import SingleItem from './SingleItem'
 
 const AllItems = ({item}) => {
   return (
@@ -9,7 +9,7 @@ const AllItems = ({item}) => {
       <h1>All Items</h1>
       <div>
         { item.map(singleItem =>
-          <SingleItem key={singleItem.id} price={singleItem.price} />)}
+          <SingleItem key={singleItem.id} item={singleItem} />)}
       </div>
     </div>
   )

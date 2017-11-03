@@ -4844,6 +4844,10 @@ react-router@^4.1.1, react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
+react-stars@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/react-stars/-/react-stars-2.2.4.tgz#971beaed529e8f0f30c78d5012f6fe19a6d34f89"
+
 react-test-renderer@^16.0.0:
   version "16.0.0"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.0.0.tgz#9fe7b8308f2f71f29fc356d4102086f131c9cb15"

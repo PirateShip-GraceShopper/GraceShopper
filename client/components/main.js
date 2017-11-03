@@ -10,18 +10,18 @@ import {logout} from '../store'
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-const Main = (props) => {
+const Main = props => {
   const {children, handleClick, isLoggedIn} = props
 
   return (
     <div>
-      <h1>Grace Shoe-Purr</h1>
+      <Link to={'/'}><h1>Grace Shoe-Purr</h1></Link>
       <nav>
         {
           isLoggedIn
             ? <div>
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">Home</Link>
+              <Link to="/">Home</Link>
               <a href="#" onClick={handleClick}>Logout</a>
             </div>
             : <div>
