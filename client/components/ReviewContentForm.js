@@ -6,13 +6,11 @@ import ReviewStars from './ReviewStars';
 class ReviewContentForm extends Component {
     constructor(props) {
         super(props)
-        this.state = { content: '' }
+        this.state = { content: '', rating: null }
         this.handleChange = this.handleChange.bind(this)
-        // this.handleSubmit = this.handleSubmit.bind(this)
     }
-    
+
     handleChange(event) {
-        console.log('CHANGE EVENT', event)
        const input = event.target.value
        this.setState({content: input})
     }
@@ -20,8 +18,14 @@ class ReviewContentForm extends Component {
     render() {
         return (
             <div>
-                <ReviewStars />
-                <form onSubmit={this.props.handleSubmit}>
+                <form onSubmit={(evt) => {
+                    evt.preventDefault()
+                    this.props.handleSubmit(this.state)
+                    }}>
+                    <label>
+                        Rating
+                    </label>
+                    <ReviewStars />
                     <textarea
                         onChange={this.handleChange}
                         name="content"
@@ -37,18 +41,10 @@ class ReviewContentForm extends Component {
 const mapStateToProps = ({ reviews }) => ({ reviews })
 const mapDispatchToProps = dispatch => {
     return {
-        handleSubmit(event) {
-            console.log('HELLO FROM HANDLE SUBMIT')
-            event.preventDefault()
-            const review = {
-                content: event.target.content.value
-            }
+        handleSubmit(review) {
             dispatch(postReviewThunk(review))
         }
     }
 }
-
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewContentForm)
