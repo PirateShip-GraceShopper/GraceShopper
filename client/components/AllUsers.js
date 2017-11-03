@@ -32,11 +32,17 @@ class AllUsers extends Component {
                   <td>
                     <button
                       type="button"
-                      value={user.id}
-                      onClick={this.props.deleteUser}
+                      onClick={(e)=>this.props.deleteUser(e, user)}
                     >
                       Delete
                     </button>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                    >
+                      Send Password Reset
+                    </button>                    
                   </td>
                 </tr>
               ))}
@@ -76,9 +82,9 @@ const mapDispatch = (dispatch, ownProps) => {
     getAllUsers() {
       dispatch(fetchUsers());
     },
-    deleteUser(evt) {
+    deleteUser(evt,user) {
       evt.preventDefault();
-      dispatch(deleteUserThunk(evt.target.value));
+      dispatch(deleteUserThunk(user.id));
     },
     makeAdmin(evt, user) {
       evt.preventDefault();
