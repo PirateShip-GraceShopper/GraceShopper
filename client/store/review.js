@@ -16,9 +16,9 @@ const updateReview = review => ({
     review
 })
 
-const createReview = newReview => ({
+const createReview = review => ({
     type: CREATE_REVIEW,
-    newReview
+    review
 })
 
 const removeReview = targetReview => ({
@@ -40,10 +40,10 @@ export const putReviewThunk = () => dispatch => {
     })
 }
 
-export const postReviewThunk = () => dispatch => {
-    axios.post('/api/reviews')
+export const postReviewThunk = (review) => dispatch => {
+    axios.post('/api/reviews', review)
     .then(res => dispatch(createReview(res.data)))
-    .catch()
+    .catch(error => dispatch(createReview({error})))
 }
 
 export const deleteReviewThunk = () => dispatch =>{
@@ -58,7 +58,7 @@ const reducer = (prevState = initialState, action) => {
         case GET_REVIEWS:
             return action.reviews
         case CREATE_REVIEW:
-            return [...state, action.review]
+            return [...prevState, action.review]
         case UPDATE_REVIEW:
             return prevState.map(review => (
                 review.id !== action.item.id ? review : action.review
