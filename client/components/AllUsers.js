@@ -14,7 +14,9 @@ class AllUsers extends Component {
     const admins = this.props.admins;
     return (
       <div>
+        <h2>Users</h2>
         <ManageUsers users={users} />
+        <h2>Admins</h2>
         <ManageAdmins admins={admins} />
       </div>
     );
