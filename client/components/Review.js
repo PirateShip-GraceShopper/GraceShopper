@@ -12,7 +12,7 @@ const Review = props => {
             <Rate
                 className="review-stars"
                 value={rating}
-                diabled={true}
+                disabled={true}
             />
             </div>
             <div className="review-content">
