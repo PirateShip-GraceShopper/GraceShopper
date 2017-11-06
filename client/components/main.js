@@ -30,18 +30,12 @@ const Main = ({ children, handleClick, isLoggedIn, cart }) => (
                 <Button>
                   <Link to={`/edit_profile`}>Edit Profile</Link>
                 </Button>
-                <Button ghost>
-                  <Link to="/cart">Cart</Link>
-                </Button>
                 <Button>
                   <a href="#" onClick={handleClick}>Logout</a>
                 </Button>
               </Menu.Item>
               : <Menu.Item>
                 {/* The navbar will show these links before you log in */}
-                <Button ghost>
-                  <Link to="/cart">Cart</Link>
-                </Button>
                 <Button ghost>
                   <Link to="/login">Login</Link>
                 </Button>
