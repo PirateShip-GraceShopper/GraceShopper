@@ -6,7 +6,7 @@ import Stars from './ReviewStars'
 import { Button, Rate, Carousel } from 'antd'
 
 
-const ProductItem = ({ product }) => {
+const ProductItem = ({ product, user }) => {
     let total = 0;
     product.review.map(review => {
       total += review.rating;
