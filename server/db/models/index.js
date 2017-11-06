@@ -8,7 +8,7 @@ const Categories = require('./categories')
 
 /******************** ASSOCIATIONS *********************/
 //User
-Address.belongsTo(User, {as: 'user'})
+User.belongsTo(Address)
 
 //Cart
 User.hasMany(Cart, {as: 'cart'})
