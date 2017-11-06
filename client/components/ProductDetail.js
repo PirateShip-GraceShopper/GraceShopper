@@ -15,7 +15,7 @@ const ProductDetail = ({ products, user, match }) => (
       return <Review newReview={review} key={review.id} />
     })}
     <br />
-    <ReviewForm productId={match.params.id} userId={user.id} />
+    {user.id && <ReviewForm productId={match.params.id} userId={user.id} />}
   </div>
 )
 

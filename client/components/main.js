@@ -5,13 +5,14 @@ import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
 import { Button, Icon, Layout, Menu } from 'antd'
 const { Header, Footer, Content } = Layout
+import { CartIcon } from '../components'
 /**
  * COMPONENT
  *  The Main component is our 'picture frame' - it displays the navbar and anything
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-const Main = ({ children, handleClick, isLoggedIn, isAdmin }) => (
+const Main = ({ children, handleClick, isLoggedIn, isAdmin, cart }) => (
   <Layout>
     <Header style={{ width: '100%' }}>
       <Menu
@@ -29,22 +30,16 @@ const Main = ({ children, handleClick, isLoggedIn, isAdmin }) => (
                 <Button>
                   <Link to={`/edit_profile`}>Edit Profile</Link>
                 </Button>
-                <Button ghost>
-                  <Link to="/cart">Cart</Link>
-                </Button>
                 <Button>
                   <a href="#" onClick={handleClick}>Logout</a>
                 </Button>
                 {
-                  isAdmin && 
+                  isAdmin &&
                   <Button><Link to={`/all_users`}>Manage Users</Link></Button>
-                }                
+                }
               </Menu.Item>
               : <Menu.Item>
                 {/* The navbar will show these links before you log in */}
-                <Button ghost>
-                  <Link to="/cart">Cart</Link>
-                </Button>
                 <Button ghost>
                   <Link to="/login">Login</Link>
                 </Button>
@@ -53,6 +48,9 @@ const Main = ({ children, handleClick, isLoggedIn, isAdmin }) => (
                 </Button>
               </Menu.Item>
           }
+          <Menu.Item>
+          <CartIcon cart={cart} />
+          </Menu.Item>
     </Menu>
     </Header>
         <hr />
@@ -71,7 +69,8 @@ const Main = ({ children, handleClick, isLoggedIn, isAdmin }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
-    isAdmin: state.user.isAdmin
+    isAdmin: state.user.isAdmin,
+    cart: state.cart
   }
 }
 
