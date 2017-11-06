@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import Review from './review';
+import Review from './Review';
 
 const ReviewList = ({ reviews }) => {
     return (
