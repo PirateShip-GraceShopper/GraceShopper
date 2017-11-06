@@ -7,7 +7,7 @@ import { Button, Rate, Carousel } from 'antd'
 
 
 const ProductItem = ({ product }) => {
-    let total = 0; 
+    let total = 0;
     product.review.map(review => {
       total += review.rating;
     })
