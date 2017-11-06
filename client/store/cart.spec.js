@@ -1,7 +1,7 @@
 /* global describe beforeEach afterEach it */
 
 import {expect} from 'chai'
-import cartReducer, { addToCart, removeFromCart, updateItem } from './cart'
+import cartReducer, { addToCart, removeFromCart, updateCartItem } from './cart'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -80,7 +80,7 @@ describe('Cart store', () => {
 
       describe('update item', () => {
         let item = {id: 1, price: 500, quantity: 10}
-        let action = updateItem(item)
+        let action = updateCartItem(item)
         let newState = cartReducer([{id: 1, price: 500, quantity: 2}], action)
 
         it('updates a current item with the action item', () => {

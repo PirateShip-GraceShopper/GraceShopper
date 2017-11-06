@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, SingleUser, SingleItem, AllItems, ProductList, ReviewList, Cart, ProductDetail, AllUsers, CheckoutForm} from './components'
-import {me, fetchProducts, fetchAllItems, fetchReviewsThunk} from './store'
+import {me, fetchProducts, fetchAllItems, fetchReviewsThunk, fetchSessionCart} from './store'
 
 
 
@@ -18,8 +18,7 @@ class Routes extends Component {
   }
 
   render () {
-    const {isLoggedIn} = this.props
-
+    const {isLoggedIn, isAdmin } = this.props
     return (
       <Router history={history}>
         <Main>
@@ -40,7 +39,10 @@ class Routes extends Component {
                   <Route path="/home" component={ProductList} />
                   <Route path="/edit_profile" component={SingleUser}/>
                   <Route path="/products" component={ProductList} />
-                  <Route path="/all_users" component={AllUsers} />
+              {
+                isAdmin && 
+                <Route path="/all_users" component={AllUsers} />
+              }
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
@@ -59,7 +61,8 @@ const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin,
   }
 }
 
@@ -70,6 +73,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchProducts())
       dispatch(fetchAllItems())
       dispatch(fetchReviewsThunk())
+      dispatch(fetchSessionCart())
     }
   }
 }
