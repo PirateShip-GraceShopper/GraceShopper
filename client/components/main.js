@@ -12,7 +12,7 @@ import { CartIcon } from '../components'
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-const Main = ({ children, handleClick, isLoggedIn, cart }) => (
+const Main = ({ children, handleClick, isLoggedIn, isAdmin, cart }) => (
   <Layout>
     <Header style={{ width: '100%' }}>
       <Menu
@@ -33,6 +33,10 @@ const Main = ({ children, handleClick, isLoggedIn, cart }) => (
                 <Button>
                   <a href="#" onClick={handleClick}>Logout</a>
                 </Button>
+                {
+                  isAdmin &&
+                  <Button><Link to={`/all_users`}>Manage Users</Link></Button>
+                }
               </Menu.Item>
               : <Menu.Item>
                 {/* The navbar will show these links before you log in */}
@@ -65,6 +69,7 @@ const Main = ({ children, handleClick, isLoggedIn, cart }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin,
     cart: state.cart
   }
 }
