@@ -18,11 +18,11 @@ const inititalState = []
  /**
  * ACTION CREATORS
  */
-const setSessionCart = items => ({type: SET_SESSION_CART, items})
-const addToCart = item => ({type: ADD_TO_CART, item})
-const removeFromCart = item => ({type: REMOVE_FROM_CART, item})
-const updateCartItem = item => ({type: UPDATE_CART_ITEM, item})
-const clearCart = () => ({type: CLEAR_CART})
+export const setSessionCart = items => ({type: SET_SESSION_CART, items})
+export const addToCart = item => ({type: ADD_TO_CART, item})
+export const removeFromCart = item => ({type: REMOVE_FROM_CART, item})
+export const updateCartItem = item => ({type: UPDATE_CART_ITEM, item})
+export const clearCart = () => ({type: CLEAR_CART})
  /**
  * THUNK CREATORS
  */
