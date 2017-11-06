@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {postReviewThunk, putReviewThunk, fetchReviewsThunk} from '../store';
 import ReviewStars from './ReviewStars';
+import Review from './Review';
 import {Button, Rate, Carousel} from 'antd';
 
 class ReviewContentForm extends Component {
@@ -15,6 +16,7 @@ class ReviewContentForm extends Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleStarChange = this.handleStarChange.bind(this)
+        this.filterReviews = this.filterReviews.bind(this)
     }
 
     handleChange(event) {
@@ -29,32 +31,46 @@ class ReviewContentForm extends Component {
         })
     }
 
+    //This method checks to see if the current user has any reviews for the specific product passed into to ReviewForm as props
+    filterReviews() {
+       return this.props.review.filter(review => {
+            return review.productId === parseInt(this.props.productId, 10) && review.userId === this.props.userId
+        })
+    }
+
     render() {
         return (
             <div>
-                <form onSubmit={(evt) => {
-                    evt.preventDefault()
-                    this.setState({ content: '' })
-                    this.props.handleSubmit(this.state)
-                    }}>
-                    <label>
-                        Rate This Product!
-                    </label>
-                    <ReviewStars handleStarChange={this.handleStarChange} />
-                    <textarea
-                        onChange={this.handleChange}
-                        name="content"
-                        value={this.state.content}
-                    />
-                    <input type="submit" value="Submit" />
-                </form>
+                {(this.props.review && !this.filterReviews().length) ?
+                    <form onSubmit={(evt) => {
+                        evt.preventDefault()
+                        this.setState({ content: '' })
+                        this.props.handleSubmit(this.state)
+                        }}>
+                        <label>
+                            Rate This Product!
+                        </label>
+                        <ReviewStars handleStarChange={this.handleStarChange} />
+                        <textarea
+                            onChange={this.handleChange}
+                            name="content"
+                            value={this.state.content}
+                        />
+                        <input type="submit" value="Submit" />
+                    </form>
+                    :
+                    <div>
+                        <h1>Your Review</h1>
+                        <Review newReview={this.filterReviews()[0]} />
+                    </div>
+                }
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ reviews }) => ({ reviews })
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapStateToProps = ({ review }) => ({ review })
+const mapDispatchToProps = (dispatch) => {
     return {
         handleSubmit(review) {
             dispatch(postReviewThunk(review))
