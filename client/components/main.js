@@ -11,7 +11,7 @@ const { Header, Footer, Content } = Layout
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-const Main = ({ children, handleClick, isLoggedIn }) => (
+const Main = ({ children, handleClick, isLoggedIn, isAdmin }) => (
   <Layout>
     <Header style={{ width: '100%' }}>
       <Menu
@@ -35,6 +35,10 @@ const Main = ({ children, handleClick, isLoggedIn }) => (
                 <Button>
                   <a href="#" onClick={handleClick}>Logout</a>
                 </Button>
+                {
+                  isAdmin && 
+                  <Button><Link to={`/all_users`}>Manage Users</Link></Button>
+                }                
               </Menu.Item>
               : <Menu.Item>
                 {/* The navbar will show these links before you log in */}
@@ -66,7 +70,8 @@ const Main = ({ children, handleClick, isLoggedIn }) => (
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin
   }
 }
 
