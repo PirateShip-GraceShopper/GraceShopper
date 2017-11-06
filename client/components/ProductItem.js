@@ -6,24 +6,35 @@ import Stars from './ReviewStars'
 import { Button, Rate, Carousel } from 'antd'
 
 
-const ProductItem = ({ product }) => (
-  <li className="list-group-item product-item">
-    <Link className="large-font" to={`/products/${product.id}`}>
-      <Carousel effect="fade">
-        <img className='pictures' src={product.image} alt={product.name} />
-      </Carousel>
-      <span>{product.name}</span>
+const ProductItem = ({ product }) => {
+    let total = 0; 
+    product.review.map(review => {
+      total += review.rating;
+    })
+    const averageRating =  total / product.review.length
+    return (
+    <li className="list-group-item product-item">
+      <Link className="large-font" to={`/products/${product.id}`}>
+        <Carousel effect="fade">
+          <img className='pictures' src={product.image} alt={product.name} />
+        </Carousel>
+        <span>{product.name}</span>
+        <br />
+        <span>{product.price}</span>
+        <br />
+        <Rate
+          allowHalf
+          value={averageRating}
+          disabled={true}
+        />
+      </Link>
       <br />
-      <span>{product.price}</span>
+      <Button type="primary">Add To Cart</Button>
       <br />
-      <Rate allowHalf />
-    </Link>
-    <br />
-    <Button type="primary">Add To Cart</Button>
-    <br />
-    <Button type="danger">Remove Product</Button>
-  </li>
-)
+      <Button type="danger">Remove Product</Button>
+    </li>
+    )
+}
 
 const mapState = null
 const mapDispatch = { removeProduct }
