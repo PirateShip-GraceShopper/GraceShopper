@@ -2,6 +2,7 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 //some confusion about the data that is being Json-ed when compared to Auther workshop
+
 router.param('id', (req, res, next, id) => {
   User.findById(id)
   .then(user => {
@@ -22,7 +23,6 @@ router.get('/', (req, res, next) => {
     .then(users => res.json(users))
     .catch(next)
 })
-
 
 router.get('/:id', (req, res, next) => {
     User.findOne({

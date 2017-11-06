@@ -9,6 +9,12 @@ const Item = db.define('item', {
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false
+  },
+  image: {
+    type: Sequelize.STRING
+  },
+  name: {
+    type: Sequelize.STRING
   }
 })
 

@@ -17,6 +17,15 @@ router.get('/', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/session', (req, res, next) => {
+  if (!req.session.cart) {
+    req.session.cart = []
+    res.send(req.session.cart)
+  } else {
+    res.send(req.session.cart)
+  }
+})
+
 
 router.post('/', (req, res, next) => {
   Cart.findOrCreate({where: {
@@ -27,11 +36,15 @@ router.post('/', (req, res, next) => {
     return Item.create(req.body)
     .then(item => item.setCart(cart))
   })
-  .then(item => res.json(item))
+  .then(item => {
+    req.session.cart.push(item)
+    res.json(item)
+  })
   .catch(next)
 })
 
 router.put('/', (req, res, next) => {
+  req.session.cart = req.session.cart.filter(sessionItem => (sessionItem.id !== req.body.id))
   Item.destroy({where: {id: req.body.id}})
     .then(deletedRows => {
       deletedRows ? res.status(200).send('Item was deleted') :

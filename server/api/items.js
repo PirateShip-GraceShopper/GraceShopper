@@ -27,7 +27,10 @@ router.post('/', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
   req.item.update(req.body)
-  .then(() => res.sendStatus(res.statusCode))
+  .then(item => {
+    req.session.cart = req.session.cart.map(sessionItem => (item.id === sessionItem.id ? item : sessionItem))
+    res.json(item)
+  })
   .catch(next)
 })
 
