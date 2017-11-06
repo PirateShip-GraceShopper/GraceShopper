@@ -35,9 +35,11 @@ export const fetchSessionCart = () =>
 
 export const removeItem = item =>
   dispatch =>
-    axios.put(`/api/cart`)
-      .then(_ =>
-        dispatch(removeFromCart(item)))
+    axios.put(`/api/cart`, item)
+      .then(_ => {
+        console.log('ITEM: ', item)
+        dispatch(removeFromCart(item))
+      })
       .catch(error => console.log(error))
 
 export const postToCart = (item) => //item should be object including userId if exists
@@ -69,7 +71,6 @@ export const checkout = (cart) =>
  export default function(state = inititalState, action) {
    switch (action.type) {
      case SET_SESSION_CART:
-      console.log('action.items: ', action.items)
       return [...action.items.data]
      case ADD_TO_CART:
       return [...state, action.item];

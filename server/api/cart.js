@@ -20,10 +20,8 @@ router.get('/', (req, res, next) => {
 router.get('/session', (req, res, next) => {
   if (!req.session.cart) {
     req.session.cart = []
-    console.log('Set the session cart!!!!')
     res.send(req.session.cart)
   } else {
-    console.log('Hit the session cart!!!!')
     res.send(req.session.cart)
   }
 })
@@ -35,15 +33,18 @@ router.post('/', (req, res, next) => {
     status: 'open'
   }})
   .spread((cart, createdCartBool) => {
-    req.session.cart.push(req.body)
     return Item.create(req.body)
     .then(item => item.setCart(cart))
   })
-  .then(item => res.json(item))
+  .then(item => {
+    req.session.cart.push(item)
+    res.json(item)
+  })
   .catch(next)
 })
 
 router.put('/', (req, res, next) => {
+  req.session.cart = req.session.cart.filter(sessionItem => (sessionItem.id !== req.body.id))
   Item.destroy({where: {id: req.body.id}})
     .then(deletedRows => {
       deletedRows ? res.status(200).send('Item was deleted') :

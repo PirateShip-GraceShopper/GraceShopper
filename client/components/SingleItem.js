@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {changeCartItem} from '../store'
+import {changeCartItem, removeItem} from '../store'
 
-const SingleItem = ({item, changeQuantity}) => {
+const SingleItem = ({item, changeQuantity, handleRemove}) => {
   const {image, name, price, quantity} = item
   return (
     <div>
@@ -14,16 +14,28 @@ const SingleItem = ({item, changeQuantity}) => {
         type="text"
         name="quantity"
         placeholder="quantity"
-        onChange={event => changeQuantity(event)}
+        onChange={event => changeQuantity(event, item)}
       />
       <h4>{price * quantity}</h4>
+      <button
+        onClick={() => handleRemove(item)}
+      >Remove Item</button>
     </div>
   )
 }
 
 const mapDispatch = dispatch => ({
-  changeQuantity(event) {
-    dispatch(changeCartItem({quantity: event.target.value}))
+  changeQuantity(event, item) {
+    dispatch(changeCartItem({
+      id: item.id,
+      quantity: +event.target.value
+    }))
+  },
+  handleRemove(item) {
+    console.log('HANDLE REMOVE ITEM: ', item)
+    dispatch(removeItem({
+      id: item.id
+    }))
   }
 })
 
