@@ -19,7 +19,7 @@ const inititalState = [];
  */
 export const addToCart = (item) => ({type: ADD_TO_CART, item});
 export const removeFromCart = (item) => ({type: REMOVE_FROM_CART, item});
-const updateItem = (item) => ({type: UPDATE_ITEM, item})
+export const updateItem = (item) => ({type: UPDATE_ITEM, item})
 const clearCart = () => ({type: CLEAR_CART});
  /**
  * THUNK CREATORS
