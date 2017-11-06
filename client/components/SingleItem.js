@@ -32,7 +32,6 @@ const mapDispatch = dispatch => ({
     }))
   },
   handleRemove(item) {
-    console.log('HANDLE REMOVE ITEM: ', item)
     dispatch(removeItem({
       id: item.id
     }))
