@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchUsers, deleteUserThunk, makeToAdmin } from "../store/users";
+import ManageUsers from "./ManageUsers";
+import ManageAdmins from "./ManageAdmins";
+import { fetchUsers } from "../store/users";
 
 class AllUsers extends Component {
   componentDidMount() {
@@ -12,60 +14,10 @@ class AllUsers extends Component {
     const admins = this.props.admins;
     return (
       <div>
-        <h3>Users</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.length &&
-              users.map(user => (
-                <tr key={user.id}>
-                  <td>{`${user.firstName} ${user.lastName}`}</td>
-                  <td>{user.email}</td>
-                  <td>
-                    <button type="button" onClick={(e)=>this.props.makeAdmin(e,user)} >Make Admin</button>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={(e)=>this.props.deleteUser(e, user)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                    >
-                      Send Password Reset
-                    </button>                    
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-        <h3>Admins</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {admins.length &&
-              admins.map(admin => (
-                <tr key={admin.id}>
-                  <td>{`${admin.firstName} ${admin.lastName}`}</td>
-                  <td>{admin.email}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        <h2>Users</h2>
+        <ManageUsers users={users} />
+        <h2>Admins</h2>
+        <ManageAdmins admins={admins} />
       </div>
     );
   }
@@ -77,22 +29,10 @@ const mapState = state => {
     admins: state.users.filter(user => user.isAdmin)
   };
 };
-const mapDispatch = (dispatch, ownProps) => {
+const mapDispatch = dispatch => {
   return {
     getAllUsers() {
       dispatch(fetchUsers());
-    },
-    deleteUser(evt,user) {
-      evt.preventDefault();
-      dispatch(deleteUserThunk(user.id));
-    },
-    makeAdmin(evt, user) {
-      evt.preventDefault();
-      const editedUser = {
-        id: user.id,
-        isAdmin:true
-      }
-      dispatch(makeToAdmin(editedUser))
     }
   };
 };

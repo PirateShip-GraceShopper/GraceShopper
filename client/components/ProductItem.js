@@ -16,7 +16,7 @@ const ProductItem = ({ product, postToCart, user }) => (
       <br />
       <span>{product.price}</span>
       <br />
-      <Rate allowHalf/>
+      <Rate allowHalf />
     </Link>
     <br />
     <Button
