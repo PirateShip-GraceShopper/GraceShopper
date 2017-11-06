@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Review} = require('../db/models')
 module.exports = router
 //some confusion about the data that is being Json-ed when compared to Auther workshop
 router.param('id', (req, res, next, id) => {
@@ -17,6 +17,7 @@ router.get('/', (req, res, next) => {
     // explicitly select only the id and email fields - even though
     // users' passwords are encrypted, it won't help if we just
     // send everything to anyone who asks!
+    include: [{model: Review, as: 'review'}],
     attributes: ['firstName','lastName','id', 'email', 'isAdmin']
   })
     .then(users => res.json(users))

@@ -32,7 +32,6 @@ class ReviewContentForm extends Component {
     render() {
         return (
             <div>
-                {console.log('USERID', this.state.userId)}
                 <form onSubmit={(evt) => {
                     evt.preventDefault()
                     this.setState({ content: '' })
@@ -55,7 +54,7 @@ class ReviewContentForm extends Component {
 }
 
 const mapStateToProps = ({ reviews }) => ({ reviews })
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         handleSubmit(review) {
             dispatch(postReviewThunk(review))
