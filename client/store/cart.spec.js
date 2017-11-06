@@ -1,15 +1,21 @@
 /* global describe beforeEach afterEach it */
 
 import {expect} from 'chai'
+import React from 'react'
 import cartReducer, { addToCart, removeFromCart, updateCartItem } from './cart'
+import {Cart} from '../components/Cart'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 import history from '../history'
+import enzyme, {shallow} from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
+const adapter = new Adapter()
+enzyme.configure({adapter})
 
 describe('Cart store', () => {
 
@@ -91,5 +97,30 @@ describe('Cart store', () => {
       })
   })
 
+})
+
+describe('Cart Component', () => {
+  const initialCart = [{
+    id: 1,
+    image: 'image1',
+    name: 'name1',
+    price: 500,
+    quantity: 1
+  }, {
+    id: 2,
+    image: 'image2',
+    name: 'name2',
+    price: 600,
+    quantity: 1
+  }]
+  let renderedCart
+
+  beforeEach(() => {
+    renderedCart = shallow(<Cart cart={initialCart} />)
+  })
+
+  it('renders two SingleItem components', () => {
+    expect(renderedCart.find('h1').exists()).to.be.equal(true)
+  })
 })
 
