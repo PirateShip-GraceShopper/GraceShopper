@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { item, postToCart } from '../store'
 import SingleItem from './SingleItem'
 
-const Cart = props => {
+export const Cart = props => {
   return (
     <div>
       <h1>This is a cart</h1>
