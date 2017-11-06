@@ -5,13 +5,14 @@ import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
 import { Button, Icon, Layout, Menu } from 'antd'
 const { Header, Footer, Content } = Layout
+import { CartIcon } from '../components'
 /**
  * COMPONENT
  *  The Main component is our 'picture frame' - it displays the navbar and anything
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-const Main = ({ children, handleClick, isLoggedIn }) => (
+const Main = ({ children, handleClick, isLoggedIn, cart }) => (
   <Layout>
     <Header style={{ width: '100%' }}>
       <Menu
@@ -43,6 +44,9 @@ const Main = ({ children, handleClick, isLoggedIn }) => (
                 </Button>
               </Menu.Item>
           }
+          <Menu.Item>
+          <CartIcon cart={cart} />
+          </Menu.Item>
     </Menu>
     </Header>
         <hr />
@@ -61,7 +65,8 @@ const Main = ({ children, handleClick, isLoggedIn }) => (
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    cart: state.cart
   }
 }
 
