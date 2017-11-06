@@ -5,7 +5,7 @@ import ReviewStars from './ReviewStars';
 import Review from './Review';
 import {Button, Rate, Carousel} from 'antd';
 
-class ReviewContentForm extends Component {
+class ReviewForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -78,4 +78,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewContentForm)
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm)
