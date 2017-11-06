@@ -35,7 +35,7 @@ class SingleUser extends Component {
         <li>{`Password: *******`} <Button onClick={(e)=>this.showForm(e, "showPasswordForm")}>edit</Button>
             {this.state.showPasswordForm && <PasswordForm user={user}/>}
         </li>
-        <li>{`Phone Number: ${user.phone}`} <Button onClick={(e)=>this.showForm(e, "showPhoneForm")}>edit</Button>
+        <li>{`Phone Number: ${user.phone?user.phone:""}`} <Button onClick={(e)=>this.showForm(e, "showPhoneForm")}>edit</Button>
             {this.state.showPhoneForm && <PhoneForm user={user}/>}
         </li>
       </ul>
