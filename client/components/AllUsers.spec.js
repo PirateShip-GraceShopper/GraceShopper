@@ -18,7 +18,6 @@ describe("AllUsers", () => {
     allUsers = shallow(<AllUsers getAllUsers={function(){}}/>, { context: { store: actualStore } });
   });
   it("has ManageUsers component", () => {
-    console.log(allUsers.find(ManageUsers))
     expect(allUsers.find(ManageUsers).length).to.be.equal(1);
   });
   it("has ManageAdmins component", () => {
