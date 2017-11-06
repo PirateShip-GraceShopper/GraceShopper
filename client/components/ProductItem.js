@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { postToCart } from '../store'
+import { postToCart, removeProduct  } from '../store'
 import Stars from './ReviewStars'
 import { Button, Rate, Carousel } from 'antd'
 
 
-const ProductItem = ({ product, user, postToCart }) => {
+const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
     let total = 0;
     product.review.map(review => {
       total += review.rating;
@@ -42,7 +42,7 @@ const ProductItem = ({ product, user, postToCart }) => {
       )}
       >Add To Cart</Button>
       <br />
-      <Button type="danger">Remove Product</Button>
+      <Button onClick={() => deleteProduct(product)} type="danger">Remove Product</Button>
     </li>
     )
 }
@@ -50,6 +50,7 @@ const ProductItem = ({ product, user, postToCart }) => {
 const mapState = state => ({
   user: state.user
 })
-const mapDispatch = { postToCart }
+
+const mapDispatch = { postToCart, deleteProduct: removeProduct }
 
 export default connect(mapState, mapDispatch)(ProductItem)

@@ -8,7 +8,7 @@ const REMOVE = `REMOVE_PRODUCT`
 const init = products => ({ type: INITIALIZE, products })
 const create = product => ({ type: CREATE, product })
 const update = product => ({ type: UPDATE, product })
-const remove = id => ({ type: REMOVE, id})
+const remove = product => ({ type: REMOVE, product})
 
 export const fetchProducts = _ => dispatch => {
   axios.get(`/api/products`)
@@ -22,10 +22,10 @@ export const addProducts = product => dispatch => {
     .catch(err => console.error(`Creating product: ${product} unsuccessful`, err))
 }
 
-export const removeProduct = id => dispatch => {
-  dispatch(remove(id))
-  axios.delete(`/api/products/${id}`)
-    .catch(err => console.error(`Removing product: ${id} unsuccessful`, err))
+export const removeProduct = product => dispatch => {
+  dispatch(remove(product))
+  axios.delete(`/api/products/${product.id}`)
+    .catch(err => console.error(`Removing product: ${product.id} unsuccessful`, err))
 }
 
 export default function (products = [], action) {
@@ -35,7 +35,7 @@ export default function (products = [], action) {
     case CREATE:
       return [action.product, ...products]
     case REMOVE:
-      return products.filter(product => product.id !== action.id)
+      return products.filter(product => product.id !== action.product.id)
     default:
       return products
   }
