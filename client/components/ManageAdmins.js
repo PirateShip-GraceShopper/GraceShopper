@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Table } from "antd";
 
-const ManageAdmins = ({ admins }) => {
+export const ManageAdmins = ({ admins }) => {
   const columns = [
     {
       title: "Name",
