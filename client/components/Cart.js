@@ -5,7 +5,7 @@ import { item, postToCart } from '../store'
 import SingleItem from './SingleItem'
 import { Button } from "antd";
 
-const Cart = props => {
+export const Cart = props => {
   return (
     <div>
       <h1>This is a cart</h1>
