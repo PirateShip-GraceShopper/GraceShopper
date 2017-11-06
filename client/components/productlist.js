@@ -12,8 +12,8 @@ const ProductList = ({ products }) => (
       <Row>
       {products &&
         products.map(product => (
-          <Col span={12}>
-            <ProductItem key={product.id} product={product} />
+          <Col span={12} key={product.id} className="pictures">
+            <ProductItem product={product} />
           </Col>
         ))}
         </Row>

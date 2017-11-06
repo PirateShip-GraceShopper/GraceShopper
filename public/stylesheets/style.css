@@ -14,8 +14,8 @@
     margin-left: 20px;
 }
 
-.pictures {
-    height: 100px; 
-    width: 100px;
+.pictures img {
+    height: 50px; 
+    width: 50px;
 }
 

@@ -16,7 +16,7 @@ const ProductItem = ({ product, user, postToCart }) => {
     <li className="list-group-item product-item">
       <Link className="large-font" to={`/products/${product.id}`}>
         <Carousel effect="fade">
-          <img className='pictures' src={product.image} alt={product.name} />
+          <img src={product.image} alt={product.name} style={{ height: '400px', width: '450px' }} />
         </Carousel>
         <span>{product.name}</span>
         <br />
