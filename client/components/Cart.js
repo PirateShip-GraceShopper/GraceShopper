@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import SingleItem from './SingleItem'
 import { Button } from 'antd'
 
@@ -16,7 +17,7 @@ export const Cart = props => {
         .reduce((acc, cur) => acc + cur, 0)
         }
       </h2>
-      <Button size="large">Checkout</Button>
+      <Button size="large"><Link to={`/checkout`}>Checkout</Link></Button>
     </div>
   )
 }
