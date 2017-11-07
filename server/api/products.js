@@ -16,7 +16,9 @@ router.param('id', (req, res, next, id) => {
       if (!product) res.sendStatus(404)
       req.product = product
       next()
+      return null
     })
+    .catch(next)
 })
 
 router.get('/:id', (req, res, next) => res.json(req.product))

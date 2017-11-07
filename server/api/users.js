@@ -8,7 +8,8 @@ router.param('id', (req, res, next, id) => {
   .then(user => {
     if (!user) res.sendStatus(404)
       req.requestedUser = user
-    next()
+      next()
+      return null
   })
   .catch(next)
 })
