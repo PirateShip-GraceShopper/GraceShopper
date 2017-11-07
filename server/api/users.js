@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
     // users' passwords are encrypted, it won't help if we just
     // send everything to anyone who asks!
     include: [{model: Review, as: 'review'}],
-    attributes: ['firstName','lastName','id', 'email', 'isAdmin']
+    attributes: ['firstName', 'lastName', 'id', 'email', 'isAdmin']
   })
     .then(users => res.json(users))
     .catch(next)
@@ -28,7 +28,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
     User.findOne({
-      attributes: ['firstName','lastName','id', 'email', 'isAdmin']
+      attributes: ['firstName', 'lastName', 'id', 'email', 'isAdmin']
     })
     .then(user => res.json(user))
     .catch(next)

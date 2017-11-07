@@ -40,12 +40,12 @@ async function seed () {
   const reviews = await Promise.all([
     Review.create({content: "These Yeezy's are fire", rating: 4, productId: 1, userId: 1}),
     Review.create({content: "I Heard 'Em Say these were the best shoes on the market. They were right", rating: 5, productId: 1, userId: 2}),
-    Review.create({content: "Air Force One Shoes are as fly as it gets", rating: 4, productId: 2, userId: 1}),
+    Review.create({content: 'Air Force One Shoes are as fly as it gets', rating: 4, productId: 2, userId: 1}),
     Review.create({content: "I like the Yeezy's better", rating: 3, productId: 2, userId: 2}),
-    Review.create({content: "Perfect for a night out on the... prowl, but super uncomfortable", rating: 3, productId: 3, userId: 1}),
-    Review.create({content: "Gucci Stilletos", rating: 2, productId: 3, userId: 2}),
-    Review.create({content: "Boots", rating: 1, productId: 4, userId: 1}),
-    Review.create({content: "Boots", rating: 4, productId: 4, userId: 2}),
+    Review.create({content: 'Perfect for a night out on the... prowl, but super uncomfortable', rating: 3, productId: 3, userId: 1}),
+    Review.create({content: 'Gucci Stilletos', rating: 2, productId: 3, userId: 2}),
+    Review.create({content: 'Boots', rating: 1, productId: 4, userId: 1}),
+    Review.create({content: 'Boots', rating: 4, productId: 4, userId: 2}),
 
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
