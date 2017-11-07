@@ -8,12 +8,6 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:id', (req, res, next) => {
-    Review.findById(req.params.id)
-    .then(review => res.json(review))
-    .catch(next)
-})
-
 router.put('/:id', (req, res, next) => {
     Review.update({
         where: {id: req.params.id},

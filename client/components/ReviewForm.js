@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {postReviewThunk, putReviewThunk, fetchReviewsThunk} from '../store';
 import ReviewStars from './ReviewStars';
 import Review from './Review';
+import ReviewEditButton from './ReviewEditButton';
 import {Button, Rate, Carousel} from 'antd';
 
 class ReviewForm extends Component {
@@ -17,6 +18,7 @@ class ReviewForm extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.handleStarChange = this.handleStarChange.bind(this)
         this.filterReviews = this.filterReviews.bind(this)
+        this.handleEditClick = this.handleEditClick.bind(this)
     }
 
     handleChange(event) {
@@ -36,6 +38,10 @@ class ReviewForm extends Component {
        return this.props.review.filter(review => {
             return review.productId === parseInt(this.props.productId, 10) && review.userId === this.props.userId
         })
+    }
+
+    handleEditButtonClick() {
+        
     }
 
     render() {
@@ -62,6 +68,10 @@ class ReviewForm extends Component {
                     <div>
                         <h1>Your Review</h1>
                         <Review newReview={this.filterReviews()[0]} />
+                        <ReviewEditButton
+                            handleClick={this.handleEditClick}
+                            review={this.filterReviews()[0]}
+                        />
                     </div>
                 }
             </div>
