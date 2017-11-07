@@ -7,8 +7,10 @@ router.param('id', (req, res, next, id) => {
   Cart.findById(id)
     .then(cart => {
       req.cart = cart;
-    next();
+      next()
+    return null
     })
+    .catch(next)
 })
 
 router.get('/', (req, res, next) => {

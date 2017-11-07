@@ -35,8 +35,8 @@ describe('User model', () => {
       it('returns false if the password is incorrect', () => {
         expect(cody.correctPassword('bonez')).to.be.equal(false)
       })
-    }) // end describe('correctPassword')
-  }) // end describe('instanceMethods')
+    })
+  })
 
   describe('hooks', () => {
     describe('setSaltAndPassword', () => {
@@ -70,29 +70,29 @@ describe('User model', () => {
     let cody;
 
     beforeEach(() => {
-      let user = User.create({
+      let userPromise = User.create({
         firstName: 'Cody',
         lastName: 'puppybook',
         phone: '2124455678',
         email: 'cody@puppybook.com',
         password: 'bones'
       })
-      let address = Address.create({
+      let addressPromise = Address.create({
         address1: '5 Hanover Sq',
         address2: 'Floor 25',
         city: 'New York',
         state: 'NY',
         zipcode: '10004'
       })
-      return Promise.all([user, address])
+      return Promise.all([userPromise, addressPromise])
         .then(([user, address]) => {
-            return user.setAddress(address)
+          return user.setAddress(address)
         })
         .then(newUser => {
-          return User.findById(newUser.id)
+          return newUser.reload()
         })
-        .then(user => {
-          cody = user;
+        .then(eagerLoadedUser => {
+          cody = eagerLoadedUser;
         })
     })
     it('eagerly loads address information as an object', () => {
