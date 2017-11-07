@@ -87,7 +87,6 @@ class PasswordForm extends Component {
   }
 }
 
-const mapState = null;
 const mapDispatch = dispatch => ({
   makeEdit(id, password) {
     const editedUser = {
@@ -98,4 +97,4 @@ const mapDispatch = dispatch => ({
   }
 });
 
-export default connect(mapState, mapDispatch)(Form.create()(PasswordForm));
+export default connect(null, mapDispatch)(Form.create()(PasswordForm));
