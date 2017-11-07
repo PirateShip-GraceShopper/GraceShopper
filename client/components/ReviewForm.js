@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {postReviewThunk, putReviewThunk, fetchReviewsThunk} from '../store';
-import ReviewStars from './ReviewStars';
 import Review from './Review';
 import ReviewEditButton from './ReviewEditButton';
 import {Button, Rate, Carousel} from 'antd';
@@ -73,6 +72,7 @@ class ReviewForm extends Component {
                             handleClick={this.handleEditClick}
                             review={this.filterReviews()[0]}
                         />
+                        {clickedEditButton && }
                     </div>
                 }
             </div>
