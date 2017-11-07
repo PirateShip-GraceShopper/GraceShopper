@@ -5,7 +5,7 @@ import { postToCart, removeProduct } from '../store'
 import { Button, Rate, Carousel } from 'antd'
 
 
-const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
+const ProductItem = ({ product, user, addToCart, deleteProduct }) => {
     let total = 0;
     product.review.map(review => {
       total += review.rating;
@@ -37,7 +37,7 @@ const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
       {product.inventory ?
       <Button
         type="primary"
-        onClick={() => postToCart(
+        onClick={() => addToCart(
         { price: product.price,
           quantity: 1,
           productId: product.id,
@@ -58,6 +58,9 @@ const mapState = state => ({
   user: state.user
 })
 
-const mapDispatch = { postToCart, deleteProduct: removeProduct }
+const mapDispatch = {
+  addToCart: postToCart,
+  deleteProduct: removeProduct
+}
 
 export default connect(mapState, mapDispatch)(ProductItem)
