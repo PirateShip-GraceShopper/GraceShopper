@@ -5,7 +5,7 @@ import { postToCart, removeProduct } from '../store'
 import { Button, Rate, Carousel } from 'antd'
 
 
-const ProductItem = ({ product, user, deleteProduct }) => {
+const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
     let total = 0;
     product.review.map(review => {
       total += review.rating;
