@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Router} from 'react-router'
-import {Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Router } from 'react-router'
+import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, SingleUser, SingleItem, AllItems, ProductList, ReviewList, Cart, ProductDetail, AllUsers, CheckoutForm} from './components'
-import {me, fetchProducts, fetchAllItems, fetchReviewsThunk, fetchSessionCart} from './store'
+import { Main, Login, Signup, SingleUser, AllItems, ProductList, ReviewList, Cart, ProductDetail, AllUsers, StoreCheckout, PasswordForm } from './components'
+import { me, fetchProducts, fetchAllItems, fetchReviewsThunk, fetchSessionCart } from './store'
 
 
 
@@ -13,12 +13,12 @@ import {me, fetchProducts, fetchAllItems, fetchReviewsThunk, fetchSessionCart} f
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadInitialData()
   }
 
-  render () {
-    const {isLoggedIn, isAdmin } = this.props
+  render() {
+    const { isLoggedIn, isAdmin } = this.props
     return (
       <Router history={history}>
         <Main>
@@ -31,19 +31,21 @@ class Routes extends Component {
             <Route path="/products/:id" component={ProductDetail} />
             <Route path="/all-items" component={AllItems} />
             <Route path="/all-reviews" component={ReviewList} />
-            <Route path="/cart" component={CheckoutForm} />
+            <Route path="/cart" component={Cart} />
+            <Route path="/checkout" component={StoreCheckout} />
             {
               isLoggedIn &&
-                <Switch>
-                  {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={ProductList} />
-                  <Route path="/edit_profile" component={SingleUser}/>
-                  <Route path="/products" component={ProductList} />
-              {
-                isAdmin && 
-                <Route path="/all_users" component={AllUsers} />
-              }
-                </Switch>
+              <Switch>
+                {/* Routes placed here are only available after logging in */}
+                <Route path="/home" component={ProductList} />
+                <Route path="/edit_profile" component={SingleUser} />
+                <Route path="/products" component={ProductList} />
+                <Route path="/password_reset" component={PasswordForm} />
+                {
+                  isAdmin &&
+                  <Route path="/all_users" component={AllUsers} />
+                }
+              </Switch>
             }
             {/* Displays our Login component as a fallback */}
             <Route component={ProductList} />
@@ -68,7 +70,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
+    loadInitialData() {
       dispatch(me())
       dispatch(fetchProducts())
       dispatch(fetchAllItems())

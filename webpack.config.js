@@ -17,7 +17,7 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        include: /(node_modules|client)/,
+        include: /(antd|client)/,
         use: [
           'style-loader',
           'css-loader',

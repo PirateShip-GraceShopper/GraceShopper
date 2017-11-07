@@ -30,7 +30,7 @@ export const fetchSessionCart = () =>
   dispatch =>
     axios.get(`/api/cart/session`)
       .then(items =>
-        dispatch(setSessionCart(items)))
+        dispatch(setSessionCart(items.data)))
       .catch(error => console.log(error))
 
 export const removeItem = item =>
@@ -64,6 +64,11 @@ export const checkout = (cart) =>
       .then(_ => dispatch(clearCart()))
       .catch(_ => dispatch(clearCart()))
 
+export const logoutCart = () =>
+  dispatch =>
+    axios.delete(`/api/cart/session`)
+      .then(_ => dispatch(clearCart()))
+      .catch(_ => dispatch(clearCart()))
 
 /**
  * REDUCER
@@ -71,7 +76,7 @@ export const checkout = (cart) =>
  export default function(state = inititalState, action) {
    switch (action.type) {
      case SET_SESSION_CART:
-      return [...action.items.data]
+      return action.items
      case ADD_TO_CART:
       return [...state, action.item];
      case REMOVE_FROM_CART:

@@ -1,12 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { postToCart } from '../store'
-import Stars from './ReviewStars'
+import { postToCart, removeProduct } from '../store'
 import { Button, Rate, Carousel } from 'antd'
 
 
-const ProductItem = ({ product, user, postToCart }) => {
+const ProductItem = ({ product, user, deleteProduct }) => {
     let total = 0;
     product.review.map(review => {
       total += review.rating;
@@ -16,11 +15,17 @@ const ProductItem = ({ product, user, postToCart }) => {
     <li className="list-group-item product-item">
       <Link className="large-font" to={`/products/${product.id}`}>
         <Carousel effect="fade">
-          <img className='pictures' src={product.image} alt={product.name} />
+          <img src={product.image} alt={product.name} style={{ height: '400px', width: '450px' }} />
         </Carousel>
         <span>{product.name}</span>
         <br />
         <span>{product.price}</span>
+        <br />
+        {
+          product.inventory ?
+          <span>{product.inventory} available</span> :
+          <span> Sold Out</span>
+        }
         <br />
         <Rate
           allowHalf
@@ -29,6 +34,7 @@ const ProductItem = ({ product, user, postToCart }) => {
         />
       </Link>
       <br />
+      {product.inventory ?
       <Button
         type="primary"
         onClick={() => postToCart(
@@ -40,9 +46,10 @@ const ProductItem = ({ product, user, postToCart }) => {
           userId: user.id ? user.id : null
         }
       )}
-      >Add To Cart</Button>
+      >Add To Cart</Button> :
+      <Button disabled>Add To Cart</Button>}
       <br />
-      <Button type="danger">Remove Product</Button>
+      <Button onClick={() => deleteProduct(product)} type="danger">Remove Product</Button>
     </li>
     )
 }
@@ -50,6 +57,7 @@ const ProductItem = ({ product, user, postToCart }) => {
 const mapState = state => ({
   user: state.user
 })
-const mapDispatch = { postToCart }
+
+const mapDispatch = { postToCart, deleteProduct: removeProduct }
 
 export default connect(mapState, mapDispatch)(ProductItem)

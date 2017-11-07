@@ -1,15 +1,14 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { editUser } from "../store/user";
-import { Form, Input, Button } from "antd";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { editUser } from '../store/user';
+import { Form, Input, Button } from 'antd';
 const FormItem = Form.Item;
 
 class PhoneForm extends Component {
   constructor() {
-    super();
-    this.handleSubmit = this.handleSubmit.bind(this);
+    super()
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
-
 
   handleSubmit(e) {
     e.preventDefault();
@@ -25,9 +24,9 @@ class PhoneForm extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem label="Phone Number">
-          {getFieldDecorator("phone", {
+          {getFieldDecorator('phone', {
             rules: [
-              { required: true, message: "Please input your phone number!" }
+              { required: true, message: 'Please input your phone number!' }
             ]
           })(<Input />)}
         </FormItem>

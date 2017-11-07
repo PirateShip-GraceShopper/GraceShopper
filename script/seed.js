@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const {User, Item, Product, Review} = require('../server/db/models')
+const { User, Item, Product, Review, Categories } = require('../server/db/models')
 
 async function seed () {
   await db.sync({force: true})
@@ -32,25 +32,36 @@ async function seed () {
   ])
   const products = await Promise.all([
     Product.create({name: 'Yeezys', description: 'So fresh', price: 12000, inventory: 562, image: '/images/1-cat-running-shoes.jpg'}),
-    Product.create({name: 'Air Force Ones', description: 'And so clean', price: 17000, inventory: 1114, image: '/images/56d0c03a55a8c60e3dab6d813af741bc.jpg'}),
-    Product.create({name: 'Gucci Stilettos', description: 'Gettem', price: 30000, inventory: 34, image: '/images/61b9f688c3b28312c31e08eccab9e3bea61cf1dce4ed06e161031a5e0c8a9f33.jpeg'}),
-    Product.create({name: 'Boots', description: 'For rugged, out-doorsy cats', price: 9000, inventory: 320, image: '/images/869c8cab884965b9ddb6fcd3fc36fa53--adorable-kittens-cute-cats.jpg'})
+    Product.create({ name: 'Air Force Ones', description: 'And so clean', price: 17000, inventory: 1114, image: '/images/56d0c03a55a8c60e3dab6d813af741bc.jpg'}),
+    Product.create({ name: 'Gucci Stilettos', description: 'Gettem', price: 30000, inventory: 34, image: '/images/61b9f688c3b28312c31e08eccab9e3bea61cf1dce4ed06e161031a5e0c8a9f33.jpeg'}),
+    Product.create({ name: 'Boots', description: 'For rugged, out-doorsy cats', price: 2500, inventory: 0, image: '/images/869c8cab884965b9ddb6fcd3fc36fa53--adorable-kittens-cute-cats.jpg'})
   ])
+
+  const categories = await Promise.all([
+    Categories.create({ type: 'sneakers' }),
+    Categories.create({ type: 'boots' }),
+    Categories.create({ type: 'heels' }),
+    Categories.create({ type: 'flats' })
+  ])
+
+  products.forEach(product => product.addCategories(categories))
+  categories.forEach(category => category.addProduct(products))
 
   const reviews = await Promise.all([
     Review.create({content: "These Yeezy's are fire", rating: 4, productId: 1, userId: 1}),
     Review.create({content: "I Heard 'Em Say these were the best shoes on the market. They were right", rating: 5, productId: 1, userId: 2}),
-    Review.create({content: "Air Force One Shoes are as fly as it gets", rating: 4, productId: 2, userId: 1}),
+    Review.create({content: 'Air Force One Shoes are as fly as it gets', rating: 4, productId: 2, userId: 1}),
     Review.create({content: "I like the Yeezy's better", rating: 3, productId: 2, userId: 2}),
-    Review.create({content: "Perfect for a night out on the... prowl, but super uncomfortable", rating: 3, productId: 3, userId: 1}),
-    Review.create({content: "Gucci Stilletos", rating: 2, productId: 3, userId: 2}),
-    Review.create({content: "Boots", rating: 1, productId: 4, userId: 1}),
-    Review.create({content: "Boots", rating: 4, productId: 4, userId: 2}),
+    Review.create({content: 'Perfect for a night out on the... prowl, but super uncomfortable', rating: 3, productId: 3, userId: 1}),
+    Review.create({content: 'Gucci Stilletos', rating: 2, productId: 3, userId: 2}),
+    Review.create({content: 'Boots', rating: 1, productId: 4, userId: 1}),
+    Review.create({content: 'Boots', rating: 4, productId: 4, userId: 2}),
 
   ])
+
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
-  console.log(`seeded ${users.length} users, ${items.length} items, ${reviews.length} reviews, and ${products.length} products`)
+  console.log(`seeded ${users.length} users, ${items.length} items, ${reviews.length} reviews, ${products.length} products, and ${categories.length} categories`)
   console.log(`seeded successfully`)
 }
 

@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { editUser } from "../store/user";
-import { Form, Input, Button } from "antd";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { editUser } from '../store/user';
+import { Form, Input, Button } from 'antd';
 const FormItem = Form.Item;
 
 class EmailForm extends Component {
@@ -10,9 +10,9 @@ class EmailForm extends Component {
    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit(e){
-    e.preventDefault();
-    const id=this.props.user.id
+  handleSubmit(event){
+    event.preventDefault();
+    const id = this.props.user.id
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.makeEdit(id, values.email)
@@ -32,7 +32,7 @@ class EmailForm extends Component {
               required: true, message: 'Please input your E-mail!',
             }],
           })(
-          <Input/>
+          <Input />
           )}
         </FormItem>
         <FormItem>

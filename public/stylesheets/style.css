@@ -14,3 +14,8 @@
     margin-left: 20px;
 }
 
+.pictures img {
+    height: 50px; 
+    width: 50px;
+}
+

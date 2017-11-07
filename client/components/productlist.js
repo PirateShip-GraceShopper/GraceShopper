@@ -1,7 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { products } from '../store'
 import ProductItem from './ProductItem'
 import { Row, Col } from 'antd'
 
@@ -12,8 +10,8 @@ const ProductList = ({ products }) => (
       <Row>
       {products &&
         products.map(product => (
-          <Col span={12}>
-            <ProductItem key={product.id} product={product} />
+          <Col span={12} key={product.id} className="pictures">
+            <ProductItem product={product} />
           </Col>
         ))}
         </Row>

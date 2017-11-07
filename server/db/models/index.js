@@ -21,11 +21,13 @@ User.hasMany(Review, {as: 'review'})
 Product.hasMany(Item, {as: 'item'})
 Cart.hasMany(Item, {as: 'item'})
 
-Categories.belongsTo(Product, { through: 'ProductCategories' })
+//Product
+Categories.hasMany(Product, {as: 'products', constraints: false})
+
+Categories.belongsToMany(Product, { through: 'ProductCategories' })
 Product.belongsToMany(Categories, { through: 'ProductCategories' })
 
-Item.belongsTo(Cart);
-
+Item.belongsTo(Cart)
 
 module.exports = {
   User,

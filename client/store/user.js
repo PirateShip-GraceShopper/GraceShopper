@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import { fetchSessionCart } from './cart'
 
 /**
  * ACTION TYPES
@@ -14,8 +15,8 @@ const defaultUser = {}
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user})
-const removeUser = () => ({type: REMOVE_USER})
+const getUser = user => ({ type: GET_USER, user })
+const removeUser = () => ({ type: REMOVE_USER })
 /**
  * THUNK CREATORS
  */
@@ -31,10 +32,13 @@ export const auth = (userBody, method) =>
     axios.post(`/auth/${method}`, userBody)
       .then(res => {
         dispatch(getUser(res.data))
+      })
+      .then(_ => {
+        dispatch(fetchSessionCart())
         history.push('/home')
       })
       .catch(error =>
-        dispatch(getUser({error})))
+        dispatch(getUser({ error })))
 
 export const logout = () =>
   dispatch =>
@@ -46,13 +50,13 @@ export const logout = () =>
       .catch(err => console.log(err))
 
 export const editUser = (user) =>
-  dispatch => 
+  dispatch =>
     axios.put(`/api/users/${user.id}`, user)
-    .then(res => res.data)
-    .then(user => {
-      dispatch(getUser(user))
-    })
-    .catch(err => console.log(err))
+      .then(res => res.data)
+      .then(user => {
+        dispatch(getUser(user))
+      })
+      .catch(err => console.log(err))
 
 /**
  * REDUCER
