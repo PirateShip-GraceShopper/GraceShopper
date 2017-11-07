@@ -13,7 +13,7 @@ const Searchbar = ({ products, categories }) => {
       dataSource={dataSource}
       placeholder="Search by name or category"
       filterOption={(inputValue, option) => option.props.children.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-      onSelect={() => {*/somthing going dwn */}}
+      // onSelect={() => {*/somthing going dwn */}}
     />
   )
 }
