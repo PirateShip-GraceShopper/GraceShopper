@@ -1,38 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { editUser } from '../store/user';
-import { Form, Input, Button } from 'antd';
-const FormItem = Form.Item;
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { editUser } from '../store/user'
+import { Form, Input, Button } from 'antd'
+const FormItem = Form.Item
 
 class PhoneForm extends Component {
   constructor() {
-    super();
-    this.state = {
-      formPhone: ''
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  componentDidMount() {
-    const user = this.props.user;
-    this.setState({
-      formPhone: user.phone
-    });
-  }
-  handleChange(evt) {
-    this.setState({ formPhone: evt.target.value });
+    super()
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const id = this.props.user.id;
+  handleSubmit(evt) {
+    evt.preventDefault()
+    const id = this.props.user.id
     this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        this.props.makeEdit(id, values.phone);
-      }
-    });
+      if (!err) this.props.makeEdit(id, values.phone)
+    })
   }
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { getFieldDecorator } = this.props.form
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem label="Phone Number">
@@ -40,7 +26,7 @@ class PhoneForm extends Component {
             rules: [
               { required: true, message: 'Please input your phone number!' }
             ]
-          })(<Input name="phone" onChange={e => this.handleChange(e)} />)}
+          })(<Input name="phone" />)}
         </FormItem>
         <FormItem>
           <Button type="primary" htmlType="submit">
@@ -48,19 +34,15 @@ class PhoneForm extends Component {
           </Button>
         </FormItem>
       </Form>
-    );
+    )
   }
 }
 
-const mapState = null;
 const mapDispatch = dispatch => ({
   makeEdit(id, phone) {
-    const editedUser = {
-      id,
-      phone
-    };
-    return dispatch(editUser(editedUser));
+    const editedUser = {id, phone}
+    return dispatch(editUser(editedUser))
   }
-});
+})
 
-export default connect(mapState, mapDispatch)(Form.create()(PhoneForm));
+export default connect(null, mapDispatch)(Form.create()(PhoneForm))

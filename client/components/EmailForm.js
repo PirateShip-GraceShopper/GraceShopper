@@ -45,7 +45,6 @@ class EmailForm extends Component {
   }
 }
 
-const mapState = null
 const mapDispatch = dispatch => ({
   makeEdit(id, email) {
     const editedUser = {
@@ -56,4 +55,4 @@ const mapDispatch = dispatch => ({
   }
 });
 
-export default connect(mapState, mapDispatch)(Form.create()(EmailForm));
+export default connect(null, mapDispatch)(Form.create()(EmailForm));

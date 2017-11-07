@@ -1,49 +1,38 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { editUser } from '../store/user';
-import { Form, Input, Button } from 'antd';
-const FormItem = Form.Item;
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { editUser } from '../store/user'
+import { Form, Input, Button } from 'antd'
+const FormItem = Form.Item
 
 class PasswordForm extends Component {
   constructor() {
-    super();
-    this.state = {
-      formPassword: '',
-      confirmPassword: ''
-    };
+    super()
     this.checkConfirm = this.checkConfirm.bind(this)
     this.checkPassword = this.checkPassword.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit(e){
-    e.preventDefault();
+  handleSubmit(evt){
+    evt.preventDefault()
     const id = this.props.user.id
     this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        this.props.makeEdit(id, values.password)
-      }
-    });
+      if (!err) this.props.makeEdit(id, values.password)
+    })
   }
   checkPassword(rule, value, callback){
-    const form = this.props.form;
-    if (value && value !== form.getFieldValue('password')) {
-      callback('Passwords do not match!');
-    } else {
-      callback();
-    }
+    const form = this.props.form
+    if (value && value !== form.getFieldValue('password')) callback('Passwords do not match!')
+    else callback()
   }
 
   checkConfirm(rule, value, callback){
-    const form = this.props.form;
-    if (value) {
-      form.validateFields(['confirm'], { force: true });
-    }
-    callback();
+    const form = this.props.form
+    if (value) form.validateFields(['confirm'], { force: true })
+    callback()
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { getFieldDecorator } = this.props.form
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -83,19 +72,18 @@ class PasswordForm extends Component {
           </Button>
         </FormItem>
       </Form>
-    );
+    )
   }
 }
 
-const mapState = null;
 const mapDispatch = dispatch => ({
   makeEdit(id, password) {
     const editedUser = {
       id,
       password
-    };
-    return dispatch(editUser(editedUser));
+    }
+    return dispatch(editUser(editedUser))
   }
-});
+})
 
-export default connect(mapState, mapDispatch)(Form.create()(PasswordForm));
+export default connect(null, mapDispatch)(Form.create()(PasswordForm))
