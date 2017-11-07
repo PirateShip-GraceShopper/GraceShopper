@@ -12,13 +12,7 @@ class NameForm extends Component {
       formLastName: ""
     };
   }
-  componentDidMount() {
-    const user = this.props.user;
-    this.setState({
-      formFirstName: user.firstName,
-      formLastName: user.lastName
-    });
-  }
+
   handleChange(evt, type) {
     this.setState({ [type]: evt.target.value });
   }

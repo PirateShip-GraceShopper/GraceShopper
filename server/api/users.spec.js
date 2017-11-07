@@ -12,25 +12,33 @@ describe('User routes', () => {
   })
 
   describe('/api/users/', () => {
-    const codysEmail = 'cody@puppybook.com'
-
+    const adminEmail = 'admin@puppybook.com'
+    const testApp = request(app)
     beforeEach(() => {
-      return User.create({
-        email: codysEmail,
-        firstName: 'Cody',
-        lastName: 'puppybook',
-        phone: '2124455678'
-      })
+      return User.create(
+      {
+        email: adminEmail,
+        password: '123',
+        firstName: 'Kitty',
+        lastName: 'Admin',
+        phone: '212-233-MEOW',
+        isAdmin: true        
+      }).then(_=>(
+        testApp
+        .post('/auth/login')
+        .send({email: adminEmail, password:'123'})        
+        ))
     })
 
     it('GET /api/users', () => {
-      return request(app)
-        .get('/api/users')
-        .expect(200)
-        .then(res => {
-          expect(res.body).to.be.an('array')
-          expect(res.body[0].email).to.be.equal(codysEmail)
-        })
-    })
+     return testApp
+          .get('/api/users')
+          .expect(200)
+          .then(res => {
+            expect(res.body).to.be.an('array')
+            expect(res.body).length.to.be(1)
+            expect(res.body[0].email).to.be.equal(adminEmail)
+          })
+  })
   }) // end describe('/api/users')
 }) // end describe('User routes')
