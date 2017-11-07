@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import { postToCart, removeProduct  } from '../store'
 import Stars from './ReviewStars'
 import { Button, Rate, Carousel } from 'antd'
+import Cart from './Cart'
 
 
 const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
-    let total = 0;
+
+  let total = 0;
     product.review.map(review => {
       total += review.rating;
     })
@@ -20,7 +22,7 @@ const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
         </Carousel>
         <span>{product.name}</span>
         <br />
-        <span>{product.price}</span>
+        <span>${product.price}</span>
         <br />
         <Rate
           allowHalf
@@ -42,7 +44,14 @@ const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
       )}
       >Add To Cart</Button>
       <br />
+      {user.isAdmin &&
+      <div>
+      <Link to={`/products/${product.id}/edit_product`} >
+      <Button>Edit Product</Button>
+      </Link>
       <Button onClick={() => deleteProduct(product)} type="danger">Remove Product</Button>
+      </div>
+      }
     </li>
     )
 }

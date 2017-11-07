@@ -36,7 +36,8 @@ router.delete('/:id', (req, res, next) => {
 })
 
 router.put('/:id', (req, res, next) => {
+  console.log(req.body)
   req.product.update(req.body)
-    .then(_ => res.sendStatus(res.statusCode))
+    .then(updatedProduct => res.send(updatedProduct))
     .catch(next)
 })
