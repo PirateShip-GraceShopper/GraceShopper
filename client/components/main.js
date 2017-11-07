@@ -6,6 +6,7 @@ import {logout, logoutCart} from '../store'
 import { Button, Layout, Menu } from 'antd'
 const { Header, Footer, Content } = Layout
 import { CartIcon } from '../components'
+import Searchbar from './Searchbar'
 /**
  * COMPONENT
  *  The Main component is our 'picture frame' - it displays the navbar and anything
@@ -51,6 +52,7 @@ const Main = ({ children, handleClick, isLoggedIn, isAdmin, cart }) => (
           <Menu.Item>
           <CartIcon cart={cart} />
           </Menu.Item>
+      <Searchbar />
     </Menu>
     </Header>
         <hr />

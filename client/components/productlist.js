@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { products } from '../store'
 import ProductItem from './ProductItem'
 import { Row, Col } from 'antd'
 

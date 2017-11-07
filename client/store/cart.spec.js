@@ -1,21 +1,18 @@
 /* global describe beforeEach afterEach it */
 
-import {expect} from 'chai'
+import { expect } from 'chai'
 import React from 'react'
 import cartReducer, { addToCart, removeFromCart, updateCartItem } from './cart'
-import {Cart} from '../components/Cart'
-import axios from 'axios'
-import MockAdapter from 'axios-mock-adapter'
+import { Cart } from '../components/Cart'
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
-import history from '../history'
-import enzyme, {shallow} from 'enzyme'
+import enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
 const adapter = new Adapter()
-enzyme.configure({adapter})
+enzyme.configure({ adapter })
 
 describe('Cart store', () => {
 
@@ -33,7 +30,7 @@ describe('Cart store', () => {
     })
 
     describe('add to cart', () => {
-      let item = {id: 1, price: 500, quantity: 2}
+      let item = { id: 1, price: 500, quantity: 2 }
       let action = addToCart(item);
       it('returns an action type ADD_TO_CART, price 500, quantity 2', () => {
         expect(action.type).to.equal('ADD_TO_CART')
@@ -43,7 +40,7 @@ describe('Cart store', () => {
     })
 
     describe('remove from cart', () => {
-      let item = {id: 1, price: 500, quantity: 2}
+      let item = { id: 1, price: 500, quantity: 2 }
       let action = removeFromCart(item);
       it('returns an action type REMOVE_FROM_CART with item to be removed', () => {
         expect(action.type).to.equal('REMOVE_FROM_CART')
@@ -55,46 +52,46 @@ describe('Cart store', () => {
   describe('cart reducer', () => {
     let store;
     const initialState = [];
-      beforeEach(() => {
-        store = mockStore(initialState)
+    beforeEach(() => {
+      store = mockStore(initialState)
+    })
+
+    afterEach(() => {
+      store.clearActions();
+    })
+
+    describe('add to cart', () => {
+
+      let item = { id: 1, price: 500, quantity: 2 }
+      let action = addToCart(item);
+
+      it('returns an updated state with the new item added', () => {
+        expect(cartReducer(initialState, action)).to.deep.equal([item])
       })
+    })
 
-      afterEach(() => {
-        store.clearActions();
+    describe('remove from cart', () => {
+
+
+      let item = { id: 1, price: 500, quantity: 2 }
+      let action = removeFromCart(item)
+
+      it('removes item with the same item id', () => {
+        expect(cartReducer([item], action)).to.deep.equal([])
       })
+    })
 
-      describe('add to cart', () => {
+    describe('update item', () => {
+      let item = { id: 1, price: 500, quantity: 10 }
+      let action = updateCartItem(item)
+      let newState = cartReducer([{ id: 1, price: 500, quantity: 2 }], action)
 
-        let item = {id: 1, price: 500, quantity: 2}
-        let action = addToCart(item);
+      it('updates a current item with the action item', () => {
 
-        it('returns an updated state with the new item added', () => {
-          expect(cartReducer(initialState, action)).to.deep.equal([ item ])
-        })
+        expect(newState[0].id).to.equal(1)
+        expect(newState[0].quantity).to.equal(10)
       })
-
-      describe('remove from cart', () => {
-
-
-        let item = {id: 1, price: 500, quantity: 2}
-        let action = removeFromCart(item)
-
-        it('removes item with the same item id', () => {
-          expect(cartReducer([item], action)).to.deep.equal([])
-        })
-      })
-
-      describe('update item', () => {
-        let item = {id: 1, price: 500, quantity: 10}
-        let action = updateCartItem(item)
-        let newState = cartReducer([{id: 1, price: 500, quantity: 2}], action)
-
-        it('updates a current item with the action item', () => {
-
-          expect(newState[0].id).to.equal(1)
-          expect(newState[0].quantity).to.equal(10)
-        })
-      })
+    })
   })
 
 })

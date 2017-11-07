@@ -1,11 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { Route, Link } from 'react-router-dom'
-import { postToCart, removeProduct  } from '../store'
-import Stars from './ReviewStars'
+import { Link } from 'react-router-dom'
+import { postToCart, removeProduct } from '../store'
 import { Button, Rate, Carousel } from 'antd'
-import Cart from './Cart'
-
 
 const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
   let total = 0;

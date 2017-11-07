@@ -25,16 +25,16 @@ class SingleUser extends Component {
     const user = this.props.user
     return (
       <ul>
-        <li>{`Name: ${user.firstName} ${user.lastName}`} <Button onClick={(e) => this.showForm(e, 'showNameForm')} >edit</Button>
+        <li>{`Name: ${user.firstName} ${user.lastName}`} <Button onClick={(event) => this.showForm(event, 'showNameForm')} >edit</Button>
             {this.state.showNameForm && <NameForm user={user}/>}
         </li>
-        <li>{`Email: ${user.email}`} <Button onClick={(e) => this.showForm(e, 'showEmailForm')}>edit</Button>
+        <li>{`Email: ${user.email}`} <Button onClick={(event) => this.showForm(event, 'showEmailForm')}>edit</Button>
             {this.state.showEmailForm && <EmailForm user={user} />}
         </li>
-        <li>{`Password: *******`} <Button onClick={(e) => this.showForm(e, 'showPasswordForm')}>edit</Button>
+        <li>{`Password: *******`} <Button onClick={(event) => this.showForm(event, 'showPasswordForm')}>edit</Button>
             {this.state.showPasswordForm && <PasswordForm user={user} />}
         </li>
-        <li>{`Phone Number: ${user.phone}`} <Button onClick={(e) => this.showForm(e, 'showPhoneForm')}>edit</Button>
+        <li>{`Phone Number: ${user.phone}`} <Button onClick={(event) => this.showForm(event, 'showPhoneForm')}>edit</Button>
             {this.state.showPhoneForm && <PhoneForm user={user} />}
         </li>
       </ul>
