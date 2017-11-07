@@ -3,9 +3,7 @@ const { Product, Review, Item } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  Product.findAll({
-    include: [ {model: Review, as: 'review'}]
-  })
+  Product.findAll()
     .then(products => res.json(products))
     .catch(next)
 })
@@ -36,7 +34,11 @@ router.delete('/:id', (req, res, next) => {
 })
 
 router.put('/:id', (req, res, next) => {
+  console.log('update review with :', req.body)
   req.product.update(req.body)
-    .then(_ => res.sendStatus(res.statusCode))
+    .then(updatedProduct => {
+      console.log('after update', updatedProduct)
+      res.send(updatedProduct)
+    })
     .catch(next)
 })

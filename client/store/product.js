@@ -28,6 +28,12 @@ export const removeProduct = product => dispatch => {
     .catch(err => console.error(`Removing product: ${product.id} unsuccessful`, err))
 }
 
+export const updateProduct = product => dispatch => {
+  axios.put(`/api/products/${product.id}`, product)
+    .then(res => dispatch(update(res.data)))
+    .catch(err => console.log(err))
+}
+
 export default function (products = [], action) {
   switch (action.type) {
     case INITIALIZE:
@@ -36,6 +42,8 @@ export default function (products = [], action) {
       return [action.product, ...products]
     case REMOVE:
       return products.filter(product => product.id !== action.product.id)
+    case UPDATE:
+      return products.map(product => (product.id === action.product.id ? action.product : product))
     default:
       return products
   }

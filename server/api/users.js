@@ -7,15 +7,17 @@ const mustBeAdmin = (req, res, next) => {
        next(Error('Unauthorized'))
      } else {
        next()
+       return null
      }
    }
- 
+
 const mustBeAdminOrUser = (req, res, next) => {
    if (req.user.isAdmin||(!req.user.isAdmin && req.body.id === req.user.id)){
      next()
    } else {
      next(Error('Unauthorized'))
    }
+   return null
  }
 router.param('id', (req, res, next, id) => {
   User.findById(id)
