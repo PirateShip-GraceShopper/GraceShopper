@@ -23,7 +23,6 @@ Cart.hasMany(Item, {as: 'item'})
 
 //Product
 Categories.hasMany(Product, {as: 'products', constraints: false})
-// Product.belongsTo(Categories, {as: 'categories'})
 
 Categories.belongsToMany(Product, { through: 'ProductCategories' })
 Product.belongsToMany(Categories, { through: 'ProductCategories' })
