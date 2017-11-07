@@ -13,7 +13,8 @@ class ReviewForm extends Component {
             content: '',
             rating: null,
             productId: props.productId,
-            userId: 0
+            userId: 0,
+            clickedEditButton: false
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleStarChange = this.handleStarChange.bind(this)
@@ -33,15 +34,15 @@ class ReviewForm extends Component {
         })
     }
 
+    handleEditClick() {
+        this.setState({ clickedEditButton: true })
+    }
+
     //This method checks to see if the current user has any reviews for the specific product passed into to ReviewForm as props
     filterReviews() {
        return this.props.review.filter(review => {
             return review.productId === parseInt(this.props.productId, 10) && review.userId === this.props.userId
         })
-    }
-
-    handleEditButtonClick() {
-        
     }
 
     render() {
