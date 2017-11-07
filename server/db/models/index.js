@@ -21,7 +21,7 @@ User.hasMany(Review, {as: 'review'})
 Product.hasMany(Item, {as: 'item'})
 Cart.hasMany(Item, {as: 'item'})
 
-Categories.belongsTo(Product, { through: 'ProductCategories' })
+Categories.belongsToMany(Product, { through: 'ProductCategories' })
 Product.belongsToMany(Categories, { through: 'ProductCategories' })
 
 Item.belongsTo(Cart);
