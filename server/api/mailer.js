@@ -1,5 +1,5 @@
-const nodemailer = require("nodemailer")
-const router = require("express").Router()
+const nodemailer = require('nodemailer')
+const router = require('express').Router()
 module.exports = router
 const mustBeAdmin = (req, res, next) => {
    if (!req.user.isAdmin) {
@@ -9,11 +9,11 @@ const mustBeAdmin = (req, res, next) => {
    }
  }
 
-router.post("/send", mustBeAdmin, (req, res, next) => {
+router.post('/send', mustBeAdmin, (req, res, next) => {
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: 'gmail',
     auth: {
-      user: "gshoepurr@gmail.com",
+      user: 'gshoepurr@gmail.com',
       pass: process.env.MAILER_PW
     }
   })
@@ -25,7 +25,7 @@ router.post("/send", mustBeAdmin, (req, res, next) => {
     replyTo: 'gshoepurr.gmail.com'
   }
   transporter.sendMail(mailOptions, (err, res) => {
-    if (err) console.error("There was an error ", err)
-    else console.log("here is the res ", res)
+    if (err) console.error('There was an error ', err)
+    else console.log('here is the res ', res)
   })
 })
