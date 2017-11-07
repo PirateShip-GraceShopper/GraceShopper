@@ -46,7 +46,7 @@ export const postReviewThunk = (review) => dispatch => {
     .catch(error => dispatch(createReview({error})))
 }
 
-export const deleteReviewThunk = () => dispatch =>{
+export const deleteReviewThunk = () => dispatch => {
     axios.delete('/api/review/:id')
     .catch(error => dispatch(removeReview({error})));
 }

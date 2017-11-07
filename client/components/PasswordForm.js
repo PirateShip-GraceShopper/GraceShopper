@@ -1,24 +1,24 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { editUser } from "../store/user";
-import { Form, Input, Button } from "antd";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { editUser } from '../store/user';
+import { Form, Input, Button } from 'antd';
 const FormItem = Form.Item;
 
 class PasswordForm extends Component {
   constructor() {
     super();
     this.state = {
-      formPassword: "",
-      confirmPassword: ""
+      formPassword: '',
+      confirmPassword: ''
     };
     this.checkConfirm = this.checkConfirm.bind(this)
     this.checkPassword = this.checkPassword.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  
+
   handleSubmit(e){
     e.preventDefault();
-    const id=this.props.user.id
+    const id = this.props.user.id
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.makeEdit(id, values.password)
@@ -27,8 +27,8 @@ class PasswordForm extends Component {
   }
   checkPassword(rule, value, callback){
     const form = this.props.form;
-    if (value && value !== form.getFieldValue("password")) {
-      callback("Passwords do not match!");
+    if (value && value !== form.getFieldValue('password')) {
+      callback('Passwords do not match!');
     } else {
       callback();
     }
@@ -37,7 +37,7 @@ class PasswordForm extends Component {
   checkConfirm(rule, value, callback){
     const form = this.props.form;
     if (value) {
-      form.validateFields(["confirm"], { force: true });
+      form.validateFields(['confirm'], { force: true });
     }
     callback();
   }
@@ -48,11 +48,11 @@ class PasswordForm extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem label="Password" hasFeedback>
-          {getFieldDecorator("password", {
+          {getFieldDecorator('password', {
             rules: [
               {
                 required: true,
-                message: "Please input your password!"
+                message: 'Please input your password!'
               },
               {
                 validator: this.checkConfirm
@@ -73,7 +73,7 @@ class PasswordForm extends Component {
               validator: this.checkPassword,
             }],
           })(
-            <Input type="password" 
+            <Input type="password"
             />
           )}
         </FormItem>
