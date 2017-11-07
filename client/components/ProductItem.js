@@ -1,12 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { postToCart, removeProduct  } from '../store'
-import Stars from './ReviewStars'
+import { postToCart, removeProduct } from '../store'
 import { Button, Rate, Carousel } from 'antd'
 
 
-const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
+const ProductItem = ({ product, user, deleteProduct }) => {
     let total = 0;
     product.review.map(review => {
       total += review.rating;
