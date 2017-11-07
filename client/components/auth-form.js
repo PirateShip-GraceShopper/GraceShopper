@@ -1,58 +1,154 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import { Form, Input, Button } from "antd"
+const FormItem = Form.Item
 
-/**
- * COMPONENT
- */
-const AuthForm = (props) => {
-  const {name, displayName, handleSubmit, error} = props
+class AuthForm extends Component {
+  constructor(){
+    super()
+    this.checkConfirm = this.checkConfirm.bind(this)
+    this.checkPassword = this.checkPassword.bind(this)
+    this.formSubmit = this.formSubmit.bind(this)
+  }
 
+  formSubmit(e){
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        const user = this.props.name === 'login' ? 
+        {
+          email:values.email,
+          password:values.password}
+        :{
+        email: values.email,
+        password: values.password,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        phone: values.phone         
+        }
+        this.props.handleSubmit(user, this.props.name)
+      }
+    });
+  }
+  checkPassword(rule, value, callback){
+    const form = this.props.form;
+    if (value && value !== form.getFieldValue("password")) {
+      callback("Passwords do not match!");
+    } else {
+      callback();
+    }
+  }
+
+  checkConfirm(rule, value, callback){
+    const form = this.props.form;
+    if (value) {
+      form.validateFields(["confirm"], { force: true });
+    }
+    callback();
+  }
+
+  render(){
+  const {name, displayName, handleSubmit, error} = this.props
+  const { getFieldDecorator } = this.props.form;
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <Form onSubmit={this.formSubmit} name={name}>
+        <FormItem label="Email" hasFeedback>
+          {getFieldDecorator('email', {
+            rules: [{
+              type: 'email', message: 'The input is not valid E-mail',
+            }, {
+              required: true, message: 'Please input your E-mail!',
+            }],
+          })(
+          <Input/>
+          )}
+        </FormItem>
+        {(name === 'login') &&
+        <FormItem label="Password" hasFeedback>
+          {getFieldDecorator("password", {
+            rules: [
+              {
+                required: true,
+                message: "Please input your password!"
+              }
+            ]
+          })(
+            <Input
+              type="password"
+              name="password"
+            />
+          )}
+        </FormItem>
+      }
+        {(name ==='signup') && (
         <div>
-          <label htmlFor="email"><small>Email</small></label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password"><small>Password</small></label>
-          <input name="password" type="password" />
-        </div>
-        {(name === 'signup') && (
-          <div>
-            <div>
-              <label htmlFor="firstName"><small>First Name</small></label>
-              <input name="firstName" type="text" />
-            </div>
-            <div>
-              <label htmlFor="lastName"><small>Last Name</small></label>
-              <input name="lastName" type="text" />
-            </div>
-            <div>
-              <label htmlFor="phone"><small>Phone Number</small></label>
-              <input name="phone" type="text" />
-            </div>
+            <FormItem label="Password" hasFeedback>
+              {getFieldDecorator("password", {
+                rules: [
+                  {
+                    required: true,
+                    message: "Please input your password!"
+                  },
+                  {
+                    validator: this.checkConfirm
+                  }
+                ]
+              })(
+                <Input
+                  type="password"
+                  name="password"
+                />
+              )}
+            </FormItem>
+            <FormItem label="Confirm Password" hasFeedback>
+            {getFieldDecorator('confirm', {
+                rules: [{
+                  required: true, message: 'Please confirm your password!',
+                }, {
+                  validator: this.checkPassword,
+                }],
+              })(
+                <Input type="password" 
+                />
+              )}
+            </FormItem>          
+            <FormItem label="First Name">
+            {getFieldDecorator("firstName", {
+              rules: [
+                { required: true, message: "Please input your name" }
+              ]
+            })(<Input />)}
+            </FormItem>
+            <FormItem label="Last Name">
+            {getFieldDecorator("lastName", {
+              rules: [
+                { required: true, message: "Please input your last name" }
+              ]
+            })(<Input />)}
+            </FormItem>
+            <FormItem label="Phone Number">
+            {getFieldDecorator("phone", {
+              rules: [
+                { required: true, message: "Please input your phone number!" }
+              ]
+            })(<Input />)}
+            </FormItem>          
           </div>
           )}
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
+        <FormItem>        
+          <Button type="primary" htmlType="submit">{displayName}</Button>
+        </FormItem>
         {error && error.response && <div> {error.response.data} </div>}
-      </form>
+      </Form>
       <a href="/auth/google">{displayName} with Google</a>
     </div>
-  )
+  ) 
+  }
 }
 
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
 const mapLogin = (state) => {
   return {
     name: 'login',
@@ -69,43 +165,18 @@ const mapSignup = (state) => {
   }
 }
 
-const mapDispatchLogin = (dispatch) => {
+const mapDispatch = (dispatch) => {
   return {
-    handleSubmit (evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      const userBody = {
-        email: evt.target.email.value,
-        password: evt.target.password.value
-      }
-      dispatch(auth(userBody, formName))
+    handleSubmit (user, formName) {
+      dispatch(auth(user, formName))
     }
   }
 }
 
-const mapDispatchSignup = (dispatch) => {
-  return {
-    handleSubmit (evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      const userBody = {
-        email: evt.target.email.value,
-        password: evt.target.password.value,
-        firstName: evt.target.firstName.value,
-        lastName: evt.target.lastName.value,
-        phone: evt.target.phone.value
-      }
-      dispatch(auth(userBody, formName))
-    }
-  }
-}
 
-export const Login = connect(mapLogin, mapDispatchLogin)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatchSignup)(AuthForm)
+export const Login = connect(mapLogin, mapDispatch)(Form.create()(AuthForm))
+export const Signup = connect(mapSignup, mapDispatch)(Form.create()(AuthForm))
 
-/**
- * PROP TYPES
- */
 AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,

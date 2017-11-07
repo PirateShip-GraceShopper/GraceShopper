@@ -6,20 +6,8 @@ const FormItem = Form.Item;
 
 class PhoneForm extends Component {
   constructor() {
-    super();
-    this.state = {
-      formPhone: ''
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  componentDidMount() {
-    const user = this.props.user;
-    this.setState({
-      formPhone: user.phone
-    });
-  }
-  handleChange(evt) {
-    this.setState({ formPhone: evt.target.value });
+    super()
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit(e) {
@@ -40,7 +28,7 @@ class PhoneForm extends Component {
             rules: [
               { required: true, message: 'Please input your phone number!' }
             ]
-          })(<Input name="phone" onChange={e => this.handleChange(e)} />)}
+          })(<Input />)}
         </FormItem>
         <FormItem>
           <Button type="primary" htmlType="submit">
