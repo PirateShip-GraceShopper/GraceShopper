@@ -4,7 +4,7 @@ import ManageUsers from "./ManageUsers";
 import ManageAdmins from "./ManageAdmins";
 import { fetchUsers } from "../store/users";
 
-class AllUsers extends Component {
+export class AllUsers extends Component {
   componentDidMount() {
     this.props.getAllUsers();
   }

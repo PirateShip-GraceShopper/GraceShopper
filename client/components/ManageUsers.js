@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { deleteUserThunk, makeToAdmin } from "../store/users";
 import { Table, Popconfirm } from "antd";
 
-const ManageUsers = ({ users, makeAdmin, deleteUser }) => {
+export const ManageUsers = ({ users, makeAdmin, deleteUser }) => {
   const columns = [
     {
       title: "Name",
