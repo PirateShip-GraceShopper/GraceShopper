@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {postReviewThunk, putReviewThunk, fetchReviewsThunk} from '../store';
+import {postReviewThunk, putReviewThunk} from '../store';
 import Review from './Review';
+import ReviewStars from './ReviewStars';
 import ReviewEditButton from './ReviewEditButton';
+import ReviewEditForm from './ReviewEditForm';
 import {Button, Rate, Carousel} from 'antd';
 
 class ReviewForm extends Component {
@@ -72,7 +74,25 @@ class ReviewForm extends Component {
                             handleClick={this.handleEditClick}
                             review={this.filterReviews()[0]}
                         />
-                        {clickedEditButton && }
+                        {this.state.clickedEditButton &&
+                            <ReviewEditForm
+                                handleEditSubmit={(evt) => {
+                                    evt.preventDefault()
+                                    this.setState({ content: '' })
+                                    const updatedReview = {
+                                        id: this.filterReviews()[0].id,
+                                        content: this.state.content,
+                                        rating: this.state.rating,
+                                        productId: this.state.productId,
+                                        userId: this.state.userId
+                                    }
+                                    this.props.handleEditSubmit(updatedReview)
+                                    }}
+                                handleStarChange={this.handleStarChange}
+                                handleChange={this.handleChange}
+                                content={this.state.content}
+                                state={this.state}
+                            />}
                     </div>
                 }
             </div>
@@ -85,6 +105,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         handleSubmit(review) {
             dispatch(postReviewThunk(review))
+        },
+
+        handleEditSubmit(review) {
+            console.log('REVIEW', review)
+            dispatch(putReviewThunk(review))
         }
     }
 }

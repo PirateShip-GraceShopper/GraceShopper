@@ -8,19 +8,24 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+router.get('/:id', (req, res, next) => {
+    Review.findById(req.params.id)
+    .then(review => res.json(review))
+    .catch(next)
+})
+
 router.put('/:id', (req, res, next) => {
-    Review.update({
-        where: {id: req.params.id},
+    Review.update(req.body, {
+        where: { id: req.params.id }, 
         returning: true
     })
-    .then(update => res.json(update))
+    .spread((rows, updatedReview) => res.json(updatedReview))
+    .catch(next)
 })
 
 router.post('/', (req, res, next) => {
     Review.create(req.body)
     .then(newReview => res.json(newReview))
-    .then(() => {
-    })
     .catch(next)
 })
 
