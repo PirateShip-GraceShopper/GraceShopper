@@ -5,6 +5,7 @@ import Review from './Review';
 import ReviewStars from './ReviewStars';
 import ReviewEditButton from './ReviewEditButton';
 import ReviewEditForm from './ReviewEditForm';
+import DeleteButton from './DeleteButton';
 import {Button, Rate, Carousel} from 'antd';
 
 class ReviewForm extends Component {
@@ -70,10 +71,13 @@ class ReviewForm extends Component {
                     <div>
                         <h1>Your Review</h1>
                         <Review newReview={this.filterReviews()[0]} />
-                        <ReviewEditButton
-                            handleClick={this.handleEditClick}
-                            review={this.filterReviews()[0]}
-                        />
+                        <div>
+                            <ReviewEditButton
+                                handleClick={this.handleEditClick}
+                                review={this.filterReviews()[0]}
+                            />
+                            <DeleteButton review={this.filterReviews()[0]} />
+                        </div>
                         {this.state.clickedEditButton &&
                             <ReviewEditForm
                                 handleEditSubmit={(evt) => {
@@ -108,7 +112,6 @@ const mapDispatchToProps = (dispatch) => {
         },
 
         handleEditSubmit(review) {
-            console.log('REVIEW', review)
             dispatch(putReviewThunk(review))
         }
     }
