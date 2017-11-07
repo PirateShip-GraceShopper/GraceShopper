@@ -28,8 +28,7 @@ Categories.hasMany(Product, {as: 'products', constraints: false})
 Categories.belongsToMany(Product, { through: 'ProductCategories' })
 Product.belongsToMany(Categories, { through: 'ProductCategories' })
 
-Item.belongsTo(Cart);
-
+Item.belongsTo(Cart)
 
 module.exports = {
   User,

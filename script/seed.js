@@ -55,6 +55,7 @@ async function seed () {
     Review.create({content: 'Boots', rating: 4, productId: 4, userId: 2}),
 
   ])
+
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
   console.log(`seeded ${users.length} users, ${items.length} items, ${reviews.length} reviews, ${products.length} products, and ${categories.length} categories`)
