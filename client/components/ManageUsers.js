@@ -1,24 +1,24 @@
-import React from "react";
-import { connect } from "react-redux";
-import { deleteUserThunk, makeToAdmin } from "../store/users";
-import { Table, Popconfirm } from "antd";
+import React from 'react';
+import { connect } from 'react-redux';
+import { deleteUserThunk, makeToAdmin } from '../store/users';
+import { Table, Popconfirm } from 'antd';
 
 const ManageUsers = ({ users, makeAdmin, deleteUser }) => {
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name"
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name'
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      key: "email"
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email'
     },
     {
-      title: "Operation",
-      dataIndex: "operation",
-      key: "operation",
+      title: 'Operation',
+      dataIndex: 'operation',
+      key: 'operation',
       render: (text, user) => {
         return (
           <span>

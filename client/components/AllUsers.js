@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import ManageUsers from "./ManageUsers";
-import ManageAdmins from "./ManageAdmins";
-import { fetchUsers } from "../store/users";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import ManageUsers from './ManageUsers';
+import ManageAdmins from './ManageAdmins';
+import { fetchUsers } from '../store/users';
 
 class AllUsers extends Component {
   componentDidMount() {

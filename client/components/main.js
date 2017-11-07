@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
-import { Button, Icon, Layout, Menu } from 'antd'
+import { Button, Layout, Menu } from 'antd'
 const { Header, Footer, Content } = Layout
 import { CartIcon } from '../components'
 /**
@@ -20,7 +20,7 @@ const Main = ({ children, handleClick, isLoggedIn, isAdmin, cart }) => (
         mode="horizontal"
         style={{ lineHeight: '64px' }}
       >
-          <Menu.Item key='home'>
+          <Menu.Item key="home">
             <Link to={'/'}><h1 style={{ color: '#fff' }}>Grace Shoe-Purr</h1></Link>
           </Menu.Item>
           {

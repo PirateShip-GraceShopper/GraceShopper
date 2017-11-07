@@ -1,18 +1,18 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Table } from "antd";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Table } from 'antd';
 
 const ManageAdmins = ({ admins }) => {
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name"
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name'
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      key: "email"
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email'
     }
   ];
   const data = admins.map(admin => ({
