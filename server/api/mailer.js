@@ -6,6 +6,7 @@ const mustBeAdmin = (req, res, next) => {
      next(Error('Unauthorized'))
    } else {
      next()
+     return null
    }
  }
 

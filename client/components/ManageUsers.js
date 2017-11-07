@@ -54,7 +54,7 @@ export const ManageUsers = ({ users, makeAdmin, deleteUser, sendEmail }) => {
               cancelText="No"
             >
               <a href="#">Request Password Reset</a>
-            </Popconfirm>            
+            </Popconfirm>
           </span>
         )
       }
@@ -91,8 +91,8 @@ const mapDispatch = dispatch => {
         id: user.key,
         toEmail: user.email,
         name: 'Password change request from Grace Shoe-Purr!',
-        message: `Dear ${user.name}, 
-                To change your account password at Grace Shoe-Purr, please click this link or copy and paste it to your browser: localhost:8080/password_reset`
+        message: `Dear ${user.name},
+                To change your account password at Grace Shoe-Purr, please click this link or copy and paste it to your browser: https://grace-shoe-purr.herokuapp.com/password_reset`
       }
       return axios.post('/api/mailer/send', email)
       .then(res => res.data)

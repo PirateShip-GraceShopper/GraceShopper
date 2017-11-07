@@ -8,7 +8,7 @@ const SingleItem = ({item, changeQuantity, handleRemove}) => {
   const {image, name, price, quantity} = item
   return (
     <div>
-      <img src={image} />
+      <img src={image} style={{ height: '400px', width: '450px' }} />
       <h3>{name}</h3>
       <h4>{price}</h4>
       <input
