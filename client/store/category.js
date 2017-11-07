@@ -16,7 +16,7 @@ export const fetchCategories = _ => dispatch => {
     .catch(err => console.error(`Fetching categories unsuccessful`, err))
 }
 
-export const addCategorys = category => dispatch => {
+export const addCategory = category => dispatch => {
   axios.post(`/api/categories`, category)
     .then(res => dispatch(create(res.data)))
     .catch(err => console.error(`Creating category: ${category} unsuccessful`, err))

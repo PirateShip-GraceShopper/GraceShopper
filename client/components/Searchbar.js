@@ -1,15 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { AutoComplete } from 'antd'
-import ProductDetail from './ProductDetail'
 import history from '../history'
 
 const Searchbar = ({ products, categories }) => {
   const dataSource = []
   products.forEach(product => dataSource.push(product.name))
-  categories.forEach(category => dataSource.push(category))
-  console.log(dataSource)
+  console.log(categories)
+
   return (
     <AutoComplete
       style={{ width: 200 }}
