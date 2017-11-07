@@ -22,7 +22,11 @@ const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
         <br />
         <span>{product.price}</span>
         <br />
-        <span>{product.inventory} in stock</span>
+        {
+          product.inventory ?
+          <span>{product.inventory} available</span> :
+          <span> Sold Out</span>
+        }
         <br />
         <Rate
           allowHalf
