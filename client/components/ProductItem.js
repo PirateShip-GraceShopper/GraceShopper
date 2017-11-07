@@ -22,6 +22,8 @@ const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
         <br />
         <span>{product.price}</span>
         <br />
+        <span>{product.inventory} in stock</span>
+        <br />
         <Rate
           allowHalf
           value={averageRating}
@@ -29,6 +31,7 @@ const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
         />
       </Link>
       <br />
+      {product.inventory ?
       <Button
         type="primary"
         onClick={() => postToCart(
@@ -40,7 +43,8 @@ const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
           userId: user.id ? user.id : null
         }
       )}
-      >Add To Cart</Button>
+      >Add To Cart</Button> :
+      <Button disabled>Add To Cart</Button>}
       <br />
       <Button onClick={() => deleteProduct(product)} type="danger">Remove Product</Button>
     </li>
