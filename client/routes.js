@@ -4,15 +4,8 @@ import { Router } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-<<<<<<< HEAD
-import {Main, Login, Signup, UserHome, SingleUser, SingleItem, AllItems, ProductList, ReviewList, Cart, ProductDetail, AllUsers, StoreCheckout, PasswordForm, EditProductInfo} from './components'
-import {me, fetchProducts, fetchAllItems, fetchReviewsThunk, fetchSessionCart} from './store'
-=======
-import { Main, Login, Signup, SingleUser, AllItems, ProductList, ReviewList, Cart, ProductDetail, AllUsers, StoreCheckout, PasswordForm } from './components'
+import { Main, Login, Signup, SingleUser, AllItems, ProductList, ReviewList, Cart, ProductDetail, AllUsers, StoreCheckout, PasswordForm, EditProductInfo } from './components'
 import { me, fetchProducts, fetchAllItems, fetchReviewsThunk, fetchSessionCart } from './store'
->>>>>>> master
-
-
 
 /**
  * COMPONENT
