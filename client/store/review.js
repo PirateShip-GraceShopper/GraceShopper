@@ -49,6 +49,7 @@ export const postReviewThunk = review => dispatch => {
 }
 
 export const deleteReviewThunk = review => dispatch => {
+    dispatch(removeReview(review))
     axios.delete(`/api/review/${review.id}`)
     .catch(error => dispatch(removeReview({error})));
 }
@@ -65,6 +66,8 @@ const reducer = (prevState = initialState, action) => {
             return prevState.map(review => (
                 review.id !== action.review.id ? review : action.review
             ))
+        case REMOVE_REVIEW:
+            return prevState.filter(review => review.id !== action.targetReview.id)
         default:
             return prevState
     }
