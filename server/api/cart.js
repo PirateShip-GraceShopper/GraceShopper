@@ -26,9 +26,10 @@ router.get('/session', (req, res, next) => {
       status: 'open'
     }})
     .then(foundCart => {
-      req.session.cart = foundCart.item
+      if (foundCart) req.session.cart = foundCart.item
       res.send(req.session.cart)
     })
+    .catch(next)
   } else {
     res.send(req.session.cart)
   }
@@ -54,11 +55,22 @@ router.post('/', (req, res, next) => {
       res.json(item)
     })
     .catch(next)
-  } else {
+  } else if (!req.body.cartId) {
     Cart.create({
-      userId: req.body.userId,
+      userId: null,
       status: 'open'
     })
+    .then(cart => {
+      return Item.create(req.body)
+      .then(item => item.setCart(cart))
+    })
+    .then(item => {
+      req.session.cart.push(item)
+      res.json(item)
+    })
+    .catch(next)
+  } else {
+    Cart.findById(req.body.cartId)
     .then(cart => {
       return Item.create(req.body)
       .then(item => item.setCart(cart))
@@ -82,7 +94,7 @@ router.put('/', (req, res, next) => {
 
 
 router.put('/:id', (req, res, next) => {
-  req.cart.update({status: 'purchased'})
+  req.cart.update(req.body)
     .then(order => {
       res.json(order)
     })

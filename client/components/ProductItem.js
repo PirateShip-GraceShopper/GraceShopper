@@ -5,7 +5,7 @@ import { postToCart, removeProduct } from '../store'
 import { Button, Rate, Carousel } from 'antd'
 
 
-const ProductItem = ({ product, user, addToCart, deleteProduct }) => {
+const ProductItem = ({ product, user, addToCart, deleteProduct, cartId }) => {
     let total = 0;
     product.review.map(review => {
       total += review.rating;
@@ -43,7 +43,8 @@ const ProductItem = ({ product, user, addToCart, deleteProduct }) => {
           productId: product.id,
           image: product.image,
           name: product.name,
-          userId: user.id ? user.id : null
+          userId: user.id ? user.id : null,
+          cartId: cartId ? cartId : null
         }
       )}
       >Add To Cart</Button> :
@@ -55,7 +56,8 @@ const ProductItem = ({ product, user, addToCart, deleteProduct }) => {
 }
 
 const mapState = state => ({
-  user: state.user
+  user: state.user,
+  cartId: state.cartId
 })
 
 const mapDispatch = {
