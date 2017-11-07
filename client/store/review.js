@@ -16,10 +16,12 @@ const updateReview = review => ({
     review
 })
 
-const createReview = review => ({
-    type: CREATE_REVIEW,
-    review
-})
+const createReview = review => {
+    return {
+        type: CREATE_REVIEW,
+        review
+    }
+}
 
 const removeReview = targetReview => ({
     type: REMOVE_REVIEW,
@@ -32,22 +34,22 @@ export const fetchReviewsThunk = () => dispatch => {
     .catch(error => dispatch(getReviews({error})))
 }
 
-export const putReviewThunk = () => dispatch => {
-    axios.put('/api/reviews/:id')
+export const putReviewThunk = review => dispatch => {
+    axios.put(`/api/reviews/${review.id}`, review)
     .then(res => res.data)
     .then(updatedReview => {
-        dispatch(updateReview(updatedReview[1][0]))
+        dispatch(updateReview(updatedReview[0]))
     })
 }
 
-export const postReviewThunk = (review) => dispatch => {
+export const postReviewThunk = review => dispatch => {
     axios.post('/api/reviews', review)
     .then(res => dispatch(createReview(res.data)))
     .catch(error => dispatch(createReview({error})))
 }
 
-export const deleteReviewThunk = () => dispatch => {
-    axios.delete('/api/review/:id')
+export const deleteReviewThunk = review => dispatch => {
+    axios.delete(`/api/review/${review.id}`)
     .catch(error => dispatch(removeReview({error})));
 }
 
@@ -61,7 +63,7 @@ const reducer = (prevState = initialState, action) => {
             return [...prevState, action.review]
         case UPDATE_REVIEW:
             return prevState.map(review => (
-                review.id !== action.item.id ? review : action.review
+                review.id !== action.review.id ? review : action.review
             ))
         default:
             return prevState

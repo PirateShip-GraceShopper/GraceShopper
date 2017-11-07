@@ -64,6 +64,11 @@ export const checkout = (cart) =>
       .then(_ => dispatch(clearCart()))
       .catch(_ => dispatch(clearCart()))
 
+export const logoutCart = () =>
+  dispatch =>
+    axios.delete(`/api/cart/session`)
+      .then(_ => dispatch(clearCart()))
+      .catch(_ => dispatch(clearCart()))
 
 /**
  * REDUCER

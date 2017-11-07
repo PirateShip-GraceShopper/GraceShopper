@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SingleItem from './SingleItem'
-import { Button } from 'antd';
+import { Button } from 'antd'
+
 
 export const Cart = props => {
   return (
@@ -19,7 +20,6 @@ export const Cart = props => {
     </div>
   )
 }
-
 
 const mapState = state => {
   return {
