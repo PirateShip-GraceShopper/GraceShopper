@@ -3,12 +3,20 @@ const {User, Review} = require('../db/models')
 module.exports = router
 //some confusion about the data that is being Json-ed when compared to Auther workshop
 const mustBeAdmin = (req, res, next) => {
-  if (!req.user.isAdmin) {
-    next(Error('Unauthorized'))
-  } else {
-    next()
-  }
-}
+     if (!req.user.isAdmin) {
+       next(Error('Unauthorized'))
+     } else {
+       next()
+     }
+   }
+ 
+const mustBeAdminOrUser = (req, res, next) => {
+   if (req.user.isAdmin||(!req.user.isAdmin && req.body.id === req.user.id)){
+     next()
+   } else {
+     next(Error('Unauthorized'))
+   }
+ }
 router.param('id', (req, res, next, id) => {
   User.findById(id)
   .then(user => {
@@ -32,7 +40,7 @@ router.get('/', mustBeAdmin, (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', mustBeAdmin, (req, res, next) => {
     User.findOne({
       attributes: ['firstName', 'lastName', 'id', 'email', 'isAdmin']
     })
@@ -40,19 +48,19 @@ router.get('/:id', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', mustBeAdmin, (req, res, next) => {
   User.create(req.body)
   .then(_ => res.sendStatus(201))
   .catch(next)
 })
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', mustBeAdminOrUser, (req, res, next) => {
   req.requestedUser.update(req.body)
   .then(user => res.json(user))
   .catch(next);
 })
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', mustBeAdmin, (req, res, next) => {
   req.requestedUser.destroy()
   .then(_ => res.sendStatus(204))
   .catch(next)

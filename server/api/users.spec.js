@@ -1,7 +1,7 @@
 /* global describe beforeEach it */
 
 const {expect} = require('chai')
-const request = require('supertest')
+const supertest = require('supertest')
 const db = require('../db')
 const app = require('../index')
 const User = db.model('user')
@@ -13,7 +13,7 @@ describe('User routes', () => {
 
   describe('/api/users/', () => {
     const adminEmail = 'admin@puppybook.com'
-    const testApp = request(app)
+    const testApp = supertest.agent(app)
     beforeEach(() => {
       return User.create(
       {
@@ -29,6 +29,7 @@ describe('User routes', () => {
         .send({email: adminEmail, password:'123'})        
         ))
     })
+
 
     it('GET /api/users', () => {
      return testApp
