@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {changeCartItem, removeItem} from '../store'
 
+
 const SingleItem = ({item, changeQuantity, handleRemove}) => {
   const {image, name, price, quantity} = item
   return (

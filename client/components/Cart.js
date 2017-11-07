@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { item, postToCart } from '../store'
 import SingleItem from './SingleItem'
+import { Button } from "antd";
 
-const Cart = props => {
+export const Cart = props => {
   return (
     <div>
       <h1>This is a cart</h1>
@@ -16,12 +17,11 @@ const Cart = props => {
         .reduce((acc, cur) => acc + cur, 0)
         }
       </h2>
+      <Button size="large">Checkout</Button>
     </div>
   )
 }
 
-//if there is no items, create a cart on initial add.
-//if there is, add to that cart.
 
 const mapState = state => {
   return {
@@ -29,15 +29,6 @@ const mapState = state => {
     cart: state.cart
   }
 }
-const mapDispatch = dispatch => {
-  return {
-    handleAdd(evt, item, user){
-      const cartItem = {
-        // ...item,
-        userId: user.id || null
-      }
-      dispatch(postToCart(cartItem))
-    }
-  }
-}
-export default connect(mapState, mapDispatch)(Cart);
+
+export default connect(mapState)(Cart);
+
