@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {fetchSessionCart} from './cart'
 
 /**
  * ACTION TYPES
@@ -31,6 +32,9 @@ export const auth = (userBody, method) =>
     axios.post(`/auth/${method}`, userBody)
       .then(res => {
         dispatch(getUser(res.data))
+      })
+      .then(_ => {
+        dispatch(fetchSessionCart())
         history.push('/home')
       })
       .catch(error =>
@@ -46,7 +50,7 @@ export const logout = () =>
       .catch(err => console.log(err))
 
 export const editUser = (user) =>
-  dispatch => 
+  dispatch =>
     axios.put(`/api/users/${user.id}`, user)
     .then(res => res.data)
     .then(user => {
