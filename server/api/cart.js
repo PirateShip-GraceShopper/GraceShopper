@@ -20,14 +20,24 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/session', (req, res, next) => {
-  if (!req.session.cart) {
-    req.session.cart = []
-    res.send(req.session.cart)
+  if (req.user) {
+    Cart.findOne({where: {
+      userId: req.user.id,
+      status: 'open'
+    }})
+    .then(foundCart => {
+      req.session.cart = foundCart.item
+      res.send(req.session.cart)
+    })
   } else {
     res.send(req.session.cart)
   }
 })
 
+router.delete('/session', (req, res, next) => {
+  req.session.cart = []
+  res.send(req.session.cart)
+})
 
 router.post('/', (req, res, next) => {
   Cart.findOrCreate({where: {
