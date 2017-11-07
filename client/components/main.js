@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, logoutCart} from '../store'
 import { Button, Layout, Menu } from 'antd'
 const { Header, Footer, Content } = Layout
 import { CartIcon } from '../components'
@@ -80,6 +80,7 @@ const mapDispatch = (dispatch) => {
   return {
     handleClick () {
       dispatch(logout())
+      dispatch(logoutCart())
     }
   }
 }
