@@ -30,13 +30,13 @@ router.post('/', (req, res, next) => {
 })
 
 router.delete('/:id', (req, res, next) => {
-  req.Categories.destroy()
+  req.categories.destroy()
     .then(_ => res.sendStatus(res.statusCode))
     .catch(next)
 })
 
 router.put('/:id', (req, res, next) => {
-  req.Categories.update(req.body)
+  req.categories.update(req.body)
     .then(_ => res.sendStatus(res.statusCode))
     .catch(next)
 })
