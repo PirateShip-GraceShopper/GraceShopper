@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {postReviewThunk, putReviewThunk, fetchReviewsThunk} from '../store';
-import ReviewStars from './ReviewStars';
+import {postReviewThunk, putReviewThunk} from '../store';
 import Review from './Review';
+import ReviewStars from './ReviewStars';
+import ReviewEditButton from './ReviewEditButton';
+import ReviewEditForm from './ReviewEditForm';
 import {Button, Rate, Carousel} from 'antd';
 
 class ReviewForm extends Component {
@@ -12,11 +14,13 @@ class ReviewForm extends Component {
             content: '',
             rating: null,
             productId: props.productId,
-            userId: 0
+            userId: 0,
+            clickedEditButton: false
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleStarChange = this.handleStarChange.bind(this)
         this.filterReviews = this.filterReviews.bind(this)
+        this.handleEditClick = this.handleEditClick.bind(this)
     }
 
     handleChange(event) {
@@ -29,6 +33,10 @@ class ReviewForm extends Component {
             rating,
             userId: this.props.userId
         })
+    }
+
+    handleEditClick() {
+        this.setState({ clickedEditButton: true })
     }
 
     //This method checks to see if the current user has any reviews for the specific product passed into to ReviewForm as props
@@ -62,6 +70,29 @@ class ReviewForm extends Component {
                     <div>
                         <h1>Your Review</h1>
                         <Review newReview={this.filterReviews()[0]} />
+                        <ReviewEditButton
+                            handleClick={this.handleEditClick}
+                            review={this.filterReviews()[0]}
+                        />
+                        {this.state.clickedEditButton &&
+                            <ReviewEditForm
+                                handleEditSubmit={(evt) => {
+                                    evt.preventDefault()
+                                    this.setState({ content: '' })
+                                    const updatedReview = {
+                                        id: this.filterReviews()[0].id,
+                                        content: this.state.content,
+                                        rating: this.state.rating,
+                                        productId: this.state.productId,
+                                        userId: this.state.userId
+                                    }
+                                    this.props.handleEditSubmit(updatedReview)
+                                    }}
+                                handleStarChange={this.handleStarChange}
+                                handleChange={this.handleChange}
+                                content={this.state.content}
+                                state={this.state}
+                            />}
                     </div>
                 }
             </div>
@@ -74,6 +105,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         handleSubmit(review) {
             dispatch(postReviewThunk(review))
+        },
+
+        handleEditSubmit(review) {
+            console.log('REVIEW', review)
+            dispatch(putReviewThunk(review))
         }
     }
 }
