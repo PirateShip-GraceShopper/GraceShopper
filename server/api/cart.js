@@ -40,19 +40,35 @@ router.delete('/session', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  Cart.findOrCreate({where: {
-    userId: req.body.userId,
-    status: 'open'
-  }})
-  .spread((cart, createdCartBool) => {
-    return Item.create(req.body)
-    .then(item => item.setCart(cart))
-  })
-  .then(item => {
-    req.session.cart.push(item)
-    res.json(item)
-  })
-  .catch(next)
+  if (req.body.userId) {
+    Cart.findOrCreate({where: {
+      userId: req.body.userId,
+      status: 'open'
+    }})
+    .spread((cart, createdCartBool) => {
+      return Item.create(req.body)
+      .then(item => item.setCart(cart))
+    })
+    .then(item => {
+      req.session.cart.push(item)
+      res.json(item)
+    })
+    .catch(next)
+  } else {
+    Cart.create({
+      userId: req.body.userId,
+      status: 'open'
+    })
+    .then(cart => {
+      return Item.create(req.body)
+      .then(item => item.setCart(cart))
+    })
+    .then(item => {
+      req.session.cart.push(item)
+      res.json(item)
+    })
+    .catch(next)
+  }
 })
 
 router.put('/', (req, res, next) => {
