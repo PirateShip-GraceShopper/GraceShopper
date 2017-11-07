@@ -37,7 +37,6 @@ export const removeItem = item =>
   dispatch =>
     axios.put(`/api/cart`, item)
       .then(_ => {
-        console.log('ITEM: ', item)
         dispatch(removeFromCart(item))
       })
       .catch(error => console.log(error))

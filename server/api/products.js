@@ -36,8 +36,11 @@ router.delete('/:id', (req, res, next) => {
 })
 
 router.put('/:id', (req, res, next) => {
-  console.log(req.body)
+  console.log('update review with :', req.body)
   req.product.update(req.body)
-    .then(updatedProduct => res.send(updatedProduct))
+    .then(updatedProduct => {
+      console.log('after update', updatedProduct)
+      res.send(updatedProduct)
+    })
     .catch(next)
 })

@@ -9,7 +9,11 @@ class EditProductInfo extends Component {
     super(props)
     this.state = {
       product: {},
-      productNameField: ''
+      productNameField: '',
+      productInventory: '',
+      productPrice: '',
+      productImage: '',
+      submitted: false
     }
   }
   componentDidMount() {
@@ -19,22 +23,31 @@ class EditProductInfo extends Component {
       productNameField: selectedProduct.name,
       productInventory: selectedProduct.inventory,
       productPrice: selectedProduct.price,
-      submitted: false
+      productImage: selectedProduct.image
     })
     this.handleChange = this.handleChange.bind(this)
     }
+
     handleChange(event) {
       this.setState({[event.target.name]: event.target.value})
     }
 
     render() {
       return (
+        <div>
+        <img src={this.state.product.image} alt={this.state.product.name} style={{ height: '400px', width: '450px' }} />
         <Form onSubmit={(event) => {
+          this.setState({submitted: true})
           this.props.updateProductInfo(event, this.state.product)}
         }
           >
           <FormItem
-          label="ProductName"
+          label="Product Image"
+          >
+          <Input onChange={(event) => this.handleChange(event)} name="productImage" value={this.state.productImage} />
+          </FormItem>
+          <FormItem
+          label="Product Name"
           >
           <Input onChange={(event) => this.handleChange(event)} name="productNameField" value={this.state.productNameField} />
           </FormItem>
@@ -49,7 +62,9 @@ class EditProductInfo extends Component {
           <Input onChange={(event) => this.handleChange(event)} name="productPrice" value={this.state.productPrice} />
           </FormItem>
           <Button htmlType="submit">Submit</Button>
+          {!this.state.submitted ? '' : <h1>Submitted</h1>}
         </Form>
+        </div>
       )
     }
 
@@ -70,7 +85,8 @@ const mapDispatchToProps = (dispatch) => {
         id: originalProduct.id,
         name: event.target.productNameField.value,
         inventory: +event.target.productInventory.value,
-        price: +event.target.productPrice.value
+        price: +event.target.productPrice.value,
+        image: event.target.productImage.value
       }
       dispatch(updateProduct(updatedProduct))
     }

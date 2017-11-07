@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Review = require('./review')
 
 const Product = db.define('product', {
   name: {
@@ -21,6 +22,11 @@ const Product = db.define('product', {
   },
   inventory: Sequelize.INTEGER,
   image: Sequelize.STRING
-})
+},
+  {
+    defaultScope: {
+      include: [ {model: Review, as: 'review'} ]
+    }
+  })
 
 module.exports = Product

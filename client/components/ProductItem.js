@@ -8,8 +8,8 @@ import Cart from './Cart'
 
 
 const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
-
   let total = 0;
+  product.review &&
     product.review.map(review => {
       total += review.rating;
     })
@@ -65,7 +65,8 @@ const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
 }
 
 const mapState = state => ({
-  user: state.user
+  user: state.user,
+  products: state.products
 })
 
 const mapDispatch = { postToCart, deleteProduct: removeProduct }
