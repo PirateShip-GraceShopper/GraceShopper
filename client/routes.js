@@ -4,7 +4,7 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, SingleUser, SingleItem, AllItems, ProductList, ReviewList, Cart, ProductDetail, AllUsers, CheckoutForm} from './components'
+import {Main, Login, Signup, UserHome, SingleUser, SingleItem, AllItems, ProductList, ReviewList, Cart, ProductDetail, AllUsers, StoreCheckout, PasswordForm} from './components'
 import {me, fetchProducts, fetchAllItems, fetchReviewsThunk, fetchSessionCart} from './store'
 
 
@@ -31,7 +31,8 @@ class Routes extends Component {
             <Route path="/products/:id" component={ProductDetail} />
             <Route path="/all-items" component={AllItems} />
             <Route path="/all-reviews" component={ReviewList} />
-            <Route path="/cart" component={CheckoutForm} />
+            {/* <Route path="/cart" component={CheckoutForm} /> */}
+            <Route path="/checkout" component={StoreCheckout} />
             {
               isLoggedIn &&
                 <Switch>
@@ -39,8 +40,9 @@ class Routes extends Component {
                   <Route path="/home" component={ProductList} />
                   <Route path="/edit_profile" component={SingleUser}/>
                   <Route path="/products" component={ProductList} />
+                  <Route path="/password_reset" component={PasswordForm} />
               {
-                isAdmin && 
+                isAdmin &&
                 <Route path="/all_users" component={AllUsers} />
               }
                 </Switch>
