@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const { User, Item, Product, Review, Categories } = require('../server/db/models')
+const { User, Item, Product, Review, Categories, Cart } = require('../server/db/models')
 
 async function seed () {
   await db.sync({force: true})
@@ -22,14 +22,21 @@ async function seed () {
     User.create({firstName: 'cody', lastName: 'greene', email: 'cody@email.com', password: '123', phone: '2123334343', isAdmin: true}),
     User.create({firstName: 'eddie', lastName: 'murphy', email: 'murphy@email.com', password: '123', phone: '2125555555'})
   ])
+  const carts = await Promise.all([
+    Cart.create({status: 'purchased', userId: 1}),
+    Cart.create({status: 'purchased', userId: 1})
+  ])
   const items = await Promise.all([
     Item.create({price: 500, quantity: 12}),
     Item.create({price: 600, quantity: 13}),
     Item.create({price: 700, quantity: 14}),
     Item.create({price: 800, quantity: 15}),
     Item.create({price: 900, quantity: 1}),
-    Item.create({price: 10000, quantity: 44})
+    Item.create({price: 10000, quantity: 44, cartId: 2}),
+    Item.create({price: 900, quantity: 1, cartId: 1}),
+    Item.create({price: 10000, quantity: 3, cartId: 1})
   ])
+
   const products = await Promise.all([
     Product.create({name: 'Yeezys', description: 'So fresh', price: 12000, inventory: 562, image: '/images/1-cat-running-shoes.jpg'}),
     Product.create({ name: 'Air Force Ones', description: 'And so clean', price: 17000, inventory: 1114, image: '/images/56d0c03a55a8c60e3dab6d813af741bc.jpg'}),
