@@ -5,7 +5,7 @@ import EmailForm from './EmailForm'
 import PasswordForm from './PasswordForm'
 import PhoneForm from './PhoneForm'
 import { Button } from 'antd'
-import AddressForm from './AddressForm'
+// import AddressForm from './AddressForm'
 
 class SingleUser extends Component {
   constructor(props){
@@ -41,16 +41,12 @@ class SingleUser extends Component {
         </li>
         <li> <Button onClick={(event) => this.showForm(event, 'showAddressForm')}>Manage Addresses</Button>
             {this.state.showAdressForm && <AddressForm user={user} />}
-        </li>        
+        </li>
       </ul>
       )
   }
 }
 
-const mapState = state => {
-  return {
-    user: state.user
-  }
-}
+const mapState = ({ user }) => ({ user })
 
 export default connect(mapState)(SingleUser)
