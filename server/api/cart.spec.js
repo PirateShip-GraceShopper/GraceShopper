@@ -22,9 +22,10 @@ describe('Cart routes', () => {
       })
     })
 
-    it('PUT /api/cart/:id changes status from open to purchased', () => {
+    it('PUT /api/cart/:id updates cart appropriately', () => {
       return request(app)
         .put('/api/cart/' + cart.id)
+        .send({status: 'purchased'})
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('object')
