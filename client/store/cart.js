@@ -4,7 +4,7 @@ import history from '../history'
 /*
 Initial State
 */
-const inititalState = []
+const initialState = []
 
 /**
  * ACTION TYPES
@@ -72,7 +72,7 @@ export const logoutCart = () =>
 /**
  * REDUCER
  */
- export default function(state = inititalState, action) {
+ export default function(state = initialState, action) {
    switch (action.type) {
      case SET_SESSION_CART:
       return action.items
@@ -83,7 +83,7 @@ export const logoutCart = () =>
      case UPDATE_CART_ITEM:
       return state.map(item => (item.id === action.item.id ? action.item : item));
      case CLEAR_CART:
-      return inititalState;
+      return initialState;
      default:
       return state;
    }
