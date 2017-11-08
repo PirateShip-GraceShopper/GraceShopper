@@ -23,7 +23,16 @@ describe('User routes', () => {
         lastName: 'Admin',
         phone: '212-233-MEOW',
         isAdmin: true
-      }).then(_ => (
+      })
+      .then(_=> {
+        return User.create({
+          email:"seb@email.com",
+          password:"123",
+          firstName:"Seb",
+          lastName: "Astion",
+        })
+      })
+      .then(_=>(
         testApp
         .post('/auth/login')
         .send({email: adminEmail, password: '123'})
@@ -31,15 +40,33 @@ describe('User routes', () => {
     })
 
 
-    it('GET /api/users', () => {
+    it('GET /api/users when user has admin status', () => {
      return testApp
-          .get('/api/users')
-          .expect(200)
-          .then(res => {
-            expect(res.body).to.be.an('array')
-            expect(res.body).length.to.be(1)
-            expect(res.body[0].email).to.be.equal(adminEmail)
-          })
-  })
+      .get('/api/users')
+      .expect(200)
+      .then(res => {
+        expect(res.body).to.be.an('array')
+        expect(res.body).length.to.be(2)
+        expect(res.body.find(user=>user.id===1).email).to.be.equal(adminEmail)
+      })
+    })
+
+    it('GET /api/users fails when user is not admin', () => {
+      return testApp
+      .post('/auth/logout')
+      .send({})
+      .then(_=>{
+        testApp
+        .post('/auth/login')
+        .send({email:'seb@email.com', password:'123'})
+      })
+      .then(_=>{
+        testApp
+        .get('/api/users')
+        .expect(500)
+      })
+
+    })
+
   }) // end describe('/api/users')
 }) // end describe('User routes')
