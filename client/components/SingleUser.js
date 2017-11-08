@@ -6,7 +6,6 @@ import PasswordForm from './PasswordForm'
 import PhoneForm from './PhoneForm'
 import { Button } from 'antd'
 
-
 class SingleUser extends Component {
   constructor(props){
     super(props)
@@ -15,7 +14,6 @@ class SingleUser extends Component {
       showEmailForm: false,
       showPasswordForm: false,
       showPhoneForm: false,
-
     }
     this.showForm = this.showForm.bind(this)
   }
@@ -44,10 +42,6 @@ class SingleUser extends Component {
   }
 }
 
-const mapState = state => {
-  return {
-    user: state.user
-  }
-}
+const mapState = ({ user }) => ({ user })
 
 export default connect(mapState)(SingleUser)
