@@ -5,7 +5,6 @@ import EmailForm from './EmailForm'
 import PasswordForm from './PasswordForm'
 import PhoneForm from './PhoneForm'
 import { Button } from 'antd'
-// import AddressForm from './AddressForm'
 
 class SingleUser extends Component {
   constructor(props){
@@ -14,8 +13,7 @@ class SingleUser extends Component {
       showNameForm: false,
       showEmailForm: false,
       showPasswordForm: false,
-      showPhoneForm: false,
-      showAddressForm: false
+      showPhoneForm: false
     }
     this.showForm = this.showForm.bind(this)
   }
@@ -38,9 +36,6 @@ class SingleUser extends Component {
         </li>
         <li>{`Phone Number: ${user.phone ? user.phone:'(___)-___-___'}`} <Button onClick={(event) => this.showForm(event, 'showPhoneForm')}>edit</Button>
             {this.state.showPhoneForm && <PhoneForm user={user} />}
-        </li>
-        <li> <Button onClick={(event) => this.showForm(event, 'showAddressForm')}>Manage Addresses</Button>
-            {this.state.showAdressForm && <AddressForm user={user} />}
         </li>
       </ul>
       )
