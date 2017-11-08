@@ -34,6 +34,9 @@ const Main = ({ children, handleClick, isLoggedIn, isAdmin, cart }) => (
                 <Button>
                   <a href="#" onClick={handleClick}>Logout</a>
                 </Button>
+                <Button>
+                <Link to="/pastorders">Show Past Orders</Link>
+                </Button>
                 {
                   isAdmin &&
                   <Button><Link to={`/all_users`}>Manage Users</Link></Button>

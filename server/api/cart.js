@@ -99,3 +99,34 @@ router.put('/:id', (req, res, next) => {
       res.json(order)
     })
 })
+
+
+router.get('/user/:userId', (req, res, next) => {
+  Cart.findAll({where: {userId: +req.params.userId, status: 'purchased'}})
+    .then(carts => {
+      let cartIds = carts.map(cart => cart.id)
+      Item.findAll()
+        .then(items => {
+          let newItems = items.filter(item => {
+            return cartIds.indexOf(item.cartId) > -1
+          })
+          let cartsToSend = {}
+          newItems.forEach(lineItem => {
+            if (!cartsToSend[lineItem.cartId]) {
+              cartsToSend[lineItem.cartId] = 0;
+              cartsToSend[lineItem.cartId] += (lineItem.price * lineItem.quantity)
+            }
+            else {
+              cartsToSend[lineItem.cartId] += (lineItem.price * lineItem.quantity)
+            }
+          })
+          const data = []
+            let key = 0;
+            for (let cartId in cartsToSend) {
+               data.push({key: key++, orderid: cartId, amount: `$ ${cartsToSend[cartId]}`})
+          }
+          res.json(data)
+        })
+
+    })
+})

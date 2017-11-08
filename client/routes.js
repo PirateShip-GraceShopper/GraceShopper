@@ -4,7 +4,7 @@ import { Router } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import { Main, Login, Signup, SingleUser, AllItems, ProductList, ReviewList, Cart, ProductDetail, AllUsers, StoreCheckout, PasswordForm, EditProductInfo } from './components'
+import { Main, Login, Signup, SingleUser, AllItems, ProductList, ReviewList, Cart, ProductDetail, AllUsers, StoreCheckout, PasswordForm, EditProductInfo, PastOrders } from './components'
 import { me, fetchProducts, fetchAllItems, fetchReviewsThunk, fetchSessionCart } from './store'
 
 /**
@@ -16,12 +16,13 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn, isAdmin } = this.props
+    const { isLoggedIn, isAdmin, user } = this.props
     return (
       <Router history={history}>
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
+            <Route path="/pastorders" render={() => <PastOrders user={user} />} />
             <Route path="/products/:id/edit_product" component={EditProductInfo} />
             <Route exact path="/" component={ProductList} />
             <Route path="/login" component={Login} />
@@ -64,6 +65,7 @@ const mapState = (state) => {
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
     isAdmin: state.user.isAdmin,
+    user: state.user
   }
 }
 
