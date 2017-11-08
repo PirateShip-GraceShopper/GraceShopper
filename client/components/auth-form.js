@@ -17,16 +17,19 @@ class AuthForm extends Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        const user = this.props.name === 'login' ? 
+        const user = this.props.name === 'login' ?
         {
-          email:values.email,
-          password:values.password}
+          email: values.email,
+          password: values.password,
+          cartId: this.props.cartId
+        }
         :{
         email: values.email,
         password: values.password,
         firstName: values.firstName,
         lastName: values.lastName,
-        phone: values.phone         
+        phone: values.phone,
+        cartId: this.props.cartId
         }
         this.props.handleSubmit(user, this.props.name)
       }
@@ -50,7 +53,7 @@ class AuthForm extends Component {
   }
 
   render(){
-  const {name, displayName, handleSubmit, error} = this.props
+  const {name, displayName, handleSubmit, error, cartId} = this.props
   const { getFieldDecorator } = this.props.form;
   return (
     <div>
@@ -111,10 +114,10 @@ class AuthForm extends Component {
                   validator: this.checkPassword,
                 }],
               })(
-                <Input type="password" 
+                <Input type="password"
                 />
               )}
-            </FormItem>          
+            </FormItem>
             <FormItem label="First Name">
             {getFieldDecorator("firstName", {
               rules: [
@@ -135,17 +138,17 @@ class AuthForm extends Component {
                 { required: true, message: "Please input your phone number!" }
               ]
             })(<Input />)}
-            </FormItem>          
+            </FormItem>
           </div>
           )}
-        <FormItem>        
+        <FormItem>
           <Button type="primary" htmlType="submit">{displayName}</Button>
         </FormItem>
         {error && error.response && <div> {error.response.data} </div>}
       </Form>
       <a href="/auth/google">{displayName} with Google</a>
     </div>
-  ) 
+  )
   }
 }
 
@@ -153,6 +156,7 @@ const mapLogin = (state) => {
   return {
     name: 'login',
     displayName: 'Login',
+    cartId: state.cartId,
     error: state.user.error
   }
 }
@@ -161,6 +165,7 @@ const mapSignup = (state) => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
+    cartId: state.cartId,
     error: state.user.error
   }
 }

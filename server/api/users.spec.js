@@ -22,11 +22,11 @@ describe('User routes', () => {
         firstName: 'Kitty',
         lastName: 'Admin',
         phone: '212-233-MEOW',
-        isAdmin: true        
+        isAdmin: true
       }).then(_=>(
         testApp
         .post('/auth/login')
-        .send({email: adminEmail, password:'123'})        
+        .send({email: adminEmail, password:'123'})
         ))
     })
 

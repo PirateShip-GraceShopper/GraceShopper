@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { postToCart, removeProduct } from '../store'
 import { Button, Rate, Carousel } from 'antd'
 
-const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
+const ProductItem = ({ product, user, addToCart, deleteProduct, cartId }) => {
   let total = 0;
   product.review &&
     product.review.map(review => {
@@ -37,13 +37,14 @@ const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
       {product.inventory ?
       <Button
         type="primary"
-        onClick={() => postToCart(
+        onClick={() => addToCart(
         { price: product.price,
           quantity: 1,
           productId: product.id,
           image: product.image,
           name: product.name,
-          userId: user.id ? user.id : null
+          userId: user.id ? user.id : null,
+          cartId: cartId ? cartId : null
         }
       )}
       >Add To Cart</Button> :
@@ -63,9 +64,13 @@ const ProductItem = ({ product, user, postToCart, deleteProduct }) => {
 
 const mapState = state => ({
   user: state.user,
+  cartId: state.cartId,
   products: state.products
 })
 
-const mapDispatch = { postToCart, deleteProduct: removeProduct }
+const mapDispatch = {
+  addToCart: postToCart,
+  deleteProduct: removeProduct
+}
 
 export default connect(mapState, mapDispatch)(ProductItem)

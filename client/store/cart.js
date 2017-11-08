@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {addCartId} from './cartId'
 
 /*
 Initial State
@@ -44,8 +45,10 @@ export const removeItem = item =>
 export const postToCart = (item) => //item should be object including userId if exists
   dispatch =>
     axios.post('/api/cart', item)
-      .then(res =>
-        dispatch(addToCart(res.data)))
+      .then(res => {
+        dispatch(addToCart(res.data))
+        dispatch(addCartId(res.data.cartId))
+      })
       .catch(error =>
         dispatch(addToCart({error})))
 
@@ -77,14 +80,14 @@ export const logoutCart = () =>
      case SET_SESSION_CART:
       return action.items
      case ADD_TO_CART:
-      return [...state, action.item];
+      return [...state, action.item]
      case REMOVE_FROM_CART:
-      return state.filter(item => item.id !== action.item.id);
+      return state.filter(item => item.id !== action.item.id)
      case UPDATE_CART_ITEM:
-      return state.map(item => (item.id === action.item.id ? action.item : item));
+      return state.map(item => (item.id === action.item.id ? action.item : item))
      case CLEAR_CART:
-      return inititalState;
+      return inititalState
      default:
-      return state;
+      return state
    }
  }
