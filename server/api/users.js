@@ -42,12 +42,9 @@ router.get('/', mustBeAdmin, (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:id', mustBeAdmin, (req, res, next) => {
-    User.findOne({
-      attributes: ['firstName', 'lastName', 'id', 'email', 'isAdmin']
-    })
-    .then(user => res.json(user))
-    .catch(next)
+router.get('/:id', mustBeAdmin,(req, res, next) => {
+console.log("SFDSf")
+  res.json(req.requestedUser)
 })
 
 router.post('/', mustBeAdmin, (req, res, next) => {

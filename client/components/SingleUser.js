@@ -13,7 +13,7 @@ class SingleUser extends Component {
       showNameForm: false,
       showEmailForm: false,
       showPasswordForm: false,
-      showPhoneForm: false
+      showPhoneForm: false,
     }
     this.showForm = this.showForm.bind(this)
   }
@@ -36,7 +36,7 @@ class SingleUser extends Component {
         </li>
         <li>{`Phone Number: ${user.phone ? user.phone:'(___)-___-___'}`} <Button onClick={(event) => this.showForm(event, 'showPhoneForm')}>edit</Button>
             {this.state.showPhoneForm && <PhoneForm user={user} />}
-        </li>
+        </li>      
       </ul>
       )
   }
