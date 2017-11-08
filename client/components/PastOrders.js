@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import { Table } from 'antd';
 import {connect} from 'react-redux'
-import { fetchOrders } from '../store'
+import store, { fetchOrders, getOrders } from '../store'
 
 const columns = [{
-  title: 'Order Id',
+  title: 'Order ID',
   dataIndex: 'orderid',
 }, {
   title: 'Amount',
@@ -15,41 +15,20 @@ class PastOrders extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      data: []
-    }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.getAllOrders(this.props.user)
   }
 
   render() {
-    let carts = {}
-    this.props.orders.forEach(lineItem => {
-      if (!carts[lineItem.cartId]) {
-        carts[lineItem.cartId] = 0;
-        carts[lineItem.cartId] += (lineItem.price * lineItem.quantity)
-      }
-      else {
-        carts[lineItem.cartId] += (lineItem.price * lineItem.quantity)
-      }
-    })
-    const data = []
-    if (Object.keys(carts).length) {
-      let key = 0;
-      for (let cartId in carts) {
-         data.push({key: key++, orderid: cartId, amount: carts[cartId]})
-      }
-    }
   return (
 
       <div>
       <h1>Past Orders</h1>
-      {this.props.orders.length ? <h4>No Past Orders</h4> :
-      <Table columns={columns} dataSource={this.state.data} size="middle" />
-      }
-
+      {this.props.orders.length ?
+      <Table columns={columns} dataSource={this.props.orders} size="middle" />
+      : <h1>No Past Orders</h1>}
     </div>
     )
   }

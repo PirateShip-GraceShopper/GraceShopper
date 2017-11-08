@@ -110,7 +110,22 @@ router.get('/user/:userId', (req, res, next) => {
           let newItems = items.filter(item => {
             return cartIds.indexOf(item.cartId) > -1
           })
-          res.json(newItems)
+          let cartsToSend = {}
+          newItems.forEach(lineItem => {
+            if (!cartsToSend[lineItem.cartId]) {
+              cartsToSend[lineItem.cartId] = 0;
+              cartsToSend[lineItem.cartId] += (lineItem.price * lineItem.quantity)
+            }
+            else {
+              cartsToSend[lineItem.cartId] += (lineItem.price * lineItem.quantity)
+            }
+          })
+          const data = []
+            let key = 0;
+            for (let cartId in cartsToSend) {
+               data.push({key: key++, orderid: cartId, amount: `$ ${cartsToSend[cartId]}`})
+          }
+          res.json(data)
         })
 
     })
