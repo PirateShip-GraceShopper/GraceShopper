@@ -35,7 +35,7 @@ describe('User routes', () => {
       .then(_=>(
         testApp
         .post('/auth/login')
-        .send({email: adminEmail, password:'123'})
+        .send({email: adminEmail, password: '123'})
         ))
     })
 
